@@ -1,0 +1,161 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body{
+    text-align: center;
+}
+a{
+    color: black;
+}
+header{
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    /* z-index: 1000; */
+}
+header img{
+    width: 200px;
+    height: 50px;
+}
+header div{
+    height: 40px;
+    padding-top:10px;
+    /* background-color: red; */
+}
+main{
+    margin-top: 150px;
+}
+ul{
+    display: flex;
+    height: 50px;
+    margin-bottom: 10px;
+}
+ul li{
+    list-style-type: none;
+    width: 35%;
+    margin: auto;
+}
+ul li input{
+    height: 30px;
+    width: 300px;
+}
+ul li button{
+    height: 30px;
+    width: 40px;
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.menu li {
+    margin: 10px 55px;
+}
+
+.menu li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+.menu li a:hover{
+    color: red; 
+}
+.smalltext{
+    margin: 0;
+    padding: 0;
+    font-size: 0.8rem; /* Kích thước chữ nhỏ */
+    color: #555; /* Màu chữ */
+}
+header li ul li a{
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.menuface {
+    position: relative;
+    display: inline-block;
+    margin-left: 100px;
+    justify-content: center;
+}
+
+.menu-content {
+    display: none; 
+    position: absolute;
+    min-width: 260px;
+    z-index: 1;
+    transform: translateX(-40%);
+}
+
+.menu-content a {
+    color: black;
+    padding: 12px 18px;
+    text-decoration: none;
+    display: block;
+    width: 200px;
+    background-color:white;
+}
+
+.menu-content a:hover {
+    color: red;
+}
+
+.menuface:hover .menu-content {
+    display: flex; 
+}
+
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin: 20px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
