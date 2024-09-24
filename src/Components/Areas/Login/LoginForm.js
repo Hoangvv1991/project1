@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
-import RegisterForm from './Register/RegisterForm';
-import './LoginForm.css'; 
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Sử dụng để chuyển trang
+import RegisterForm from "./Register/RegisterForm";
+import "./LoginForm.css";
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [isFlipped, setIsFlipped] = useState(false);
 
+  const navigate = useNavigate(); // Khởi tạo navigate để chuyển trang
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
+
+    axios
+      .post("http://localhost/project1/api/Login/loginAPI.php", {
+        username,
+        password,
+      })
+      .then((response) => {
+        if (response.data.success) {
+          navigate("/"); // Chuyển hướng tới trang home
+        } else {
+          setErrorMessage("Sai tên đăng nhập hoặc mật khẩu!");
+        }
+      })
+      .catch(() => {
+        setErrorMessage("Lỗi kết nối!");
+      });
   };
 
   const handleForgottenPassword = () => {
-    window.location.href = '/forgot-password';
+    navigate("/forgot-password"); // Chuyển hướng tới trang quên mật khẩu
   };
 
   const handleCreateUser = () => {
@@ -27,8 +46,8 @@ function LoginForm() {
   };
 
   return (
-    <div className={`login-container ${isFlipped ? 'is-flipped' : ''}`}>
-      <div className='card-inner'>
+    <div className={`login-container ${isFlipped ? "is-flipped" : ""}`}>
+      <div className="card-inner">
         <div className="card-login">
           <form onSubmit={handleSubmit} className="login-form">
             <h2 className="login-title">Welcome Back</h2>
@@ -52,14 +71,23 @@ function LoginForm() {
                 className="login-input"
               />
             </div>
-            <button type="submit" className="login-button">Login</button>
-            <p className="trans-p" onClick={handleForgottenPassword}>Forgotten Password?</p>
-            <p className="trans-p" onClick={handleCreateUser}>Create new user</p>
+            {errorMessage && (
+              <div className="text-danger mt-2">{errorMessage}</div>
+            )}
+            <button type="submit" className="login-button">
+              Login
+            </button>
+            <p className="trans-p" onClick={handleForgottenPassword}>
+              Forgotten Password?
+            </p>
+            <p className="trans-p" onClick={handleCreateUser}>
+              Create new user
+            </p>
           </form>
         </div>
         <RegisterForm handleFlip={handleFlip} />
       </div>
-   </div>
+    </div>
   );
 }
 
