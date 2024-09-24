@@ -1,16 +1,17 @@
 <?php
-// Thông tin kết nối cơ sở dữ liệu
-$servername = "localhost";
-$username = "root"; // Tên người dùng MySQL
-$password = ""; // Mật khẩu của MySQL
-$dbname = "project_aptech"; // Tên cơ sở dữ liệu
+// Kết nối tới cơ sở dữ liệu
+$servername = "127.0.0.1";
+$dbusername = "root";  // Username của MySQL
+$dbpassword = "";      // Password của MySQL
+$dbname = "project_aptech"; // Tên database
+$dbport = '3306';
 
-// Tạo kết nối
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    echo $conn->connect_error;
-    die("Kết nối thất bại: " . $conn->connect_error);
+try {
+    // Kết nối cơ sở dữ liệu sử dụng PDO
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Kết nối thất bại: " . $e->getMessage();
+    exit();
 }
 ?>

@@ -32,10 +32,11 @@ CREATE TABLE `tbl_users` (
   `user_id` varchar(8) NOT NULL,
   `user_name` varchar(100) DEFAULT NULL,
   `user_email` varchar(100) DEFAULT NULL,
+  `user_password` varchar(255) NOT NULL
   `created_date` datetime DEFAULT current_timestamp(),
   `update_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted` bit(1) DEFAULT b'0',
-  `user_password` varchar(255) NOT NULL
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
