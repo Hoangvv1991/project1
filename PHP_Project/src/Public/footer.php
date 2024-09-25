@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="src/Public/footer.css">
     <title>Footer</title>
 </head>
+
 <body>
     <footer>
         <nav class="navbar">
@@ -30,7 +32,7 @@
                     <li><a href="">Student Discount</a></li>
                     <li><a href="">Cookies Policy</a></li>
                 </ul>
-            </div>    
+            </div>
         </nav>
         <nav class="navbar">
             <div class="footer">
@@ -58,7 +60,7 @@
                     <li><a href="">Tax Strategy</a></li>
                     <li><a href="">Modern Slavery And Human Trafficking Statement</a></li>
                 </ul>
-            </div>    
+            </div>
         </nav>
         <nav class="navbar">
             <div class="footer">
@@ -78,7 +80,7 @@
                     </div>
                     <div>
                         <button>Subscribe</button>
-                    </div>                    
+                    </div>
                 </form>
             </div>
             <div class="footer">
@@ -90,4 +92,5 @@
         </nav>
     </footer>
 </body>
+
 </html>
