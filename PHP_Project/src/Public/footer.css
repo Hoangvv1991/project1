@@ -3,13 +3,19 @@
     font-family: Arial, sans-serif;
 }
 footer{
-    margin-top: 20px; 
-       padding: 10px; 
-     background-color: #f8f8f8; 
-    text-align: center; 
-    border-top: 1px solid #ddd; 
-
-
+    background-color:white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: left;
+}
+.navbar{
+    flex: 1 1 200px;
+}
+@media (max-width: 768px) {
+    .navbar {
+        flex-basis: 100%; /* Mỗi phần tử chiếm 100% chiều rộng */
+    }
 }
 .footer{
     margin: 50px 110px;

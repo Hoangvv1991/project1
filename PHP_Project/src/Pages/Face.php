@@ -2,14 +2,8 @@
 
 include_once __DIR__ . '/../Public/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/Pages/css/Face.css">
-    <title>Document</title>
-</head>
+
+<link rel="stylesheet" href="src/Pages/css/Face.css">
 <body>
 <main class="container">
     <div class="product-grid">
@@ -84,7 +78,7 @@ include_once __DIR__ . '/../Public/header.php';
             <button>Mua hàng</button> <!-- Nút Mua hàng -->
         </div>
     </div> 
-</main> 
+</main>
 <?php
 
 include_once __DIR__ . '/../Public/footer.php';

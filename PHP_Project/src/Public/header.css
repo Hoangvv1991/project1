@@ -1,161 +1,183 @@
-*{
+/* Cơ bản */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
-body{
-    text-align: center;
+
+body {
+    font-family: 'Arial', sans-serif;
 }
-a{
-    color: black;
-}
-header{
-    /* position: fixed; */
+
+header {
+    width: 100%;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    background-color: white;
-    color: black;
-    /* z-index: 1000; */
+    background-color: #f8f9fa; /* Màu nền sáng hơn */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 15px 0;
 }
-header img{
-    width: 200px;
-    height: 50px;
-}
-header div{
-    height: 40px;
-    padding-top:10px;
-    /* background-color: red; */
-}
-main{
-    margin-top: 10px;
-}
-ul{
+
+header ul {
     display: flex;
-    height: 50px;
-    margin-bottom: 10px;
-}
-ul li{
-    list-style-type: none;
-    width: 35%;
-    margin: auto;
-}
-ul li input{
-    height: 30px;
-    width: 300px;
-}
-ul li button{
-    height: 30px;
-    width: 40px;
-}
-.navbar {
-    display: flex;
-    justify-content: center;
-}
-.menu {
+    justify-content: space-between;
+    align-items: center;
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 0 20px;
+}
+
+header form {
     display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 500px;
+    background-color: #fff; /* Màu nền cho thanh tìm kiếm */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+header input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+}
+
+header button {
+    background-color: #007bff; /* Nút search màu xanh đẹp */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: #0056b3; /* Hover màu xanh đậm hơn */
+}
+
+header img {
+    max-width: 150px;
+}
+
+/* Menu dưới logo */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
 }
 
 .menu li {
-    margin: 10px 55px;
+    position: relative;
+    padding: 10px;
 }
 
 .menu li a {
     text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
     font-weight: bold;
-    color: black;
-}
-.menu li a:hover{
-    color: red; 
-}
-.smalltext{
-    margin: 0;
-    padding: 0;
-    font-size: 0.8rem; /* Kích thước chữ nhỏ */
-    color: #555; /* Màu chữ */
-}
-header li ul li a{
-    text-decoration: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.menuface {
-    position: relative;
-    display: inline-block;
-    margin-left: 100px;
-    justify-content: center;
-}
-
+/* Menu con dropdown */
 .menu-content {
-    display: none; 
+    display: none;
     position: absolute;
-    min-width: 260px;
-    z-index: 1;
-    transform: translateX(-40%);
-}
-
-.menu-content a {
-    color: black;
-    padding: 12px 18px;
-    text-decoration: none;
-    display: block;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
     width: 200px;
-    background-color:white;
 }
 
-.menu-content a:hover {
-    color: red;
+.menu li:hover .menu-content {
+    display: block;
 }
 
-.menuface:hover .menu-content {
-    display: flex; 
+.menu-item {
+    padding: 10px;
 }
 
-
-main {
-    padding: 20px;
+.menu-item a {
+    display: block;
+    padding: 8px 10px;
 }
 
-section {
-    margin: 20px 0;
+/* Icon và phần bên phải */
+.smalltext {
+    font-size: 12px;
+    text-align: center;
 }
 
+header ul ul {
+    display: flex;
+    gap: 15px;
+}
 
+header ul ul li {
+    text-align: center;
+}
 
+/* Icon hamburger cho mobile */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
 
+.hamburger i {
+    font-size: 2rem;
+}
 
+/* Responsive cho mobile */
+@media screen and (max-width: 768px) {
+    header img {
+        width: 80px;
+    }
 
+    header ul {
+        flex-direction: column;
+        align-items: center;
+    }
 
+    header form {
+        margin-top: 10px;
+        width: 100%;
+        padding: 0 20px;
+        max-width: 100vw; /* Đảm bảo thanh tìm kiếm dài tối đa màn hình */
+    }
 
+    header ul ul {
+        display: none;
+    }
 
+    .hamburger {
+        display: block;
+    }
 
+    .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%; /* Menu full width trên mobile */
+    }
 
+    .menu-content {
+        position: static;
+        box-shadow: none;
+    }
 
+    .menu-item {
+        border-bottom: 1px solid #f1f1f1;
+    }
 
+    .menu.show {
+        display: flex;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
+main.container {
+    margin-top: 170px; /* Điều chỉnh khoảng cách này để không bị header che */
+}
