@@ -10,6 +10,7 @@ a {
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 .footer-contact {
      border-bottom: 1px solid #373636;

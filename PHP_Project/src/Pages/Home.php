@@ -1,10 +1,21 @@
 <?php
+session_start();
+
+// Kiểm tra xem người dùng đã đăng nhập chưa
+if (!isset($_SESSION['username'])) {
+    // Nếu chưa đăng nhập, chuyển hướng về trang login
+    header("Location: ../Login/LoginForm.php");
+    exit();
+}
+
+// Lấy thông tin username từ session
+$username = $_SESSION['username'];
+
+
 // Bao gồm header
 // include_once __DIR__ . '/../Public/header.php';
 include_once __DIR__ . '/../Public/header.php';
 ?>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="src/Pages/css/Home.css">
 
 <body>

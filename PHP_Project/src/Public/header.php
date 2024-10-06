@@ -19,7 +19,7 @@
                     <button><span><i class="bi bi-search"></i></span></button>
                 </form>
             </li>
-            <li><a href="index.php?page=home"><img src="src/Public/larins.png" alt="Logo"></a></li>
+            <li><a href="index.php?pages=home"><img src="src/Public/larins_png.png" alt="Logo"></a></li>
             <li>
                 <ul>
                     <li>
@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="src/Login/LoginForm.php">
                             <span><i class="bi bi-person-vcard" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Login </div>
                         </a>
@@ -49,10 +49,10 @@
                 </ul>
             </li>
         </ul>
-        <nav class="navbar">
+        <nav class="navbar" style="justify-content: center">
             <ul class="menu">
                 <li class="menuface">
-                    <a href="index.php?page=face">FACE</a></button>
+                    <a href="index.php?pages=face">FACE</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -75,7 +75,7 @@
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=body">BODY</a></button>
+                    <a href="index.php?pages=body">BODY</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -98,7 +98,7 @@
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=hair">HAIR</a></button>
+                    <a href="index.php?pages=hair">HAIR</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -121,7 +121,7 @@
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=makeup">MAKE.UP</a></button>
+                    <a href="index.php?pages=makeup">MAKE.UP</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -144,7 +144,7 @@
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=perfumes">PERFUMES</a></button>
+                    <a href="index.php?pages=perfumes">PERFUMES</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -167,7 +167,7 @@
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=suncreen">SUNSCREEN</a></button>
+                    <a href="index.php?pages=sunscreen">SUNSCREEN</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>

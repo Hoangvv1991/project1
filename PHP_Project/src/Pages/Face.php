@@ -1,34 +1,30 @@
 <?php
 include_once __DIR__ . '/../Public/header.php';
 ?>
-<link rel="stylesheet" href="src/Pages/css/Face.css">
+<link rel="stylesheet" href="src/Pages/css/Main_list.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <?php
-// Kết nối đến cơ sở dữ liệu
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_aptech"; // Thay bằng tên cơ sở dữ liệu của bạn
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+include 'src/api/db_connect.php';
 
 // Thiết lập số lượng sản phẩm trên mỗi trang
 $products_per_page = 10;
 
 // Lấy tổng số sản phẩm từ bảng `tbl_products`
 $sql_total = "SELECT COUNT(*) AS total FROM tbl_products";
-$result_total = $conn->query($sql_total);
 
-if ($result_total && $result_total->num_rows > 0) {
-    $row_total = $result_total->fetch_assoc();
-    $total_products = $row_total['total'];
-} else {
-    echo "Không thể lấy tổng số sản phẩm.";
-    exit();  // Thoát nếu không thể lấy tổng số sản phẩm
+try {
+    $stmt_total = $pdo->query($sql_total);
+    $total_products = $stmt_total->fetchColumn(); // Trả về tổng số sản phẩm
+
+    if ($total_products === false) {
+        echo "Không thể lấy tổng số sản phẩm.";
+        exit();  // Thoát nếu không thể lấy tổng số sản phẩm
+    }
+} catch (PDOException $e) {
+    echo "Lỗi truy vấn: " . $e->getMessage();
+    exit();
 }
 
 // Tính toán tổng số trang
@@ -55,67 +51,70 @@ if ($start_from < 0) {
 }
 
 // Truy vấn sản phẩm từ bảng `tbl_products` với giới hạn là 10 sản phẩm mỗi trang
-$sql = "SELECT p.product_id, p.product_name, p.price, i.image_path 
+$sql = "SELECT p.product_code, p.product_name, p.price, i.image_path 
         FROM tbl_products p
         LEFT JOIN tbl_images i ON i.image_id = p.image_id
-        GROUP BY p.product_id, p.product_name, p.price, i.image_path
-        LIMIT $start_from, $products_per_page";
-$result = $conn->query($sql);
+        GROUP BY p.product_code, p.product_name, p.price, i.image_path
+        LIMIT :start_from, :products_per_page";
 
-// Kiểm tra truy vấn SQL
-if ($result === false) {
-    echo "Truy vấn SQL bị lỗi: " . $conn->error;
-    exit();
-}
+try {
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':start_from', $start_from, PDO::PARAM_INT);
+    $stmt->bindParam(':products_per_page', $products_per_page, PDO::PARAM_INT);
+    $stmt->execute();
 
-// Hiển thị sản phẩm
-if ($result->num_rows > 0) {
-    echo '<main class="container">';
-    echo '<div class="product-grid">';
+    // Hiển thị sản phẩm
+    if ($stmt->rowCount() > 0) {
+        echo '<main class="container">';
+        echo '<div class="product-grid">';
 
-    while ($row = $result->fetch_assoc()) {
-        $productId = $row['product_id'];
-        echo '<div class="product-item" id="product-' . $productId . '">';
-        echo '<img src="' . $row["image_path"] . '" alt="' . $row["product_name"] . '">';
-        echo '<h3>' . $row["product_name"] . '</h3>';
-        echo '<p>From ' . $row["price"] . ' VND</p>';
-        echo '<button>Mua hàng</button>';
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $productId = $row['product_code'];
+            echo '<div class="product-item" id="product-' . htmlspecialchars($productId) . '">';
+            echo '<img src="' . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
+            echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
+            echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
+            echo '<button>Mua hàng</button>';
+            echo '</div>';
+        }
+
         echo '</div>';
+        echo '</main>';
+    } else {
+        echo "Không có sản phẩm nào để hiển thị.";
     }
-
-    echo '</div>';
-    echo '</main>';
-} else {
-    echo "Không có sản phẩm nào để hiển thị.";
+} catch (PDOException $e) {
+    echo "Lỗi truy vấn: " . $e->getMessage();
 }
 
-// Đóng kết nối cơ sở dữ liệu
-$conn->close();
+// Tạo liên kết phân trang
 ?>
 
-<!-- Tạo liên kết phân trang -->
-<div class="pagination">
-    <?php
-    // Hiển thị liên kết "Trang trước" nếu không phải trang đầu tiên
-    if ($current_page > 1) {
-        echo '<a href="products.php?page=' . ($current_page - 1) . '">Previous</a> ';
-    }
+ <nav aria-label="...">
+     <ul class="pagination" style="justify-content: center">
+         <li class="page-item <?php echo ($current_page == 1) ? 'disabled' : ''; ?>">
+           <a class="page-link" href="?index.php?pages=face&page=<?php echo ($current_page > 1) ? ($current_page - 1) : 1; ?>" tabindex="-1">Previous</a>
+         </li>
+             <?php
+                 for ($i = 1; $i <= $number_of_pages; $i++) {
+                     echo '<li class="page-item ' . ($current_page == $i ? 'active' : '') . '">';
+                     echo '<a class="page-link" href="index.php?pages=face&page=' . $i . '">' . $i;
+                     if ($current_page == $i) {
+                         echo ' <span class="sr-only">(current)</span>';
+                     }
+                     echo '</a></li>';
+                 }
+             ?>
+         <li class="page-item <?php echo ($current_page == $number_of_pages) ? 'disabled' : ''; ?>">
+           <a class="page-link" href="index.php?pages=face&page=<?php echo ($current_page < $number_of_pages) ? ($current_page + 1) : $number_of_pages; ?>">Next</a>
+         </li>
+     </ul>
+ </nav>
 
-    // Hiển thị các liên kết trang
-    for ($page = 1; $page <= $number_of_pages; $page++) {
-        if ($page == $current_page) {
-            echo '<strong>' . $page . '</strong> ';
-        } else {
-            echo '<a href="products.php?page=' . $page . '">' . $page . '</a> ';
-        }
-    }
 
-    // Hiển thị liên kết "Trang sau" nếu không phải trang cuối cùng
-    if ($current_page < $number_of_pages) {
-        echo '<a href="products.php?page=' . ($current_page + 1) . '">Next</a> ';
-    }
-    ?>
-</div>
+
+
+
 
 <?php
 include_once __DIR__ . '/../Public/footer.php';
