@@ -16,7 +16,7 @@
             <li>
                 <form action="">
                     <input type="text" id="check" placeholder="   Looking for something ?">
-                    <button><span><i class="bi bi-search"></i></span></button>
+                    <button><span><i class="fa-solid fa-magnifying-glass"></i></span></button>
                 </form>
             </li>
             <li><a href="index.php?page=home"><img src="src/Public/larins.png" alt="Logo"></a></li>
@@ -24,178 +24,174 @@
                 <ul>
                     <li>
                         <a href="">
-                            <span><i class="bi bi-phone" style="font-size: 1.5rem;"></i></span>
+                            <span><i class="fa-solid fa-mobile" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Contact Us </div>
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <span><i class="bi bi-person-vcard" style="font-size: 1.5rem;"></i></span>
+                            <span><i class="fa-solid fa-address-card" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Login </div>
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <span><i class="bi bi-bag-check" style="font-size: 1.5rem;"></i></span>
+                            <span><i class="fa-solid fa-cart-shopping" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">My Cart </div>
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
+                            <span><i class="fas fa-sign-in-alt" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Accessing</div>
                         </a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <nav class="navbar">
+        <nav>
             <ul class="menu">
                 <li class="menuface">
-                    <a href="index.php?page=face">FACE</a></button>
+                    <a class="hua" href="index.php?page=face">FACE</a>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=body">BODY</a></button>
+                    <a class="hua" href="index.php?page=body">BODY</a>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=hair">HAIR</a></button>
+                    <a class="hua" href="index.php?page=hair">HAIR</a>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=makeup">MAKE.UP</a></button>
+                    <a class="hua" href="index.php?page=makeup">MAKE.UP</a>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=perfumes">PERFUMES</a></button>
+                    <a class="hua" href="index.php?page=perfumes">PERFUMES</a>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?page=suncreen">SUNSCREEN</a></button>
+                    <a class="hua" href="index.php?page=suncreen">SUNSCREEN</a>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="hua" href="#">Option 1</a>
+                            <a class="hua" href="#">Sub Option 1</a>
+                            <a class="hua" href="#">Sub Option 2</a>
+                            <a class="hua" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
             </ul>
         </nav>
     </header>
-
-
-
-
 </body>
 
 </html>

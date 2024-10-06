@@ -61,71 +61,72 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>Categories</h3>
                             </div>
                             <ul>
-                                <li><a href="">Anti-Aging & Wrinkle Treatments</a></li>
-                                <li><a href="">Eye Care</a></li>
-                                <li><a href="">Face Creams</a></li>
-                                <li><a href="">Serums</a></li>
+                                <li><a class="hua" href="">Eye Care</a></li>
+                                <li><a class="hua" href="">Face Creams</a></li>
+                                <li><a class="hua" href="">Serums</a></li>
+                                <li><a class="hua" href="">Makeup</a></li>
+                                <li><a class="hua" href="">Body</a></li>
+                                <li><a class="hua" href="">Men</a></li>
+                                <li><a class="hua" href="">Cleansers</a></li>
+                                <li><a class="hua" href="">Toners</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>Customer Services</h3>
                             </div>
                             <ul>
-                                <li><a href="">FAQ</a></li>
-                                <li><a href="">Shipping Options</a></li>
-                                <li><a href="">Returns Policy</a></li>
-                                <li><a href="">Payment</a></li>
-                                <li><a href="">Track Your Order</a></li>
-                                <li><a href="">Authorised Retailers</a></li>
-                                <li><a href="">Student Discount</a></li>
-                                <li><a href="">Cookies Policy</a></li>
+                                <li><a class="hua" href="">FAQ</a></li>
+                                <li><a class="hua" href="">Shipping Options</a></li>
+                                <li><a class="hua" href="">Returns Policy</a></li>
+                                <li><a class="hua" href="">Payment</a></li>
+                                <li><a class="hua" href="">Track Your Order</a></li>
+                                <li><a class="hua" href="">Authorised Retailers</a></li>
+                                <li><a class="hua" href="">Student Discount</a></li>
+                                <li><a class="hua" href="">Cookies Policy</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>Most Popular</h3>
                             </div>
                             <ul>
-                                <li><a href="">Double Serum</a></li>
-                                <li><a href="">Hand and Nail Treatment Cream</a></li>
-                                <li><a href="">Hydrating Toning Lotion</a></li>
-                                <li><a href="">Instant Eye Make Up Remover</a></li>
+                                <li><a class="hua" href="">Double Serum</a></li>
+                                <li><a class="hua" href="">Total Eye Lift Cream</a></li>
+                                <li><a class="hua" href="">Hydrating Toning Lotion</a></li>
+                                <li><a class="hua" href="">Moisture-Rich Body Lotion</a></li>
                             </ul>
                         </div>
                     </div>
                     
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>About Clarins</h3>
                             </div>
                             <ul>
-                                <li><a href="">About Us</a></li>
-                                <li><a href="">Our Story/Commitment</a></li>
-                                <li><a href="">Loyalty Program</a></li>
-                                <li><a href="">Black Friday</a></li>
-                                <li><a href="">Cyber Monday</a></li>
-                                <li><a href="">Spa</a></li>
-                                <li><a href="">Find A Store</a></li>
-                                <li><a href="">Beauty FAQ</a></li>
-                                <li><a href="">Careers</a></li>
-                                <li><a href="">Gender Pay Report</a></li>
-                                <li><a href="">Tax Strategy</a></li>
+                                <li><a class="hua" href="">About Us</a></li>
+                                <li><a class="hua" href="">Loyalty Program</a></li>
+                                <li><a class="hua" href="">Black Friday</a></li>
+                                <li><a class="hua" href="">Cyber Monday</a></li>
+                                <li><a class="hua" href="">Spa</a></li>
+                                <li><a class="hua" href="">Find A Store</a></li>
+                                <li><a class="hua" href="">Beauty FAQ</a></li>
+                                <li><a class="hua" href="">Careers</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>SIGN UP TO OUR NEWSLETTER</h3>
@@ -152,17 +153,6 @@
                             <p>&copy; Clarins copyright. All Rights Reserved.</p>
                         </div>
                     </div>
-                    <!-- <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
-                        <div class="footer-menu">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Terms</a></li>
-                                <li><a href="#">Privacy</a></li>
-                                <li><a href="#">Policy</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -170,3 +160,5 @@
 </body>
 </html>
 
+
+ 
