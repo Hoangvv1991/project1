@@ -1,26 +1,14 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa
-if (!isset($_SESSION['username'])) {
-    // Nếu chưa đăng nhập, chuyển hướng về trang login
-    header("Location: ../Login/LoginForm.php");
-    exit();
-}
-
-// Lấy thông tin username từ session
-$username = $_SESSION['username'];
-
-
 // Bao gồm header
-// include_once __DIR__ . '/../Public/header.php';
 include_once __DIR__ . '/../Public/header.php';
+
 ?>
     <link rel="stylesheet" href="src/Pages/css/Home.css">
 
 <body>
     <main class="container">
-          <!-- Main banner section -->
     <section class="banner">
         <div class="banner-content">
             <img src="https://www.clarinsusa.com/on/demandware.static/-/Library-Sites-clarins-v3/en_US/dw2e2a0688/Desktop%20version%201280x599@2x.jpg" alt="Main Banner" class="img-fluid">

@@ -1,48 +1,3 @@
-<?php
-// Bắt đầu session
-// session_start();
-
-// Import file kết nối PDO
-include '../api/db_connect.php';
-
-// Biến lưu thông báo lỗi
-$error = "";
-
-// Kiểm tra khi form được submit
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy thông tin từ form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Truy vấn cơ sở dữ liệu để kiểm tra thông tin đăng nhập
-    $sql = "SELECT * FROM tbl_customers 
-            where 1 AND 
-            customer_email = :username
-            AND customer_password = :password
-            LIMIT 1
-            ";
-
-    $stmt = $pdo->prepare($sql);
-    
-    // Liên kết giá trị vào các placeholders
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':password', $password);
-    
-    // Thực thi câu truy vấn
-    $stmt->execute();
-
-    // Kiểm tra nếu tồn tại kết quả
-    if ($stmt->rowCount() > 0) {
-        // Đăng nhập thành công, lưu thông tin vào session
-        $_SESSION['username'] = $username;
-        header("Location: ../../index.php?page=home"); // Chuyển hướng đến trang dashboard sau khi đăng nhập
-        exit();
-    } else {
-        $error = "Sai thông tin đăng nhập!";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,6 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
+                <!-- Thêm nút đăng ký -->
+                <div class="mt-3 text-center">
+                    <p>Don't have an account? <a href="Register/RegisterForm.php">Register</a></p>
+                </div>
             </form>
         </div>
     </div>

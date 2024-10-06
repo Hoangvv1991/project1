@@ -1,3 +1,10 @@
+<?php
+session_start();
+// Lấy thông tin username từ session
+$username = $_SESSION['username'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,12 +36,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="src/Login/LoginForm.php">
-                            <span><i class="bi bi-person-vcard" style="font-size: 1.5rem;"></i></span>
-                            <div class="smalltext">Login </div>
-                        </a>
-                    </li>
-                    <li>
                         <a href="">
                             <span><i class="bi bi-bag-check" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">My Cart </div>
@@ -46,6 +47,29 @@
                             <div class="smalltext">Accessing</div>
                         </a>
                     </li>
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <!-- Nếu đã đăng nhập, hiển thị icon và link tới trang cá nhân -->
+                        <li>
+                            <a href="src/Login/User_profile.php">
+                                <span><i class="bi bi-person-circle" style="font-size: 1.5rem;"></i></span>
+                                <div class="smalltext"><?= $_SESSION['username']; ?></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="src/Login/Logout.php">
+                                <span><i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i></span>
+                                <div class="smalltext">Logout</div>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <!-- Nếu chưa đăng nhập, hiển thị icon và link đăng nhập -->
+                        <li>
+                            <a href="src/Login/LoginForm.php">
+                                <span><i class="bi bi-person-vcard" style="font-size: 1.5rem;"></i></span>
+                                <div class="smalltext">Login</div>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </li>
         </ul>

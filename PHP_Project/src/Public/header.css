@@ -180,7 +180,7 @@ header ul ul li {
 }
 
 main.container {
-    margin-top: 170px; /* Điều chỉnh khoảng cách này để không bị header che */
+    margin-top: 150px; /* Điều chỉnh khoảng cách này để không bị header che */
     margin-bottom: 5px;
 }
 
