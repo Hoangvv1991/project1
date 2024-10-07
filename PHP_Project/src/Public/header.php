@@ -26,7 +26,7 @@ $username = $_SESSION['username'];
                     <button><span><i class="bi bi-search"></i></span></button>
                 </form>
             </li>
-            <li><a href="index.php?pages=home"><img src="src/Public/larins_png.png" alt="Logo"></a></li>
+            <li><a class="logo" href="index.php?pages=home"><img src="src/Public/larins_png.png" alt="Logo"></a></li>
             <li>
                 <ul>
                     <li>

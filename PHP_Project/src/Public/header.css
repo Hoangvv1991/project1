@@ -63,6 +63,14 @@ header button:hover {
 header img {
     max-width: 150px;
 }
+.logo {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    padding-bottom: 50px;
+  }
+  
 
 /* Menu dưới logo */
 .menu {
