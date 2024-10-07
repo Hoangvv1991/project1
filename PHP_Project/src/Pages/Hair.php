@@ -1,7 +1,9 @@
 <?php
 include_once __DIR__ . '/../Public/header.php';
 ?>
-<link rel="stylesheet" href="src/Pages/css/Face.css">
+<link rel="stylesheet" href="src/Pages/css/Main_list.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <?php
 
 include 'src/api/db_connect.php';
@@ -29,7 +31,11 @@ try {
 $number_of_pages = ceil($total_products / $products_per_page);
 
 // Xác định trang hiện tại từ URL (mặc định là trang 1 nếu không có giá trị)
-$current_page = isset($_GET['page']) && $_GET['page'] > 0 ? intval($_GET['page']) : 1;
+if (!isset($_GET['page']) || $_GET['page'] <= 0) {
+    $current_page = 1;
+} else {
+    $current_page = intval($_GET['page']);
+}
 
 // Kiểm tra và đảm bảo trang hiện tại không vượt quá số trang hợp lệ
 if ($current_page > $number_of_pages) {
@@ -66,7 +72,7 @@ try {
             $productId = $row['product_code'];
             echo '<div class="product-item" id="product-' . htmlspecialchars($productId) . '">';
             echo '<img src="' . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
-            echo '<h3>' . htmlspecialchars($row["product_name"]) . '</h3>';
+            echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
             echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
             echo '<button>Mua hàng</button>';
             echo '</div>';
@@ -83,28 +89,32 @@ try {
 
 // Tạo liên kết phân trang
 ?>
-<div class="pagination">
-    <?php
-    // Hiển thị liên kết "Trang trước" nếu không phải trang đầu tiên
-    if ($current_page > 1) {
-        echo '<a href="products.php?page=' . ($current_page - 1) . '">Previous</a> ';
-    }
 
-    // Hiển thị các liên kết trang
-    for ($page = 1; $page <= $number_of_pages; $page++) {
-        if ($page == $current_page) {
-            echo '<strong>' . $page . '</strong> '; // Trang hiện tại
-        } else {
-            echo '<a href="products.php?page=' . $page . '">' . $page . '</a> ';
-        }
-    }
+ <nav aria-label="...">
+     <ul class="pagination" style="justify-content: center">
+         <li class="page-item <?php echo ($current_page == 1) ? 'disabled' : ''; ?>">
+           <a class="page-link" href="?index.php?pages=face&page=<?php echo ($current_page > 1) ? ($current_page - 1) : 1; ?>" tabindex="-1">Previous</a>
+         </li>
+             <?php
+                 for ($i = 1; $i <= $number_of_pages; $i++) {
+                     echo '<li class="page-item ' . ($current_page == $i ? 'active' : '') . '">';
+                     echo '<a class="page-link" href="index.php?pages=face&page=' . $i . '">' . $i;
+                     if ($current_page == $i) {
+                         echo ' <span class="sr-only">(current)</span>';
+                     }
+                     echo '</a></li>';
+                 }
+             ?>
+         <li class="page-item <?php echo ($current_page == $number_of_pages) ? 'disabled' : ''; ?>">
+           <a class="page-link" href="index.php?pages=face&page=<?php echo ($current_page < $number_of_pages) ? ($current_page + 1) : $number_of_pages; ?>">Next</a>
+         </li>
+     </ul>
+ </nav>
 
-    // Hiển thị liên kết "Trang sau" nếu không phải trang cuối cùng
-    if ($current_page < $number_of_pages) {
-        echo '<a href="products.php?page=' . ($current_page + 1) . '">Next</a> ';
-    }
-    ?>
-</div>
+
+
+
+
 
 <?php
 include_once __DIR__ . '/../Public/footer.php';
