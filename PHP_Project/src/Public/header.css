@@ -10,15 +10,15 @@ body {
 }
 
 header {
-    
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #ffffff;
+    background-color: #f8f9fa; /* Màu nền sáng hơn */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 15px 0;
+    padding-bottom: 0;
 }
 
 header ul {
@@ -63,9 +63,7 @@ header button:hover {
 header img {
     max-width: 150px;
 }
-.icon-color {
-    color: #ff5e14;
-}
+
 /* Menu dưới logo */
 .menu {
     display: flex;
@@ -78,8 +76,8 @@ header img {
     padding: 10px;
 }
 
-header .menu li a {
-    text-decoration: none ;
+.menu li a {
+    text-decoration: none;
     color: #333;
     padding: 5px 10px;
     font-weight: bold;
@@ -182,36 +180,10 @@ header ul ul li {
 }
 
 main.container {
-    margin-top: 170px; /* Điều chỉnh khoảng cách này để không bị header che */
+    margin-top: 150px; /* Điều chỉnh khoảng cách này để không bị header che */
+    margin-bottom: 5px;
 }
 
-
-/* hover underline animation cho thẻ a */
-.hua {
-    display: inline-block;
-    position: relative;
-}
-
-.hua::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #0087ca;
-    transition: transform 0.25s ease-out;
-}
-
-.hua:hover::after {
-    transform: scaleX(1);
-}
-
-.hua.center::after {
-    transform-origin: bottom center;
-}
-
-.hua.center:hover::after {
-    transform-origin: bottom center;
+.navbar {
+     justify-content: center;
 }

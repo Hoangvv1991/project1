@@ -1,8 +1,8 @@
 <?php
 // Kiểm tra tham số "page" từ URL để điều hướng tới trang tương ứng
-$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+$pages = isset($_GET['pages']) ? $_GET['pages'] : 'home';
 
-switch ($page) {
+switch ($pages) {
     case 'face':
         require_once __DIR__ . '/src/Pages/Face.php';
         break;

@@ -1,15 +1,14 @@
 <?php
-// Bao gồm header
-// include_once __DIR__ . '/../Public/header.php';
-include_once __DIR__ . '/../Public/header.php';
-?>
+session_start();
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+// Bao gồm header
+include_once __DIR__ . '/../Public/header.php';
+
+?>
     <link rel="stylesheet" href="src/Pages/css/Home.css">
 
 <body>
     <main class="container">
-          <!-- Main banner section -->
     <section class="banner">
         <div class="banner-content">
             <img src="https://www.clarinsusa.com/on/demandware.static/-/Library-Sites-clarins-v3/en_US/dw2e2a0688/Desktop%20version%201280x599@2x.jpg" alt="Main Banner" class="img-fluid">

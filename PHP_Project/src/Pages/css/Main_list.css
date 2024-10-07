@@ -65,3 +65,25 @@
     background-color: #d35400; 
 }
 
+.form-section {
+    margin: 20px;
+}
+.table-section {
+    margin: 20px;
+}
+h2 {
+    margin-bottom: 20px;
+}
+.pagination {
+    justify-content: center;
+}
+
+.product-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Giới hạn số dòng là 3 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Hiển thị dấu ... nếu bị cắt */
+    max-height: 4.5em; /* Giới hạn chiều cao, dựa trên số dòng và chiều cao mỗi dòng */
+    line-height: 1.5em; /* Đặt chiều cao của mỗi dòng */
+}

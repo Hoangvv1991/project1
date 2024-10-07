@@ -13,6 +13,7 @@ a {
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 .footer-contact {
