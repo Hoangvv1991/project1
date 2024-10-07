@@ -2,8 +2,25 @@
 session_start();
 // Lấy thông tin username từ session
 $username = $_SESSION['username'];
-?>
 
+include 'src/api/db_connect.php';
+
+$sql = "SELECT * 
+                FROM tbl_users u
+                WHERE u.deleted = 0 
+                AND u.user_email = (
+                    SELECT c.customer_email 
+                    FROM tbl_customers c
+                    WHERE c.deleted = 0 
+                    AND c.customer_email = :username
+                );";
+
+$user_status = $pdo->prepare($sql);
+$user_status->bindParam(':username', $username);
+$user_status->execute();
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,12 +58,14 @@ $username = $_SESSION['username'];
                             <div class="smalltext">My Cart </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
-                            <div class="smalltext">Accessing</div>
-                        </a>
-                    </li>
+                    <?php if (($user_status->rowCount()>0)): ?>
+                        <li>
+                            <a href="src/admin/admin.php">
+                                <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
+                                <div class="smalltext">Admin Dashboard</div>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                     <?php if (isset($_SESSION['username'])): ?>
                         <!-- Nếu đã đăng nhập, hiển thị icon và link tới trang cá nhân -->
                         <li>
@@ -217,7 +236,9 @@ $username = $_SESSION['username'];
         </nav>
     </header>
 
-
+    <link rel="stylesheet" href="src/Pages/css/Main_list.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
 </body>
