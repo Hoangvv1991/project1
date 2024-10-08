@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Lấy thông tin username từ session
-$username = $_SESSION['username'];
+$session_login = $_SESSION['session_login'];
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +19,6 @@ $username = $_SESSION['username'];
         </div>
         <div class="user-icon">
             <img src="assets/img/user_icon.png" alt="User Icon">
-            <div class="smalltext"><?= $_SESSION['username']; ?></div>
+            <div class="smalltext"><?= $_SESSION['session_login']; ?></div>
         </div>
     </header>
