@@ -12,7 +12,11 @@ include 'src/api/db_connect.php';
 $products_per_page = 10;
 
 // Lấy tổng số sản phẩm từ bảng `tbl_products`
-$sql_total = "SELECT COUNT(*) AS total FROM tbl_products";
+$sql_total = "SELECT COUNT(*) AS total 
+    FROM tbl_products p 
+    LEFT JOIN tbl_images i ON i.image_id = p.image_id
+    INNER JOIN tbl_categories c ON c.category_id = p.category_id
+    WHERE c.category_id = 1 ";
 
 try {
     $stmt_total = $pdo->query($sql_total);
@@ -51,10 +55,12 @@ if ($start_from < 0) {
 }
 
 // Truy vấn sản phẩm từ bảng `tbl_products` với giới hạn là 10 sản phẩm mỗi trang
-$sql = "SELECT p.product_code, p.product_name, p.price, i.image_path 
-        FROM tbl_products p
-        LEFT JOIN tbl_images i ON i.image_id = p.image_id
-        GROUP BY p.product_code, p.product_name, p.price, i.image_path
+    $sql = "SELECT p.product_code, p.product_name, p.price, i.image_path, c.category_id
+     FROM tbl_products p 
+    LEFT JOIN tbl_images i ON i.image_id = p.image_id
+    INNER JOIN tbl_categories c ON c.category_id = p.category_id
+    WHERE c.category_id = 1 
+    -- GROUP BY p.product_code, p.product_name, p.price, i.image_path, c.category_id
         LIMIT :start_from, :products_per_page";
 
 try {

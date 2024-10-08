@@ -51,10 +51,12 @@ if ($start_from < 0) {
 }
 
 // Truy vấn sản phẩm từ bảng `tbl_products` với giới hạn là 10 sản phẩm mỗi trang
-$sql = "SELECT p.product_code, p.product_name, p.price, i.image_path 
-        FROM tbl_products p
-        LEFT JOIN tbl_images i ON i.image_id = p.image_id
-        GROUP BY p.product_code, p.product_name, p.price, i.image_path
+    $sql = "SELECT p.product_code, p.product_name, p.price, i.image_path, c.category_id
+     FROM tbl_products p 
+    LEFT JOIN tbl_images i ON i.image_id = p.image_id
+    INNER JOIN tbl_categories c ON c.category_id = p.category_id
+    WHERE c.category_id = 2
+    -- GROUP BY p.product_code, p.product_name, p.price, i.image_path, c.category_id
         LIMIT :start_from, :products_per_page";
 
 try {
@@ -72,7 +74,7 @@ try {
             $productId = $row['product_code'];
             echo '<div class="product-item" id="product-' . htmlspecialchars($productId) . '">';
             echo '<img src="' . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
-            echo '<h3>' . htmlspecialchars($row["product_name"]) . '</h3>';
+            echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
             echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
             echo '<button>Mua hàng</button>';
             echo '</div>';
@@ -105,8 +107,8 @@ try {
                      echo '</a></li>';
                  }
              ?>
-         <li class="page-item <?php echo ($current_page == $totalPages) ? 'disabled' : ''; ?>">
-           <a class="page-link" href="index.php?pages=face&page=<?php echo ($current_page < $totalPages) ? ($current_page + 1) : $totalPages; ?>">Next</a>
+         <li class="page-item <?php echo ($current_page == $number_of_pages) ? 'disabled' : ''; ?>">
+           <a class="page-link" href="index.php?pages=face&page=<?php echo ($current_page < $number_of_pages) ? ($current_page + 1) : $number_of_pages; ?>">Next</a>
          </li>
      </ul>
  </nav>
