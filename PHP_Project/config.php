@@ -5,17 +5,20 @@ define('BASE_URL', __DIR__ . '/');
 // Đường dẫn tuyệt đối của file hiện tại (ví dụ: D:/Program Files/Xampp/htdocs/project_aptech/PHP_Project)
 $currentDir = __DIR__;
 
-// Chuyển đổi các dấu \ thành / để làm việc với đường dẫn dễ dàng hơn
-$currentDir = str_replace('\\', '/', $currentDir);
+// Đường dẫn nhận được từ cơ sở dữ liệu
+$filePath = 'D:/Program Files/Xampp/htdocs/project_aptech/PHP_Project';
 
-// Tách đường dẫn thành một mảng
-$pathParts = explode('/', $currentDir);
+// Phần bạn muốn xóa khỏi đường dẫn
+$basePath = 'D:/Program Files/Xampp/htdocs';
 
-// Tìm và lấy thư mục gốc (ví dụ: project_aptech)
-$projectRoot = $pathParts[4]; // Ở đây, phần tử thứ 4 là project_aptech theo cấu trúc đường dẫn của bạn
+// Sử dụng str_replace để xóa phần đường dẫn không cần thiết
+$relativePath = str_replace($basePath, '', $filePath);
+
 
 // Đường dẫn tương đối đến thư mục Public (từ thư mục gốc)
-$publicPath = 'http://localhost/' . $projectRoot . '/PHP_Project/';
+$publicPath = 'http://localhost' . $relativePath . '/' ;
+
+define('LOCAL_TEST',  $publicPath);
 
 define('LOCAL_URL',  $publicPath);
 
