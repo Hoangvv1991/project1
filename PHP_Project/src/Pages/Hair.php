@@ -12,7 +12,11 @@ include 'src/api/db_connect.php';
 $products_per_page = 10;
 
 // Lấy tổng số sản phẩm từ bảng `tbl_products`
-$sql_total = "SELECT COUNT(*) AS total FROM tbl_products";
+$sql_total = "SELECT COUNT(*) AS total 
+    FROM tbl_products p 
+    LEFT JOIN tbl_images i ON i.image_id = p.image_id
+    INNER JOIN tbl_categories c ON c.category_id = p.category_id
+    WHERE c.category_id = 3 ";
 
 try {
     $stmt_total = $pdo->query($sql_total);
