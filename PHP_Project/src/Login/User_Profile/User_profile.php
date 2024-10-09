@@ -1,46 +1,47 @@
-    <?php
-        // Lấy thông tin từ form
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $name = htmlspecialchars($_POST['name']);
-            $phone = htmlspecialchars($_POST['phone']);
-            $gender = htmlspecialchars($_POST['gender']);
-            $dob = htmlspecialchars($_POST['dob']);
-            $email = htmlspecialchars($_POST['email']);
-
-            // Kiểm tra và xử lý dữ liệu
-            $errors = [];
-
-            // Kiểm tra email
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors[] = "Email không hợp lệ.";
-            }
-
-            // Kiểm tra tuổi
-            $dobDate = new DateTime($dob);
-            $today = new DateTime();
-            $age = $today->diff($dobDate)->y;
-
-            if ($age < 10) {
-                $errors[] = "Bạn phải lớn hơn 10 tuổi.";
-            }
-
-            // Nếu không có lỗi, bạn có thể lưu vào cơ sở dữ liệu hoặc xử lý theo cách bạn muốn
-            if (empty($errors)) {
-                // Xử lý dữ liệu như lưu vào cơ sở dữ liệu...
-                echo "<script>alert('Cập nhật thành công thông tin của bạn!');</script>";
-                echo "<script>document.getElementById('displayName').innerText = '$name';</script>";
-                echo "<script>document.getElementById('displayPhone').innerText = '$phone';</script>";
-                echo "<script>document.getElementById('displayGender').innerText = \"" . ($gender == 'male' ? 'Nam' : ($gender == 'female' ? 'Nữ' : 'Không xác định')) . "\";</script>";
-            } else {
-                // Nếu có lỗi, hiển thị lỗi
-                foreach ($errors as $error) {
-                    echo "<div class='alert alert-danger'>$error</div>";
-                }
-            }
-                        
+<?php
+include_once __DIR__ . '../../../../config.php';
+include_once PUBLIC_PATH . 'header.php';
+?>
+    
+<?php
+    // Lấy thông tin từ form
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = htmlspecialchars($_POST['name']);
+        $phone = htmlspecialchars($_POST['phone']);
+        $gender = htmlspecialchars($_POST['gender']);
+        $dob = htmlspecialchars($_POST['dob']);
+        $email = htmlspecialchars($_POST['email']);
+        // Kiểm tra và xử lý dữ liệu
+        $errors = [];
+        // Kiểm tra email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Email không hợp lệ.";
         }
-        
-    ?>
+        // Kiểm tra tuổi
+        $dobDate = new DateTime($dob);
+        $today = new DateTime();
+        $age = $today->diff($dobDate)->y;
+        if ($age < 10) {
+            $errors[] = "Bạn phải lớn hơn 10 tuổi.";
+        }
+        // Nếu không có lỗi, bạn có thể lưu vào cơ sở dữ liệu hoặc xử lý theo cách bạn muốn
+        if (empty($errors)) {
+            // Xử lý dữ liệu như lưu vào cơ sở dữ liệu...
+            echo "<script>alert('Cập nhật thành công thông tin của bạn!');</script>";
+            echo "<script>document.getElementById('displayName').innerText = '$name';</script>";
+            echo "<script>document.getElementById('displayPhone').innerText = '$phone';</script>";
+            echo "<script>document.getElementById('displayGender').innerText = \"" . ($gender == 'male' ? 'Nam' : ($gender == 'female' ? 'Nữ' : 'Không xác định')) . "\";</script>";
+        } else {
+            // Nếu có lỗi, hiển thị lỗi
+            foreach ($errors as $error) {
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
+        }
+                    
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -48,12 +49,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.css">
 </head>
 
 <body>
+    <main class="container">
     <div class="container-fluid">
         <h5><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home">Home</a>/User Profile</h5>
         <div class="row">
@@ -137,6 +137,7 @@
             </div>
         </div>
     </div>
+    </main>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -220,7 +221,9 @@
 
 </html>
 
-
+<?php
+include_once PUBLIC_PATH . 'footer.php'; 
+?>
 
 
 

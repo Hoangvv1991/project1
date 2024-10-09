@@ -86,7 +86,7 @@ echo LOCAL_URL;
                     <?php if (isset($_SESSION['session_login'])): ?>
                         <!-- Nếu đã đăng nhập, hiển thị icon và link tới trang cá nhân -->
                         <li>
-                            <a href="src/Login/User_profile.php">
+                            <a href="src/Login/User_profile/User_profile.php">
                                 <span><i class="bi bi-person-circle" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext"><?= htmlspecialchars($full_name); ?></div>
                             </a>
@@ -255,7 +255,8 @@ echo LOCAL_URL;
 
     <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Main_list.css' ?>">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 
 </body>

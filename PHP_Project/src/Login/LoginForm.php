@@ -1,5 +1,5 @@
 <?php
-include_once 'D:\Program Files\Xampp\htdocs\project_aptech\PHP_Project\config.php';
+include_once __DIR__ . 'config.php';
 // Bắt đầu session
 session_start();
 
