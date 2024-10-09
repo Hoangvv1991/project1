@@ -1,10 +1,10 @@
 <?php
-include_once __DIR__ . '/../Public/header.php';
+include_once PUBLIC_PATH . 'header.php';
 ?>
 
 <?php
 
-include 'src/api/db_connect.php';
+include API_PATH . 'db_connect.php';
 
 // Thiết lập số lượng sản phẩm trên mỗi trang
 $products_per_page = 10;
@@ -85,7 +85,9 @@ try {
         echo '</div>';
         echo '</main>';
     } else {
+        echo '<main class="container">';
         echo "Không có sản phẩm nào để hiển thị.";
+        echo '</main>';
     }
 } catch (PDOException $e) {
     echo "Lỗi truy vấn: " . $e->getMessage();
@@ -121,5 +123,5 @@ try {
 
 
 <?php
-include_once __DIR__ . '/../Public/footer.php';
+include_once __DIR__ . '/../Public/footer.php'; 
 ?>

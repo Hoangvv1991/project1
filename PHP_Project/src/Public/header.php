@@ -1,30 +1,41 @@
 <?php
-session_start();
-// Lấy thông tin username từ session
-$session_login = $_SESSION['session_login'];
-
-include 'src/api/db_connect.php';
-
-$sql = "SELECT  *
-                FROM tbl_users u
-                WHERE u.deleted = 0 
-                AND u.user_email = (
-                    SELECT c.customer_email 
-                    FROM tbl_customers c
-                    WHERE c.deleted = 0 
-                    AND c.session_login = :session_login
-                );";
-
-$user_status = $pdo->prepare($sql);
-$user_status->bindParam(':session_login', $session_login);
-$user_status->execute();
-
-
-$full_name = '';
-if ($user_status->rowCount() > 0) {
-    $user_data = $user_status->fetch(PDO::FETCH_ASSOC);
-    $full_name = $user_data['full_name'];
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
+// Lấy thông tin username từ session
+$session_login = '';
+$full_name = '';
+if (isset($_SESSION['session_login'])){
+    $session_login = $_SESSION['session_login'];
+
+    include API_PATH .'db_connect.php';
+
+    $sql = "SELECT  *
+                    FROM tbl_users u
+                    WHERE u.deleted = 0 
+                    AND u.user_email = (
+                        SELECT c.customer_email 
+                        FROM tbl_customers c
+                        WHERE c.deleted = 0 
+                        AND c.session_login = :session_login
+                    );";
+
+    $user_status = $pdo->prepare($sql);
+    $user_status->bindParam(':session_login', $session_login);
+    $user_status->execute();
+
+
+    
+    if ($user_status->rowCount() > 0) {
+        $user_data = $user_status->fetch(PDO::FETCH_ASSOC);
+        $full_name = $user_data['full_name'];
+    }
+    else 
+    {
+        $full_name = '';
+    }
+}
+echo LOCAL_URL;
 
 ?>
 
@@ -35,7 +46,7 @@ if ($user_status->rowCount() > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="src/Public/header.css">
+    <link rel="stylesheet" href= "<?php echo LOCAL_URL . 'src/Public/header.css' ?>">
     <title>Claris</title>
 </head>
 
@@ -49,7 +60,7 @@ if ($user_status->rowCount() > 0) {
                     <button><span><i class="bi bi-search"></i></span></button>
                 </form>
             </li>
-            <li><a class="logo" href="index.php?pages=home"><img src="src/Public/larins_png.png" alt="Logo"></a></li>
+            <li><a class="logo" href="index.php?pages=home"><img src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt="Logo"></a></li>
             <li>
                 <ul>
                     <li>
@@ -64,9 +75,9 @@ if ($user_status->rowCount() > 0) {
                             <div class="smalltext">My Cart </div>
                         </a>
                     </li>
-                    <?php if (($user_status->rowCount() > 0)): ?>
+                    <?php if ($full_name != ''): ?>
                         <li>
-                            <a href="src/admin/admin.php">
+                            <a href="<?php echo LOCAL_URL . 'src/admin/admin.php' ?>">
                                 <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext">Admin</div>
                             </a>
@@ -81,7 +92,7 @@ if ($user_status->rowCount() > 0) {
                             </a>
                         </li>
                         <li>
-                            <a href="src/Login/Logout.php">
+                            <a href="<?php echo LOCAL_URL . 'src/Login/Logout.php' ?>">
                                 <span><i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext">Logout</div>
                             </a>
@@ -89,7 +100,7 @@ if ($user_status->rowCount() > 0) {
                     <?php else: ?>
                         <!-- Nếu chưa đăng nhập, hiển thị icon và link đăng nhập -->
                         <li>
-                            <a href="src/Login/LoginForm.php">
+                            <a href="<?php echo LOCAL_URL . 'src/Login/LoginForm.php' ?>">
                                 <span><i class="bi bi-person-vcard" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext">Login</div>
                             </a>
@@ -101,7 +112,7 @@ if ($user_status->rowCount() > 0) {
         <nav class="navbar" style="justify-content: center">
             <ul class="menu">
                 <li class="menuface">
-                    <a href="index.php?pages=face">FACE</a></button>
+                    <a href="<?php echo LOCAL_URL . 'index.php?pages=face' ?>">FACE</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -124,7 +135,7 @@ if ($user_status->rowCount() > 0) {
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?pages=body">BODY</a></button>
+                    <a href="<?php echo LOCAL_URL . 'index.php?pages=body' ?>">BODY</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -147,7 +158,7 @@ if ($user_status->rowCount() > 0) {
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?pages=hair">HAIR</a></button>
+                    <a href="<?php echo LOCAL_URL . 'index.php?pages=hair' ?>">HAIR</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -170,7 +181,7 @@ if ($user_status->rowCount() > 0) {
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?pages=makeup">MAKE.UP</a></button>
+                    <a href="<?php echo LOCAL_URL . 'index.php?pages=makeup' ?>">MAKE.UP</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -193,7 +204,7 @@ if ($user_status->rowCount() > 0) {
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?pages=perfumes">PERFUMES</a></button>
+                    <a href="<?php echo LOCAL_URL . 'index.php?pages=perfumes' ?>">PERFUMES</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -216,7 +227,7 @@ if ($user_status->rowCount() > 0) {
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="index.php?pages=sunscreen">SUNSCREEN</a></button>
+                    <a href="<?php echo LOCAL_URL . 'index.php?pages=sunscreen' ?>">SUNSCREEN</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>
@@ -242,7 +253,7 @@ if ($user_status->rowCount() > 0) {
         </nav>
     </header>
 
-    <link rel="stylesheet" href="src/Pages/css/Main_list.css">
+    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Main_list.css' ?>">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 

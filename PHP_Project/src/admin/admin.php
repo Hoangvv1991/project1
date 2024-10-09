@@ -1,10 +1,7 @@
 <?php 
-
-// include('src/admin/Public/header.php');
-// include('src/admin/Public/sidebar.php'); 
-include_once __DIR__ . '/Public/header.php';
-include_once __DIR__ . '/Public/sidebar.php';
-
+include_once __DIR__ . '../../../config.php';
+include_once ADMIN_PATH . '/Public/header.php';
+include_once ADMIN_PATH . '/Public/sidebar.php';
 ?>
 
 <div class="main-content">
