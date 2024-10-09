@@ -60,7 +60,7 @@ echo LOCAL_URL;
                     <button><span><i class="bi bi-search"></i></span></button>
                 </form>
             </li>
-            <li><a class="logo" href="index.php?pages=home"><img src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt="Logo"></a></li>
+            <li><a class="logo" href="<?php echo LOCAL_URL . 'index.php?pages=home' ?>"><img src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt="Logo"></a></li>
             <li>
                 <ul>
                     <li>

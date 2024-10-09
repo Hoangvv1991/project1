@@ -99,7 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="mt-3 text-center">
                     <p>Don't have an account? <a href="Register/RegisterForm.php">Register</a></p>
                 </div>
-                <?php echo LOCAL_URL; ?>
             </form>
         </div>
     </div>
