@@ -11,8 +11,8 @@ $error = "";
 // Kiểm tra khi form được submit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Lấy thông tin từ form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $customer_email = $_POST['username'];
+    $customer_password  = $_POST['password'];
 
     // Truy vấn cơ sở dữ liệu để kiểm tra thông tin đăng nhập
     $sql = "SELECT * FROM tbl_customers 
@@ -25,16 +25,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $pdo->prepare($sql);
     
     // Liên kết giá trị vào các placeholders
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':username', $customer_email);
+    $stmt->bindParam(':password', $customer_password);
     
     // Thực thi câu truy vấn
     $stmt->execute();
 
     // Kiểm tra nếu tồn tại kết quả
     if ($stmt->rowCount() > 0) {
-        // Đăng nhập thành công, lưu thông tin vào session
-        $_SESSION['username'] = $username;
+        // Tạo mã MD5 mới
+        $new_session_login = md5(uniqid(rand(), true));
+
+        // Cập nhật session_login và session_date
+        // Cập nhật session_login và session_date
+        $update_sql = "UPDATE tbl_customers 
+                        SET session_login = :session_login, session_date = NOW()
+                        WHERE customer_email = :username AND customer_password = :password";
+        $update_stmt = $pdo->prepare($update_sql);
+        $update_stmt->execute(['session_login' => $new_session_login, 'username' => $customer_email, 'password' => $customer_password]);
+
+        $_SESSION['session_login'] = $new_session_login;
+
+        // if ($conn->query($update_sql) === TRUE) {
+        //     // Nếu cập nhật thành công, gán session_login vào PHP session
+        //     $_SESSION['session_login'] = $new_session_login;
+        //     echo "Đăng nhập thành công và cập nhật session_login!";
+        // } else {
+        //     echo "Lỗi khi cập nhật session_login: " . $conn->error;
+        // }
+
         header("Location: ../../index.php?page=home"); // Chuyển hướng đến trang dashboard sau khi đăng nhập
         exit();
     } else {

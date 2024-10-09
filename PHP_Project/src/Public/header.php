@@ -1,9 +1,32 @@
 <?php
 session_start();
 // Lấy thông tin username từ session
-$username = $_SESSION['username'];
-?>
+$session_login = $_SESSION['session_login'];
 
+include 'src/api/db_connect.php';
+
+$sql = "SELECT  *
+                FROM tbl_users u
+                WHERE u.deleted = 0 
+                AND u.user_email = (
+                    SELECT c.customer_email 
+                    FROM tbl_customers c
+                    WHERE c.deleted = 0 
+                    AND c.session_login = :session_login
+                );";
+
+$user_status = $pdo->prepare($sql);
+$user_status->bindParam(':session_login', $session_login);
+$user_status->execute();
+
+
+$full_name = '';
+if ($user_status->rowCount() > 0) {
+    $user_data = $user_status->fetch(PDO::FETCH_ASSOC);
+    $full_name = $user_data['full_name'];
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,18 +64,20 @@ $username = $_SESSION['username'];
                             <div class="smalltext">My Cart </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
-                            <div class="smalltext">Accessing</div>
-                        </a>
-                    </li>
-                    <?php if (isset($_SESSION['username'])): ?>
+                    <?php if (($user_status->rowCount() > 0)): ?>
+                        <li>
+                            <a href="src/admin/admin.php">
+                                <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
+                                <div class="smalltext">Admin</div>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['session_login'])): ?>
                         <!-- Nếu đã đăng nhập, hiển thị icon và link tới trang cá nhân -->
                         <li>
                             <a href="src/Login/User_profile.php">
                                 <span><i class="bi bi-person-circle" style="font-size: 1.5rem;"></i></span>
-                                <div class="smalltext"><?= $_SESSION['username']; ?></div>
+                                <div class="smalltext"><?= htmlspecialchars($full_name); ?></div>
                             </a>
                         </li>
                         <li>
@@ -217,7 +242,9 @@ $username = $_SESSION['username'];
         </nav>
     </header>
 
-
+    <link rel="stylesheet" href="src/Pages/css/Main_list.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
 </body>
