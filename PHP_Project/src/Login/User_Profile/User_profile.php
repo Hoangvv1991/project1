@@ -47,91 +47,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout 4:6 với Menu Dọc Thu Gọn</title>
+    <title>User Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Các style đã có trước đó */
-        .hidden {
-            display: none; /* Ẩn phần */
-        }
-        .container {
-            margin-top: 50px;
-        }
-
-        .icon {
-            font-size: 100px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            text-align: left;
-        }
-
-        .form-control {
-            width: 500px;
-            border-radius: 10px;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:hover {
-            border-color: red;
-        }
-        #menu a{
-            font-weight: bold;
-        }
-        #menu a:hover {
-            color: red;
-        }
-
-        #menu {
-            padding-left: 100px;
-        }
-        #profileInfo p strong{
-            margin: 0 10px; /* Khoảng cách bên trái và bên phải */
-        }
-        #profileInfo p span{
-            font-weight: bold;
-        }
-        #profileInfo{
-            text-align: left;
-            width: 300px;
-            margin: auto;
-        }
-        #profileInfo h2{
-            text-align: center;
-        }
-        #profileInfo p{
-            display: flex;
-            justify-content: space-between; /* Khoảng cách đều giữa các phần tử */
-            align-items: center; /* Căn giữa dọc */
-            margin-top: 20px;
-            border-bottom: 1px solid gray;
-            padding-bottom: 10px;
-        }
-        #profileInfo h3{
-            text-align: center;
-            color: orangered;
-        }
-        #profileInfo button{
-            margin: auto;
-            display: block;
-            text-align: center;
-            margin-top: 30px;
-        }
-        #iconUser{
-            color: orangered;
-            font-size: 100px;
-        }
-        /* Các style khác... */
-    </style>
+    <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.css">
 </head>
 
 <body>
