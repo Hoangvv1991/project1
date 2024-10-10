@@ -75,7 +75,7 @@ try {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $productId = $row['product_code'];
             echo '<div class="product-item" id="product-' . htmlspecialchars($productId) . '">';
-            echo '<img src="' . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
+            echo '<img src="' . LOCAL_URL . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
             echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
             echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
             echo '<button>Mua hàng</button>';

@@ -3,7 +3,7 @@
 
 define('BASE_URL', __DIR__ . '/');
 // Đường dẫn tuyệt đối của file hiện tại (ví dụ: D:/Program Files/Xampp/htdocs/project_aptech/PHP_Project)
-$currentDir = __DIR__;
+$currentDir = __DIR__; 
 
 // Đường dẫn nhận được từ cơ sở dữ liệu
 $filePath = __DIR__;
@@ -19,9 +19,11 @@ $basePath = str_replace('\\', '/', $basePath);
 $relativePath = str_replace($basePath, '', $filePath);
 
 // Đường dẫn tương đối đến thư mục Public (từ thư mục gốc)
-$publicPath = 'http://localhost' . $relativePath . '/' ;
+$publicPath = 'http://localhost' . $relativePath . '/' ; 
 
-define('LOCAL_URL',  $publicPath);
+define('LOCAL_URL',  $publicPath); // http://localhost/project_aptech/PHP_Project/
+
+
 
 define('PUBLIC_PATH', BASE_URL . 'src/public/');
 

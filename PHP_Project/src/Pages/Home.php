@@ -5,7 +5,7 @@ session_start();
 include_once __DIR__ . '/../Public/header.php';
 
 ?>
-    <link rel="stylesheet" href="src/Pages/css/Home.css">
+    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Home.css' ?>">
 
 <body>
     <main class="container">

@@ -1,7 +1,7 @@
 <aside>
     <nav class="sidebar">
         <ul>
-            <li><a href="../../index.php">Trở về trang chính</a></li>
+            <li><a href="<?php echo LOCAL_URL . 'index.php'?>">Trở về trang chính</a></li>
             <li><a href="../Views/products_manager.php">Quản lý sản phẩm</a></li>
             <li><a href="../Views/employees_manager.php">Quản lý nhân sự</a></li>
             <li><a href="../Views/roles_manager.php">Quản lý nhóm quyền</a></li>
