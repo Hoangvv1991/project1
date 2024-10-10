@@ -14,11 +14,17 @@ $username = $_SESSION['username'];
 </head>
 <body>
     <header>
-        <div class="logo-left">
-            <img src="./../../Public/larins_png.png" alt="Company Logo">
-        </div>
-        <div class="user-icon">
-            <img src="assets/img/user_icon.png" alt="User Icon">
-            <div class="smalltext"><?= $_SESSION['username']; ?></div>
-        </div>
+        <ul> 
+            <li>       
+                <div class="logo-left">
+                    <img src="./../../Public/larins_png.png" alt="Company Logo">
+                </div>
+                </li>
+                <li>
+                <div class="user-icon">
+                    <img id="avatar" src="avt.jpg" alt="User Avatar" class="avatar">
+                    <div class="smalltext"><?= $_SESSION['username']; ?></div>
+                </div>
+            </li>
+        </ul>    
     </header>
