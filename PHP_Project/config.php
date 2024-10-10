@@ -6,19 +6,20 @@ define('BASE_URL', __DIR__ . '/');
 $currentDir = __DIR__;
 
 // Đường dẫn nhận được từ cơ sở dữ liệu
-$filePath = 'D:/Program Files/Xampp/htdocs/project_aptech/PHP_Project';
+$filePath = __DIR__;
 
 // Phần bạn muốn xóa khỏi đường dẫn
-$basePath = 'D:/Program Files/Xampp/htdocs';
+$basePath = $_SERVER['DOCUMENT_ROOT'];
 
-// Sử dụng str_replace để xóa phần đường dẫn không cần thiết
+// Thay thế tất cả dấu '\' bằng '/' để chuẩn hóa đường dẫn
+$filePath = str_replace('\\', '/', $filePath);
+$basePath = str_replace('\\', '/', $basePath);
+
+// Sử dụng str_replace để xóa phần basePath khỏi filePath
 $relativePath = str_replace($basePath, '', $filePath);
-
 
 // Đường dẫn tương đối đến thư mục Public (từ thư mục gốc)
 $publicPath = 'http://localhost' . $relativePath . '/' ;
-
-define('LOCAL_TEST',  $publicPath);
 
 define('LOCAL_URL',  $publicPath);
 

@@ -5,10 +5,10 @@ if (session_status() == PHP_SESSION_NONE) {
 // Lấy thông tin username từ session
 $session_login = '';
 $full_name = '';
-if (isset($_SESSION['session_login'])){
+if (isset($_SESSION['session_login'])) {
     $session_login = $_SESSION['session_login'];
 
-    include API_PATH .'db_connect.php';
+    include API_PATH . 'db_connect.php';
 
     $sql = "SELECT  *
                     FROM tbl_users u
@@ -25,17 +25,14 @@ if (isset($_SESSION['session_login'])){
     $user_status->execute();
 
 
-    
+
     if ($user_status->rowCount() > 0) {
         $user_data = $user_status->fetch(PDO::FETCH_ASSOC);
         $full_name = $user_data['full_name'];
-    }
-    else 
-    {
+    } else {
         $full_name = '';
     }
 }
-echo LOCAL_URL;
 
 ?>
 
@@ -46,7 +43,7 @@ echo LOCAL_URL;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href= "<?php echo LOCAL_URL . 'src/Public/header.css' ?>">
+    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Public/header.css' ?>">
     <title>Claris</title>
 </head>
 
