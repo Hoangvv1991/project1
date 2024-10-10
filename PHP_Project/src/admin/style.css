@@ -6,7 +6,6 @@
 
 body {
     font-family: Arial, sans-serif;
-    display: flex;
 }
 
 header {
@@ -14,17 +13,60 @@ header {
     color: #fff;
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    height: 75px;
     width: 100%;
 }
 
-.logo-left img {
-    height: 50px;
+header ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    padding: 0 20px;
 }
 
-.user-icon img {
-    height: 50px;
-    border-radius: 50%;
+header ul {
+    display: flex;
+    gap: 15px;
+}
+
+header ul li {
+    text-align: center;
+}
+
+.logo-left img {
+    width: 150px;
+    height: auto;
+}
+
+.user-icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    flex-direction: column; /* Thay đổi bố cục từ hàng ngang thành cột */
+    gap: 5px; /* Khoảng cách giữa avatar và tên người dùng */
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Giúp avatar trở thành hình tròn */
+}
+
+#username {
+    font-size: 16px;
+    color: black;
+}
+
+.smalltext {
+    font-size: 16px;
+    color: #ffffff;
+    max-width: 150px; /* Giới hạn độ rộng tối đa của tên, tùy chỉnh theo thiết kế */
+    white-space: nowrap; /* Không cho phép xuống dòng */
+    overflow: hidden; /* Ẩn phần bị tràn ra ngoài vùng chứa */
+    text-overflow: ellipsis; /* Thêm dấu "..." khi văn bản bị tràn */
 }
 
 .sidebar {
@@ -36,20 +78,20 @@ header {
     position: fixed;
     left: 0;
     top: 0;
+    margin-top: 75px;
 }
 
 .sidebar ul {
     list-style: none;
 }
 
-.sidebar ul li {
-    padding: 15px;
-}
-
 .sidebar ul li a {
     color: white;
     text-decoration: none;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
 }
 
 .sidebar ul li a:hover {
