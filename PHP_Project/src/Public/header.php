@@ -70,7 +70,7 @@ echo LOCAL_URL;
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="src/Pages/Mycart.php">
                             <span><i class="bi bi-bag-check" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">My Cart </div>
                         </a>
