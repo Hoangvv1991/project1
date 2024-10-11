@@ -69,7 +69,7 @@ if (isset($_SESSION['session_login'])){
             <li>
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="<?php echo LOCAL_URL . 'src/Public/contact_us.php' ?>">
                             <span><i class="bi bi-phone" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Contact Us </div>
                         </a>
