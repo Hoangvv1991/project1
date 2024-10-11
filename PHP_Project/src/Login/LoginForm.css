@@ -4,9 +4,6 @@ body{
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
 }
-.container{
-    margin-top: 100px;
-}
 h2 img{
     width: 300px;
 }
@@ -23,7 +20,7 @@ a:hover{
 }
 #divform{
     border: 3px solid greenyellow;
-    height: 550px;
+    height: 650px;
     background-color: white;
     border-radius: 25px;
 }

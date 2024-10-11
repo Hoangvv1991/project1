@@ -1,45 +1,102 @@
 <?php
 include_once __DIR__ . '../../../../config.php';
 include_once PUBLIC_PATH . 'header.php';
+include API_PATH . 'db_connect.php';
 ?>
-    
+
+<!-- lấy dữ liệu người dùng -->
 <?php
-    // Lấy thông tin từ form
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = htmlspecialchars($_POST['name']);
-        $phone = htmlspecialchars($_POST['phone']);
-        $gender = htmlspecialchars($_POST['gender']);
-        $dob = htmlspecialchars($_POST['dob']);
-        $email = htmlspecialchars($_POST['email']);
-        // Kiểm tra và xử lý dữ liệu
-        $errors = [];
-        // Kiểm tra email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "Email không hợp lệ.";
+    $customer_phone = $customer_data['customer_phone'];
+    $customer_contry = $customer_data['customer_city'];
+    $customer_stress = $customer_data['customer_city'];
+    $customer_city = $customer_data['customer_city'];
+    $customer_email = $customer_data['customer_email'];
+?>
+<!-- ẩn email -->
+<?php
+    function maskEmail($customer_email) {
+        // Tìm vị trí của dấu '@'
+        $atPosition = strpos($customer_email, '@');
+        
+        // Nếu không tìm thấy dấu '@', trả về email gốc
+        if ($atPosition === false) {
+            return $customer_email;
         }
-        // Kiểm tra tuổi
-        $dobDate = new DateTime($dob);
-        $today = new DateTime();
-        $age = $today->diff($dobDate)->y;
-        if ($age < 10) {
-            $errors[] = "Bạn phải lớn hơn 10 tuổi.";
-        }
-        // Nếu không có lỗi, bạn có thể lưu vào cơ sở dữ liệu hoặc xử lý theo cách bạn muốn
-        if (empty($errors)) {
-            // Xử lý dữ liệu như lưu vào cơ sở dữ liệu...
-            echo "<script>alert('Cập nhật thành công thông tin của bạn!');</script>";
-            echo "<script>document.getElementById('displayName').innerText = '$name';</script>";
-            echo "<script>document.getElementById('displayPhone').innerText = '$phone';</script>";
-            echo "<script>document.getElementById('displayGender').innerText = \"" . ($gender == 'male' ? 'Nam' : ($gender == 'female' ? 'Nữ' : 'Không xác định')) . "\";</script>";
-        } else {
-            // Nếu có lỗi, hiển thị lỗi
-            foreach ($errors as $error) {
-                echo "<div class='alert alert-danger'>$error</div>";
-            }
-        }
-                    
+        
+        // Tách tên người dùng và miền
+        $username = substr($customer_email, 0, $atPosition);
+        $domain = substr($customer_email, $atPosition);
+    
+        // Lấy 3 ký tự đầu tiên
+        $maskedUsername = substr($username, 0, 3) . '...';
+    
+        // Kết hợp lại
+        return $maskedUsername . $domain;
     }
     
+    // Ví dụ sử dụng
+    $maskedEmail = maskEmail($customer_email);
+?>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $NewName = htmlspecialchars($_POST['name']);
+    $NewPhone = htmlspecialchars($_POST['phone']);
+    $NewCity = htmlspecialchars($_POST['city']);
+    $NewEmail = htmlspecialchars($_POST['email']);
+    
+    // Kiểm tra và xử lý dữ liệu
+    $errors = [];
+    
+    // Kiểm tra email
+    if (!filter_var($NewEmail, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Email không hợp lệ.";
+    }
+
+    // Nếu không có lỗi
+    if (empty($errors)) {
+        // Cập nhật vào bảng tbl_customers
+        $sql = "UPDATE tbl_customers SET 
+                    customer_name = :customer_name, 
+                    customer_email = :customer_email, 
+                    customer_phone = :customer_phone, 
+                    customer_city = :customer_city 
+                WHERE deleted = 0 
+                AND session_login = :session_login";
+
+        // Giả sử bạn đã kết nối đến cơ sở dữ liệu với biến $pdo
+        $stmt = $pdo->prepare($sql);
+
+        // Gán giá trị cho các tham số
+        if (empty($NewName)) {
+            echo "Tên mới là rỗng.";
+        } else {
+            echo "Tên mới không rỗng: " . htmlspecialchars($NewName);
+        }
+        $stmt->bindParam(':customer_name', $NewName);
+        $stmt->bindParam(':customer_email', $NewEmail);
+        $stmt->bindParam(':customer_phone', $NewPhone);
+        $stmt->bindParam(':customer_city', $NewCity); 
+        $stmt->bindParam(':session_login', $session_login); 
+
+        // Thực hiện câu lệnh
+        if ($stmt->execute()) {
+            echo "<script>alert('Cập nhật thành công thông tin của bạn!');</script>";
+            echo "<script>
+                    document.getElementById('displayName').innerText = '$NewName';
+                    document.getElementById('displayPhone').innerText = '$NewPhone';
+                    document.getElementById('displayCity').innerText =  '$NewCity';
+                    resetForm(); // Đặt lại form về giá trị ban đầu
+                  </script>";
+        } else {
+            echo "<div class='alert alert-danger'>Cập nhật thất bại.</div>";
+        }
+    } else {
+        // Nếu có lỗi, hiển thị lỗi
+        foreach ($errors as $error) {
+            echo "<div class='alert alert-danger'>$error</div>";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -77,12 +134,6 @@ include_once PUBLIC_PATH . 'header.php';
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-target="addresses" onclick="showSection('addresses')">Địa Chỉ Nhận Hàng</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="src/Login/Logout.php">
-                                <span><i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i></span>
-                                Logout
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -93,38 +144,85 @@ include_once PUBLIC_PATH . 'header.php';
                     <div id="profileInfo">
                         <h3>Profile User</h3>
                         <h2><i class="bi bi-person-circle" id="iconUser"></i></h2>
-                        <p><strong>Họ Tên:</strong> <span id="displayName">Quốc Vương</span></p>
-                        <p><strong>SĐT:</strong> <span id="displayPhone">0123456789</span></p>
-                        <p><strong>Giới Tính:</strong> <span id="displayGender">Nam</span></p>
+                        <p><strong>Họ Tên:</strong> <span id="displayName"><?= htmlspecialchars($full_name); ?></span></p>
+                        <p><strong>SĐT:</strong> <span id="displayPhone"><?= htmlspecialchars($customer_phone); ?></span></p>
+                        <p><strong>City:</strong> <span id="displayCity"><?= htmlspecialchars($customer_city); ?></span></p>
                         <button class="btn btn-primary" onclick="toggleEditForm()">Chỉnh Sửa Thông Tin</button>
                     </div>
                     <!-- chinh sửa tt -->
                     <div id="editForm" class="hidden">
                         <h4>Chỉnh Sửa Thông Tin</h4>
-                        <form id="profileEditForm" action="your-server-endpoint.php" method="POST" onsubmit="return updateProfile()">
+                        <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" >
                             <div class="form-group">
                                 <label for="name">Họ Tên:</label>
-                                <input type="text" class="form-control" id="name" name="name" value="Quốc Vương" required>
+                                <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($full_name); ?>" >
                             </div>
                             <div class="form-group">
                                 <label for="phone">SĐT:</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="0123456789" required>
+                                <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($customer_phone); ?>" >
                             </div>
                             <div class="form-group">
-                                <label for="gender">Giới Tính:</label>
-                                <select class="form-control" id="gender" name="gender" required>
-                                    <option value="male" selected>Nam</option>
-                                    <option value="female">Nữ</option>
-                                    <option value="other">Không xác định</option>
+                                <label for="city">City</label>
+                                <select class="form-control" id="city" name="city" >
+                                    <option value="">-- Chọn tỉnh --</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                    <option value="Đà Nẵng">Đà Nẵng</option>
+                                    <option value="Hải Phòng">Hải Phòng</option>
+                                    <option value="Cần Thơ">Cần Thơ</option>
+                                    <option value="An Giang">An Giang</option>
+                                    <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                                    <option value="Bắc Giang">Bắc Giang</option>
+                                    <option value="Bắc Ninh">Bắc Ninh</option>
+                                    <option value="Bến Tre">Bến Tre</option>
+                                    <option value="Bình Định">Bình Định</option>
+                                    <option value="Bình Dương">Bình Dương</option>
+                                    <option value="Bình Phước">Bình Phước</option>
+                                    <option value="Cà Mau">Cà Mau</option>
+                                    <option value="Đắc Lắc">Đắc Lắc</option>
+                                    <option value="Đắc Nông">Đắc Nông</option>
+                                    <option value="Điện Biên">Điện Biên</option>
+                                    <option value="Hà Giang">Hà Giang</option>
+                                    <option value="Hà Nam">Hà Nam</option>
+                                    <option value="Hà Tĩnh">Hà Tĩnh</option>
+                                    <option value="Hải Dương">Hải Dương</option>
+                                    <option value="Hòa Bình">Hòa Bình</option>
+                                    <option value="Hưng Yên">Hưng Yên</option>
+                                    <option value="Khánh Hòa">Khánh Hòa</option>
+                                    <option value="Kiên Giang">Kiên Giang</option>
+                                    <option value="Kon Tum">Kon Tum</option>
+                                    <option value="Lai Châu">Lai Châu</option>
+                                    <option value="Lâm Đồng">Lâm Đồng</option>
+                                    <option value="Lang Son">Lang Son</option>
+                                    <option value="Lào Cai">Lào Cai</option>
+                                    <option value="Nam Định">Nam Định</option>
+                                    <option value="Ninh Bình">Ninh Bình</option>
+                                    <option value="Ninh Thuận">Ninh Thuận</option>
+                                    <option value="Phú Thọ">Phú Thọ</option>
+                                    <option value="Phú Yên">Phú Yên</option>
+                                    <option value="Quảng Bình">Quảng Bình</option>
+                                    <option value="Quảng Nam">Quảng Nam</option>
+                                    <option value="Quảng Ngãi">Quảng Ngãi</option>
+                                    <option value="Quảng Ninh">Quảng Ninh</option>
+                                    <option value="Quảng Trị">Quảng Trị</option>
+                                    <option value="Sóc Trăng">Sóc Trăng</option>
+                                    <option value="Sơn La">Sơn La</option>
+                                    <option value="Tây Ninh">Tây Ninh</option>
+                                    <option value="Thái Bình">Thái Bình</option>
+                                    <option value="Thái Nguyên">Thái Nguyên</option>
+                                    <option value="Thanh Hóa">Thanh Hóa</option>
+                                    <option value="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                                    <option value="Tiền Giang">Tiền Giang</option>
+                                    <option value="Trà Vinh">Trà Vinh</option>
+                                    <option value="Tuyên Quang">Tuyên Quang</option>
+                                    <option value="Vĩnh Long">Vĩnh Long</option>
+                                    <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                                    <option value="Yên Bái">Yên Bái</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="dob">Ngày Sinh:</label>
-                                <input type="date" class="form-control" id="dob" name="dob" required max="" />
-                            </div>
-                            <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="<?= htmlspecialchars($maskedEmail); ?>" required>
                             </div>
                             <button type="submit" class="btn btn-success">Lưu Thay Đổi</button>
                             <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Hủy</button>
@@ -144,6 +242,10 @@ include_once PUBLIC_PATH . 'header.php';
     <script src="stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
+        function resetForm() {
+            document.getElementById('name').value = "<?= htmlspecialchars($full_name); ?>";
+            document.getElementById('phone').value = "<?= htmlspecialchars($customer_phone); ?>";
+        }
         function showSection(sectionId) {
             const sections = ['profileInfo', 'orders', 'customers', 'addresses', 'logout'];
             sections.forEach(section => {
@@ -158,63 +260,35 @@ include_once PUBLIC_PATH . 'header.php';
 
         // Các hàm khác (toggleEditForm, cancelEdit, updateProfile, v.v.)
         // Thiết lập ngày tối đa cho ô ngày sinh
-        const today = new Date();
-        const tenYearsAgo = new Date();
-        tenYearsAgo.setFullYear(today.getFullYear() - 10);
-        document.getElementById('dob').max = tenYearsAgo.toISOString().split("T")[0];
 
         function toggleEditForm() {
-        const profileInfo = document.getElementById('profileInfo');
-        const editForm = document.getElementById('editForm');
-        profileInfo.classList.toggle('hidden');
-        editForm.classList.toggle('hidden');
+            const profileInfo = document.getElementById('profileInfo');
+            const editForm = document.getElementById('editForm');
+            profileInfo.classList.toggle('hidden');
+            editForm.classList.toggle('hidden');
         }
-
+        // Ẩn phần chỉnh sửa và hiện phần thông tin
         function cancelEdit() {
-        const profileInfo = document.getElementById('profileInfo');
-        const editForm = document.getElementById('editForm');
-        profileInfo.classList.remove('hidden');
-        editForm.classList.add('hidden');
+            const profileInfo = document.getElementById('profileInfo');
+            const editForm = document.getElementById('editForm');
+            profileInfo.classList.remove('hidden');
+            editForm.classList.add('hidden');
+            resetForm();
         }
 
         function updateProfile() {
-        // Lấy giá trị từ biểu mẫu
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const gender = document.getElementById('gender').value;
-        const email = document.getElementById('email').value;
-        const dob = document.getElementById('dob').value;
+            // Lấy giá trị từ biểu mẫu
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const gender = document.getElementById('city').value;
+            const email = document.getElementById('email').value;
 
-        // Kiểm tra định dạng email
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(email)) {
-        alert("Email không đúng định dạng!");
-        return false;
-        }
-
-        // Kiểm tra ngày sinh
-        const dobDate = new Date(dob);
-        const today = new Date();
-        const age = today.getFullYear() - dobDate.getFullYear();
-        const monthDiff = today.getMonth() - dobDate.getMonth();
-        const isAdult = age > 10 || (age === 10 && monthDiff >= 0);
-
-        if (!isAdult) {
-        alert("Bạn phải lớn hơn 10 tuổi!");
-        return false;
-        }
-
-        // Cập nhật thông tin hiển thị
-        document.getElementById('displayName').innerText = name;
-        document.getElementById('displayPhone').innerText = phone;
-        document.getElementById('displayGender').innerText = gender === 'male' ? 'Nam' : (gender === 'female' ? 'Nữ' : 'Không xác định');
-
-        // Ẩn phần chỉnh sửa và hiện phần thông tin
-        cancelEdit();
-
-        // Hiện thông báo cập nhật thành công
-        alert("Thông tin đã được cập nhật!");
-        return false; // Ngăn không cho form thực sự gửi
+            // Kiểm tra định dạng email
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+            alert("Email không đúng định dạng!");
+            return false;
+            }
         }
     </script>
 </body>
