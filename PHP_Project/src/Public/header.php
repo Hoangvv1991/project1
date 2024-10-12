@@ -5,51 +5,42 @@ if (session_status() == PHP_SESSION_NONE) {
 // Lấy thông tin username từ session
 $session_login = '';
 $full_name = '';
-$count = 0;
+$admin = '';
 if (isset($_SESSION['session_login'])){
     $session_login = $_SESSION['session_login'];
 
     include API_PATH . 'db_connect.php';
 
-    $sql = "SELECT  *
-                    FROM tbl_users u
-                    WHERE u.deleted = 0 
-                    AND u.user_email = (
-                        SELECT c.customer_email 
-                        FROM tbl_customers c
-                        WHERE c.deleted = 0 
-                        AND c.session_login = :session_login
-                    );";
+    $sql = "SELECT 
+                CASE
+                    WHEN u.user_name IS NOT NULL
+                    THEN 1
+                    ELSE 0
+                    END AS admin,
+                    c.*
+                FROM tbl_customers c
+                LEFT JOIN tbl_users u
+                ON u.user_email = c.customer_email
+                AND u.deleted = 0
+                WHERE c.deleted = 0 
+                AND c.session_login = :session_login;";
 
-    $user_status = $pdo->prepare($sql);
-    $user_status->bindParam(':session_login', $session_login);
-    $user_status->execute();
+            
 
-
-
-    if ($user_status->rowCount() > 0) {
-        $user_data = $user_status->fetch(PDO::FETCH_ASSOC);
-        $full_name = $user_data['full_name'];
-        $count = 1;
-    }else{
-        $sql_customer = "SELECT *
-                 FROM tbl_customers 
-                 WHERE deleted = 0 
-                 AND session_login = :session_login";
-
-        $customer_status = $pdo->prepare($sql_customer);
-        $customer_status->bindParam(':session_login', $session_login);
-        $customer_status->execute();
+    $customer_status = $pdo->prepare($sql);
+    $customer_status->bindParam(':session_login', $session_login);
+    $customer_status->execute();
 
         // Kiểm tra xem có kết quả không
-        if ($customer_status->rowCount() > 0) {
-            $customer_data = $customer_status->fetch(PDO::FETCH_ASSOC);
-            $full_name = $customer_data['customer_name']; // Gán customer_name vào $full_name
-        } else {
-            $full_name = ''; // Nếu không tìm thấy customer_name
-        }
+    if ($customer_status->rowCount() > 0) {
+        $customer_data = $customer_status->fetch(PDO::FETCH_ASSOC);
+        $full_name = $customer_data['customer_name']; // Gán customer_name vào $full_name
+        $admin =    $customer_data['admin'];
+    } else {
+        $full_name = ''; // Nếu không tìm thấy customer_name
     }
 }
+
 
 ?>
 
@@ -78,7 +69,7 @@ if (isset($_SESSION['session_login'])){
             <li>
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="<?php echo LOCAL_URL . 'src/Public/contact_us.php' ?>">
                             <span><i class="bi bi-phone" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Contact Us </div>
                         </a>
@@ -89,7 +80,7 @@ if (isset($_SESSION['session_login'])){
                             <div class="smalltext">My Cart </div>
                         </a>
                     </li>
-                    <?php if ($count > 0): ?>
+                    <?php if ($admin > 0): ?>
                         <li>
                             <a href="<?php echo LOCAL_URL . 'src/admin/admin.php' ?>">
                                 <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
