@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2024 at 08:33 PM
+-- Generation Time: Oct 12, 2024 at 12:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -66,6 +66,8 @@ CREATE TABLE `tbl_customers` (
   `customer_city` varchar(100) DEFAULT NULL,
   `customer_country` varchar(100) DEFAULT NULL,
   `customer_image_path` varchar(200) DEFAULT NULL,
+  `session_login` varchar(255) DEFAULT NULL,
+  `session_date` varchar(255) DEFAULT NULL,
   `created_date` datetime DEFAULT current_timestamp(),
   `update_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted` tinyint(1) DEFAULT 0
@@ -75,11 +77,11 @@ CREATE TABLE `tbl_customers` (
 -- Dumping data for table `tbl_customers`
 --
 
-INSERT INTO `tbl_customers` (`customer_guid`, `customer_code`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_address`, `customer_city`, `customer_country`, `customer_image_path`, `created_date`, `update_date`, `deleted`) VALUES
-('56e79337-7f50-11ef-81a7-e0d55e8c', 'USR0001', 'Đỗ Hoàng Linh', 'DoHoangLinh@aptechlearning.edu.vn', '123456', '0366202085', '', 'Hà Nội', 'Việt Nam', NULL, '2024-10-01 00:20:50', '2024-10-06 16:36:10', NULL),
-('56e7a3e8-7f50-11ef-81a7-e0d55e8c', 'USR0002', 'Vũ Việt Hoàng', 'hoang.vv.2497@aptechlearning.edu.vn', '123456', '0324656042', '', 'Hà Nội', 'Việt Nam', NULL, '2024-10-01 00:20:50', '2024-10-06 16:36:20', NULL),
-('56e7a53c-7f50-11ef-81a7-e0d55e8c', 'hoangvv2', 'Võ Văn Hoàng', 'vovanhoang1999@gmail.com', '123456', '0324673961', '', 'Hà Nội', 'Việt Nam', NULL, '2024-10-01 00:20:50', '2024-10-06 16:36:27', NULL),
-('56e7a5bb-7f50-11ef-81a7-e0d55e8c', 'hoangvv', 'Vũ Việt Hoàng', 'vuviethoang1941991@gmail.com', '123456', '0349401683', '', 'Hà Nội', 'Việt Nam', NULL, '2024-10-01 00:20:50', '2024-10-06 16:36:33', NULL);
+INSERT INTO `tbl_customers` (`customer_guid`, `customer_code`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_address`, `customer_city`, `customer_country`, `customer_image_path`, `session_login`, `session_date`, `created_date`, `update_date`, `deleted`) VALUES
+('56e79337-7f50-11ef-81a7-e0d55e8c', 'USR0001', 'Đỗ Hoàng Linh', 'DoHoangLinh@aptechlearning.edu.vn', '123456', '0366202085', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0),
+('56e7a3e8-7f50-11ef-81a7-e0d55e8c', 'USR0002', 'Vũ Việt Hoàng', 'hoang.vv.2497@aptechlearning.edu.vn', '123456', '0324656042', '', 'Hà Nội', 'Việt Nam', NULL, '4985bca07c795a17fe806fc81e2c6934', '2024-10-10 00:57:20', '2024-10-01 00:20:50', '2024-10-10 00:57:20', 0),
+('56e7a53c-7f50-11ef-81a7-e0d55e8c', 'hoangvv2', 'Võ Văn Hoàng', 'vovanhoang1999@gmail.com', '123456', '0324673961', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0),
+('56e7a5bb-7f50-11ef-81a7-e0d55e8c', 'hoangvv', 'Vũ Việt Hoàng', 'vuviethoang1941991@gmail.com', '123456', '0349401683', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0);
 
 --
 -- Triggers `tbl_customers`
