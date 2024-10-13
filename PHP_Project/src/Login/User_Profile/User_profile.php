@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kiểm tra email
     if (!filter_var($NewEmail, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Email không hợp lệ.";
+        $errors[] = "Invalid email.";
     }
 
     // Nếu không có lỗi
@@ -78,16 +78,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Thực hiện câu lệnh
         if ($stmt->execute()) {
-            echo "<script>alert('Cập nhật thành công thông tin của bạn!');</script>";
             echo "<script>
-                    document.getElementById('displayName').innerText = '$NewName';
-                    document.getElementById('displayPhone').innerText = '$NewPhone';
-                    document.getElementById('displayCity').innerText = '$NewCity';
-                    document.getElementById('address-display').innerText = '$NewAddress'; // Cập nhật địa chỉ hiển thị
-                    resetForm(); 
+                    alert('Your information has been successfully updated!');
+                    // document.getElementById('displayName').innerText = '$NewName';
+                    // document.getElementById('displayPhone').innerText = '$NewPhone';
+                    // document.getElementById('displayCity').innerText = '$NewCity'; 
+                    resetForm();
                   </script>";
+            header("Location: http://localhost/project_aptech/PHP_Project/index.php?pages=home");
         } else {
-            echo "<div class='alert alert-danger'>Cập nhật thất bại.</div>";
+            echo "<div class='alert alert-danger'>Update failed.</div>";
         }
     } else {
         // Nếu có lỗi, hiển thị lỗi
@@ -122,16 +122,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="sidebar collapse d-md-block" id="menu">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#" data-target="profileInfo" onclick="showSection('profileInfo')">Hồ Sơ</a>
+                                <a class="nav-link active" href="#" data-target="profileInfo" onclick="showSection('profileInfo')">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="orders" onclick="showSection('orders')">Đơn Hàng Của Tôi</a>
+                                <a class="nav-link" href="#" data-target="orders" onclick="showSection('orders')">My Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="customers" onclick="showSection('customers')">Khách Hàng Thân Thiết</a>
+                                <a class="nav-link" href="#" data-target="customers" onclick="showSection('customers')">Loyal Customers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="addresses" onclick="showSection('addresses')">Địa Chỉ Nhận Hàng</a>
+                                <a class="nav-link" href="#" data-target="addresses" onclick="showSection('addresses')">Shipping Address</a>
                             </li>
                         </ul>
                     </div>
@@ -141,29 +141,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-md-6 content">
                     <div class="container text-center">   
                         <div id="profileInfo">
-                            <h3>Profile User</h3>
+                            <h3>User Profile</h3>
                             <h2><i class="bi bi-person-circle" id="iconUser"></i></h2>
-                            <p><strong>Họ Tên:</strong> <span id="displayName"><?= htmlspecialchars($full_name); ?></span></p>
-                            <p><strong>SĐT:</strong> <span id="displayPhone"><?= htmlspecialchars($customer_phone); ?></span></p>
+                            <p><strong>Full Name:</strong> <span id="displayName"><?= htmlspecialchars($full_name); ?></span></p>
+                            <p><strong>Phone Number:</strong> <span id="displayPhone"><?= htmlspecialchars($customer_phone); ?></span></p>
                             <p><strong>City:</strong> <span id="displayCity"><?= htmlspecialchars($customer_city); ?></span></p>
-                            <button class="btn btn-primary" onclick="toggleEditForm()">Chỉnh Sửa Thông Tin</button>
+                            <button class="btn btn-primary" onclick="toggleEditForm()">Edit Information</button>
                         </div>
-                        <!-- chinh sửa tt -->
+                        <!-- Edit information -->
                         <div id="editForm" class="hidden">
-                            <h4>Chỉnh Sửa Thông Tin</h4>
-                            <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" >
+                            <h4>Edit Information</h4>
+                            <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" novalidate>
                                 <div class="form-group">
-                                    <label for="name">Họ Tên:</label>
+                                    <label for="name">Full Name:</label>
                                     <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($full_name); ?>" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="phone">SĐT:</label>
+                                    <label for="phone">Phone Number:</label>
                                     <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($customer_phone); ?>" >
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
                                     <select class="form-control" id="city" name="city" >
-                                        <option value="">-- Chọn tỉnh --</option>
+                                        <option value="<?= htmlspecialchars($customer_city); ?>"><?= htmlspecialchars($customer_city); ?></option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                         <option value="Đà Nẵng">Đà Nẵng</option>
@@ -224,17 +224,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <input type="email" class="form-control" id="email" name="email" placeholder="<?= htmlspecialchars($maskedEmail); ?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">Địa chỉ nhận hàng:</label>
+                                    <label for="address">Shipping Address:</label>
                                     <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($customer_address); ?>" required>
                                 </div>
-                                <button type="submit" class="btn btn-success">Lưu Thay Đổi</button>
-                                <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Hủy</button>
+                                <button type="submit" class="btn btn-success" >Save</button>
+                                <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancle</button>
                             </form>
                         </div>
                         <div id="orders" class="hidden">Nội dung Đơn Hàng Của Tôi...</div>
                         <div id="customers" class="hidden">Nội dung Khách Hàng Thân Thiết...</div>
                         <div id="addresses" class="hidden">
-                            <h3>Địa chỉ nhận hàng:</h3>
+                            <h3>Shipping Address:</h3>
                             <!-- Hiển thị địa chỉ -->
                             <div id="address-display">
                                 <p><?php echo $customer_address; ?></p>
@@ -254,9 +254,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         function resetForm() {
             document.getElementById('name').value = "<?= htmlspecialchars($full_name); ?>";
             document.getElementById('phone').value = "<?= htmlspecialchars($customer_phone); ?>";
+            document.getElementById('address').value = "<?= htmlspecialchars($customer_address); ?>";
         }
         function showSection(sectionId) {
-            const sections = ['profileInfo', 'orders', 'customers', 'addresses', 'logout'];
+            const sections = ['profileInfo', 'orders', 'customers', 'addresses'];
             sections.forEach(section => {
                 const el = document.getElementById(section);
                 if (section === sectionId) {
@@ -274,7 +275,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const editForm = document.getElementById('editForm');
             profileInfo.classList.toggle('hidden');
             editForm.classList.toggle('hidden');
-}
+        }
         // Ẩn phần chỉnh sửa và hiện phần thông tin
         function cancelEdit() {
             const profileInfo = document.getElementById('profileInfo');
@@ -290,11 +291,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const phone = document.getElementById('phone').value;
             const gender = document.getElementById('city').value;
             const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
 
             // Kiểm tra định dạng email
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
-            alert("Email không đúng định dạng!");
+            alert("Email format is incorrect!");
             return false;
             }
         }
