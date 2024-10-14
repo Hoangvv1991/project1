@@ -24,7 +24,6 @@ $publicPath = 'http://localhost' . $relativePath . '/' ;
 define('LOCAL_URL',  $publicPath); // http://localhost/project_aptech/PHP_Project/
 
 
-
 define('PUBLIC_PATH', BASE_URL . 'src/public/');
 
 // Đường dẫn tương đối đến thư mục chứa hình ảnh

@@ -2,13 +2,14 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+include API_PATH . 'db_connect.php';
 // Lấy thông tin username từ session
 $session_login = '';
 $full_name = '';
+
 if (isset($_SESSION['session_login'])) {
     $session_login = $_SESSION['session_login'];
-
-    include API_PATH . 'db_connect.php';
 
     $sql = "SELECT  *
                  FROM tbl_users u
@@ -40,7 +41,8 @@ if (isset($_SESSION['session_login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src\admin\Public\style.css'?>">
 </head>
 
 <body>
@@ -53,7 +55,7 @@ if (isset($_SESSION['session_login'])) {
             </li>
             <li>
                 <div class="user-icon">
-                    <img id="avatar" src="avt.jpg" alt="User Avatar" class="avatar">
+                    <img id="avatar" src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt="User Avatar" class="avatar">
                     <div class="smalltext"><?= htmlspecialchars($full_name); ?></div>
                 </div>
             </li>

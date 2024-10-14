@@ -258,11 +258,14 @@ if (isset($_SESSION['session_login'])){
         </nav>
     </header>
 
-    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Main_list.css' ?>">
+    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Main_list.css'; ?>">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+                        
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 </body>
 
