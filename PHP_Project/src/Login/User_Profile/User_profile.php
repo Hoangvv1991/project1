@@ -6,10 +6,17 @@ include API_PATH . 'db_connect.php';
 
 <!-- lấy dữ liệu người dùng -->
 <?php
+    $confirm_guid = $customer_data['customer_guid'];
     $customer_phone = $customer_data['customer_phone'];
     $customer_address = $customer_data['customer_address'];
     $customer_city = $customer_data['customer_city'];
     $customer_email = $customer_data['customer_email'];
+    if (isset($customer_data['customer_image_path'])) {
+       $customer_avatar = $customer_data['customer_image_path'];
+    } else {
+        $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
+    }
+
 ?>
 <!-- ẩn email -->
 <?php
@@ -96,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -105,13 +113,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.css">
+    <link rel="stylesheet" href="<?PHP echo LOCAL_URL . 'src/login/User_Profile/User_profile.css'?>">
 </head>
 
 <body>
     <main class="container">
         <div class="container-fluid">
-            <h5><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home">Home</a>/User Profile</h5>
+            <h5><a href="<?PHP echo LOCAL_URL . 'index.php?pages=home'?>">Home</a>/User Profile</h5>
             <div class="row">
                 <!-- Cột 4 phần - chứa menu dọc -->
                 <div class="col-md-4">
@@ -142,7 +150,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="container text-center">   
                         <div id="profileInfo">
                             <h3>Profile User</h3>
-                            <h2><i class="bi bi-person-circle" id="iconUser"></i></h2>
+                            <div class="avatar-container">
+                                <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Avatar" id="avatar-image">
+                                <i class="fas fa-camera camera-icon"></i>
+                            </div>
                             <p><strong>Họ Tên:</strong> <span id="displayName"><?= htmlspecialchars($full_name); ?></span></p>
                             <p><strong>SĐT:</strong> <span id="displayPhone"><?= htmlspecialchars($customer_phone); ?></span></p>
                             <p><strong>City:</strong> <span id="displayCity"><?= htmlspecialchars($customer_city); ?></span></p>
@@ -151,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <!-- chinh sửa tt -->
                         <div id="editForm" class="hidden">
                             <h4>Chỉnh Sửa Thông Tin</h4>
-                            <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" >
+                            <form id="profileEditForm" action="<?PHP echo LOCAL_URL . 'src/login/User_Profile/User_profile.php'?>" method="POST" onsubmit="return updateProfile()" >
                                 <div class="form-group">
                                     <label for="name">Họ Tên:</label>
                                     <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($full_name); ?>" >
@@ -246,11 +257,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </main>
     
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Popup Upload Image -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="<?= $row['avatar']; ?>" alt="Current Avatar" id="current-avatar" style="width: 100px; height: 100px; object-fit: cover;">
+                    </div>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($confirm_guid); ?>"> 
+                            <label for="avatar">Choose a new avatar (jpg, png, gif):</label>
+                            <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg, .png, .gif" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+
+    $(document).ready(function () {
+        $('.avatar-container').click(function () {
+            $('#uploadModal').modal('show');
+        });
+
+        $('#uploadForm').on('submit', function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: 'Upload_avatar.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#avatar-image').attr('src', response);
+                    $('#uploadModal').modal('hide');
+                }
+            });
+        });
+
+        $('.close').click(function () {
+            $('#uploadModal').modal('hide');
+        });
+    });
+
+    $('#uploadModal').on('hidden.bs.modal', function () {
+        $('#avatar').val(''); // Xóa nội dung của input khi đóng popup
+    });
+
         function resetForm() {
             document.getElementById('name').value = "<?= htmlspecialchars($full_name); ?>";
             document.getElementById('phone').value = "<?= htmlspecialchars($customer_phone); ?>";
@@ -298,7 +363,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return false;
             }
         }
+
+        // Mở popup upload ảnh
+function openImageUploadModal() {
+    const imageModal = new bootstrap.Modal(document.getElementById('imageUploadModal'));
+    imageModal.show();
+}
+
+// Upload ảnh và hiển thị tạm
+function uploadProfileImage() {
+    const formData = new FormData(document.getElementById('imageUploadForm'));
+
+    fetch('upload_image.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Hiển thị ảnh đã upload tạm thời
+            document.getElementById('iconUser').src = data.tempImagePath;
+        } else {
+            alert(data.message || 'Error uploading image');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
     </script>
+
 </body>
 
 </html>
