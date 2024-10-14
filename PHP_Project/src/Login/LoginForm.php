@@ -1,110 +1,169 @@
-<?php
-include_once __DIR__ . '../../../config.php';
-// Bắt đầu session
-session_start();
-
-// Import file kết nối PDO
-include '../api/db_connect.php';
-
-// Biến lưu thông báo lỗi
-$error = "";
-
-// Kiểm tra khi form được submit
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy thông tin từ form
-    $customer_email = $_POST['username'];
-    $customer_password  = $_POST['password'];
-
-    // Truy vấn cơ sở dữ liệu để kiểm tra thông tin đăng nhập
-    $sql = "SELECT * FROM tbl_customers 
-            where 1 AND 
-            customer_email = :username
-            AND customer_password = :password
-            LIMIT 1
-            ";
-
-    $stmt = $pdo->prepare($sql);
-    
-    // Liên kết giá trị vào các placeholders
-    $stmt->bindParam(':username', $customer_email);
-    $stmt->bindParam(':password', $customer_password);
-    
-    // Thực thi câu truy vấn
-    $stmt->execute();
-
-    // Kiểm tra nếu tồn tại kết quả
-    if ($stmt->rowCount() > 0) {
-        // Tạo mã MD5 mới
-        $new_session_login = md5(uniqid(rand(), true));
-
-        // Cập nhật session_login và session_date
-        // Cập nhật session_login và session_date
-        $update_sql = "UPDATE tbl_customers 
-                        SET session_login = :session_login, session_date = NOW()
-                        WHERE customer_email = :username AND customer_password = :password";
-        $update_stmt = $pdo->prepare($update_sql);
-        $update_stmt->execute(['session_login' => $new_session_login, 'username' => $customer_email, 'password' => $customer_password]);
-
-        $_SESSION['session_login'] = $new_session_login;
-
-        // if ($conn->query($update_sql) === TRUE) {
-        //     // Nếu cập nhật thành công, gán session_login vào PHP session
-        //     $_SESSION['session_login'] = $new_session_login;
-        //     echo "Đăng nhập thành công và cập nhật session_login!";
-        // } else {
-        //     echo "Lỗi khi cập nhật session_login: " . $conn->error;
-        // }
-
-        header("Location: ../../index.php?page=home"); // Chuyển hướng đến trang dashboard sau khi đăng nhập
-        exit();
-    } else {
-        $error = "Incorrect login information!";
-    }
-}
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Link Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="LoginForm.css" rel="stylesheet">
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="loginform2.css"> <!-- Đường dẫn đến file CSS -->
 </head>
 <body>
+    <div class="login-container">
+        <div class="card-inner">
+            <!-- Card Login -->
+            <div class="card-login">
+                <form id="login-form" class="login-form" method="post" action="login.php">
+                    <h2 class="login-title">Login</h2>
+                    <div class="input-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" class="login-input" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" class="login-input" required />
+                    </div>
+                    <button type="submit" class="login-button">Login</button>
+                    <p class="trans-p" onclick="handleCreateUser()">Create new user</p>
+                </form>
+            </div>
 
-<div class="container" id="containerLogin">
-    <div class="row justify-content-center">
-        <div class="col-md-4" id="divform">
-            <h2 class="text-center mt-5"><img src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt=""></h2>
-            <!-- <?php if (!empty($error)): ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $error ?>
-                </div>
-            <?php endif; ?> -->
-            <form action="" method="POST">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100" id="button">Login</button>
-                <!-- Thêm nút đăng ký -->
-                <div class="mt-3 text-center">
-                    <p>Don't have an account? <a href="Register/RegisterForm.php">Register</a></p>
-                </div>
-            </form>
+            <!-- Card Register -->
+            <div class="card-register">
+                <form id="register-form" class="login-form" method="post" action="register.php" onsubmit="return validateForm()">
+                    <h2 class="login-title">Register</h2>
+
+                    <!-- Full Name -->
+                    <div class="input-group">
+                        <label for="full-name">Họ và Tên:</label>
+                        <input type="text" id="full_name" name="full_name" class="login-input" required />
+                        <div id="full_name-error" class="text-danger" style="display:none;"></div>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="input-group">
+                        <label for="register-username">Username:</label>
+                        <input type="text" id="username" name="register_username" class="login-input" required />
+                        <div id="username-error" class="text-danger" style="display:none;"></div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group">
+                        <label for="register-email">Email:</label>
+                        <input type="email" id="email" name="register_email" class="login-input" required />
+                        <div id="email-error" class="text-danger" style="display:none;"></div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="input-group">
+                        <label for="register-phone">Số Điện Thoại:</label>
+                        <input type="tel" id="register-phone" name="register_phone" class="login-input" required />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label for="register-password">Password:</label>
+                        <input type="password" id="password" name="register_password" class="login-input" required />
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <label for="confirm-password">Xác Nhận Mật Khẩu:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="login-input" required />
+                        <div id="password-error" class="text-danger" style="display:none;"></div>
+                    </div>
+
+                    <button type="submit" class="login-button">Register</button>
+                    <p class="trans-p" onclick="handleBackToLogin()">Back to Login</p>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const username = document.getElementById('username').value;
+            const fullName = document.getElementById('full_name').value;
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+            const usernameError = document.getElementById('username-error');
+            const fullNameError = document.getElementById('full_name-error');
+
+            let valid = true;
+
+            // Reset previous error messages
+            usernameError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            fullNameError.textContent = "";
+
+            // Validate username length
+            if (username.length > 8) {
+                usernameError.textContent = "Username must be at most 8 characters.";
+                usernameError.style.display = "block";
+                document.getElementById('username').value = ""; // Clear the username
+                document.getElementById('username').focus(); // Focus on the username field
+                valid = false;
+            }
+
+            // Validate email format
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                emailError.textContent = "Invalid email format.";
+                emailError.style.display = "block";
+                document.getElementById('email').value = ""; // Clear the email
+                document.getElementById('email').focus(); // Focus on the email field
+                valid = false;
+            }
+
+            // Validate full name
+            if (fullName.trim() === "") {
+                fullNameError.textContent = "Full Name is required.";
+                fullNameError.style.display = "block";
+                document.getElementById('full_name').value = ""; // Clear the full name
+                document.getElementById('full_name').focus(); // Focus on the full name field
+                valid = false;
+            }
+
+            // Validate password match
+            if (password !== confirmPassword) {
+                passwordError.textContent = "Passwords do not match.";
+                passwordError.style.display = "block";
+                document.getElementById('confirm_password').value = ""; // Clear the confirm password
+                document.getElementById('confirm_password').focus(); // Focus on the confirm password field
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        // Function to hide error messages after 5 seconds
+        function hideErrorMessages() {
+            const errorMessages = document.querySelectorAll('.text-danger');
+            errorMessages.forEach(error => {
+                if (error.style.display === "block") {
+                    setTimeout(() => {
+                        error.style.display = "none";
+                    }, 5000); // Hide after 5 seconds
+                }
+            });
+        }
+        let isFlipped = false;
+
+        function handleCreateUser() {
+            isFlipped = true; // Đặt trạng thái thành lật
+            const container = document.querySelector('.login-container');
+            container.classList.add('is-flipped'); // Thêm lớp lật
+        }
+
+        function handleBackToLogin() {
+            isFlipped = false; // Đặt trạng thái về không lật
+            const container = document.querySelector('.login-container');
+            container.classList.remove('is-flipped'); // Xóa lớp lật
+        }
+
+        // Call hideErrorMessages function when the page loads
+        window.onload = hideErrorMessages;
+    </script>
 </body>
 </html>
