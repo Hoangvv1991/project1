@@ -1,17 +1,71 @@
+<?php
+include_once __DIR__ . '../../../config.php';
+// Bắt đầu session
+session_start();
+
+// Import file kết nối PDO
+include '../api/db_connect.php';
+
+// Biến lưu thông báo lỗi
+$error = "";
+
+// Kiểm tra khi form được submit
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Lấy thông tin từ form
+    $customer_email = $_POST['username'];
+    $customer_password  = $_POST['password'];
+
+    // Truy vấn cơ sở dữ liệu để kiểm tra thông tin đăng nhập
+    $sql = "SELECT * FROM tbl_customers 
+            WHERE customer_email = :username
+            AND customer_password = :password
+            LIMIT 1";
+
+    $stmt = $pdo->prepare($sql);
+    
+    // Liên kết giá trị vào các placeholders
+    $stmt->bindParam(':username', $customer_email);
+    $stmt->bindParam(':password', $customer_password);
+    
+    // Thực thi câu truy vấn
+    $stmt->execute();
+
+    // Kiểm tra nếu tồn tại kết quả
+    if ($stmt->rowCount() > 0) {
+        // Tạo mã MD5 mới
+        $new_session_login = md5(uniqid(rand(), true));
+
+        // Cập nhật session_login và session_date
+        $update_sql = "UPDATE tbl_customers 
+                        SET session_login = :session_login, session_date = NOW()
+                        WHERE customer_email = :username AND customer_password = :password";
+        $update_stmt = $pdo->prepare($update_sql);
+        $update_stmt->execute(['session_login' => $new_session_login, 'username' => $customer_email, 'password' => $customer_password]);
+
+        $_SESSION['session_login'] = $new_session_login;
+
+        // Chuyển hướng đến trang dashboard sau khi đăng nhập
+        header("Location: ../../index.php?page=home");
+        exit();
+    } else {
+        $error = "Thông tin đăng nhập không chính xác!";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Register</title>
-    <link rel="stylesheet" href="loginform2.css"> <!-- Đường dẫn đến file CSS -->
+    <link rel="stylesheet" href="loginform.css"> <!-- Đường dẫn đến file CSS -->
 </head>
 <body>
     <div class="login-container">
         <div class="card-inner">
             <!-- Card Login -->
             <div class="card-login">
-                <form id="login-form" class="login-form" method="post" action="login.php">
+                <form id="login-form" class="login-form" method="post" action="loginForm.php">
                     <h2 class="login-title">Login</h2>
                     <div class="input-group">
                         <label for="username">Username:</label>
@@ -28,7 +82,7 @@
 
             <!-- Card Register -->
             <div class="card-register">
-                <form id="register-form" class="login-form" method="post" action="register.php" onsubmit="return validateForm()">
+                <form id="register-form" class="login-form" method="post" action="LoginForm.php" onsubmit="return validateForm()">
                     <h2 class="login-title">Register</h2>
 
                     <!-- Full Name -->
