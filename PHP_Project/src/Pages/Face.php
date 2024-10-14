@@ -89,7 +89,7 @@ try {
         echo '</main>'; // Đóng main
     } else {
         echo '<main class="container">';
-        echo "Không có sản phẩm nào để hiển thị.";
+        echo "There are no products to display.";
         echo '</main>';
     }
 } catch (PDOException $e) {

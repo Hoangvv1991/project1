@@ -52,10 +52,8 @@ label {
     width: 300px;
     margin: auto;
 }
-#profileInfo h2{
-    text-align: center;
-}
-#profileInfo p{
+
+#profileInfo p {
     display: flex;
     justify-content: space-between; /* Khoảng cách đều giữa các phần tử */
     align-items: center; /* Căn giữa dọc */
@@ -63,18 +61,50 @@ label {
     border-bottom: 1px solid gray;
     padding-bottom: 10px;
 }
+
 #profileInfo h3{
     text-align: center;
     color: orangered;
 }
+
 #profileInfo button{
     margin: auto;
     display: block;
     text-align: center;
     margin-top: 30px;
 }
+
 #iconUser{
     color: orangered;
     font-size: 100px;
 }
 /* Các style khác... */
+.avatar-container {
+    position: relative;
+    width: 3cm;
+    height: 3cm;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto; /* Căn giữa phần tử */
+}
+.avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+.avatar-container:hover img {
+    opacity: 0.5;
+}
+.avatar-container:hover .camera-icon {
+    display: block;
+}
+.camera-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    color: gray; /* Màu xám cho icon camera */
+    font-size: 2rem;
+}

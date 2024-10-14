@@ -78,7 +78,7 @@ try {
             echo '<img src="' . LOCAL_URL . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
             echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
             echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
-            echo '<button>Mua hàng</button>';
+            echo '<button>Buy</button>';
             echo '</div>';
         }
 
@@ -86,7 +86,7 @@ try {
         echo '</main>';
     } else {
         echo '<main class="container">';
-        echo "Không có sản phẩm nào để hiển thị.";
+        echo "There are no products to display.";
         echo '</main>';
     }
 } catch (PDOException $e) {

@@ -6,10 +6,17 @@ include API_PATH . 'db_connect.php';
 
 <!-- lấy dữ liệu người dùng -->
 <?php
+    $confirm_guid = $customer_data['customer_guid'];
     $customer_phone = $customer_data['customer_phone'];
     $customer_address = $customer_data['customer_address'];
     $customer_city = $customer_data['customer_city'];
     $customer_email = $customer_data['customer_email'];
+    if (isset($customer_data['customer_image_path'])) {
+       $customer_avatar = $customer_data['customer_image_path'];
+    } else {
+        $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
+    }
+
 ?>
 <!-- ẩn email -->
 <?php
@@ -52,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kiểm tra email
     if (!filter_var($NewEmail, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Email không hợp lệ.";
+        $errors[] = "Invalid email.";
     }
 
     // Nếu không có lỗi
@@ -78,16 +85,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Thực hiện câu lệnh
         if ($stmt->execute()) {
-            echo "<script>alert('Cập nhật thành công thông tin của bạn!');</script>";
             echo "<script>
-                    document.getElementById('displayName').innerText = '$NewName';
-                    document.getElementById('displayPhone').innerText = '$NewPhone';
-                    document.getElementById('displayCity').innerText = '$NewCity';
-                    document.getElementById('address-display').innerText = '$NewAddress'; // Cập nhật địa chỉ hiển thị
-                    resetForm(); 
+                    alert('Your information has been successfully updated!');
+                    // document.getElementById('displayName').innerText = '$NewName';
+                    // document.getElementById('displayPhone').innerText = '$NewPhone';
+                    // document.getElementById('displayCity').innerText = '$NewCity'; 
+                    resetForm();
                   </script>";
+            header("Location: http://localhost/project_aptech/PHP_Project/index.php?pages=home");
         } else {
-            echo "<div class='alert alert-danger'>Cập nhật thất bại.</div>";
+            echo "<div class='alert alert-danger'>Update failed.</div>";
         }
     } else {
         // Nếu có lỗi, hiển thị lỗi
@@ -96,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -105,13 +113,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.css">
+    <link rel="stylesheet" href="<?PHP echo LOCAL_URL . 'src/login/User_Profile/User_profile.css'?>">
 </head>
 
 <body>
     <main class="container">
         <div class="container-fluid">
-            <h5><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home">Home</a>/User Profile</h5>
+            <h5><a href="<?PHP echo LOCAL_URL . 'index.php?pages=home'?>">Home</a>/User Profile</h5>
             <div class="row">
                 <!-- Cột 4 phần - chứa menu dọc -->
                 <div class="col-md-4">
@@ -122,16 +130,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="sidebar collapse d-md-block" id="menu">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#" data-target="profileInfo" onclick="showSection('profileInfo')">Hồ Sơ</a>
+                                <a class="nav-link active" href="#" data-target="profileInfo" onclick="showSection('profileInfo')">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="orders" onclick="showSection('orders')">Đơn Hàng Của Tôi</a>
+                                <a class="nav-link" href="#" data-target="orders" onclick="showSection('orders')">My Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="customers" onclick="showSection('customers')">Khách Hàng Thân Thiết</a>
+                                <a class="nav-link" href="#" data-target="customers" onclick="showSection('customers')">Loyal Customers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-target="addresses" onclick="showSection('addresses')">Địa Chỉ Nhận Hàng</a>
+                                <a class="nav-link" href="#" data-target="addresses" onclick="showSection('addresses')">Shipping Address</a>
                             </li>
                         </ul>
                     </div>
@@ -141,29 +149,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-md-6 content">
                     <div class="container text-center">   
                         <div id="profileInfo">
-                            <h3>Profile User</h3>
-                            <h2><i class="bi bi-person-circle" id="iconUser"></i></h2>
-                            <p><strong>Họ Tên:</strong> <span id="displayName"><?= htmlspecialchars($full_name); ?></span></p>
-                            <p><strong>SĐT:</strong> <span id="displayPhone"><?= htmlspecialchars($customer_phone); ?></span></p>
+                            <h3>User Profile</h3>
+                            <div class="avatar-container">
+                                <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Avatar" id="avatar-image">
+                                <i class="fas fa-camera camera-icon"></i>
+                            </div>
+                            <p><strong>Full Name:</strong> <span id="displayName"><?= htmlspecialchars($full_name); ?></span></p>
+                            <p><strong>Phone Number:</strong> <span id="displayPhone"><?= htmlspecialchars($customer_phone); ?></span></p>
                             <p><strong>City:</strong> <span id="displayCity"><?= htmlspecialchars($customer_city); ?></span></p>
-                            <button class="btn btn-primary" onclick="toggleEditForm()">Chỉnh Sửa Thông Tin</button>
+                            <button class="btn btn-primary" onclick="toggleEditForm()">Edit Information</button>
                         </div>
-                        <!-- chinh sửa tt -->
+                        <!-- Edit information -->
                         <div id="editForm" class="hidden">
-                            <h4>Chỉnh Sửa Thông Tin</h4>
-                            <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" >
+                            <h4>Edit Information</h4>
+                            <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" novalidate>
                                 <div class="form-group">
-                                    <label for="name">Họ Tên:</label>
+                                    <label for="name">Full Name:</label>
                                     <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($full_name); ?>" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="phone">SĐT:</label>
+                                    <label for="phone">Phone Number:</label>
                                     <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($customer_phone); ?>" >
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
                                     <select class="form-control" id="city" name="city" >
-                                        <option value="">-- Chọn tỉnh --</option>
+                                        <option value="<?= htmlspecialchars($customer_city); ?>"><?= htmlspecialchars($customer_city); ?></option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                         <option value="Đà Nẵng">Đà Nẵng</option>
@@ -224,17 +235,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <input type="email" class="form-control" id="email" name="email" placeholder="<?= htmlspecialchars($maskedEmail); ?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">Địa chỉ nhận hàng:</label>
+                                    <label for="address">Shipping Address:</label>
                                     <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($customer_address); ?>" required>
                                 </div>
-                                <button type="submit" class="btn btn-success">Lưu Thay Đổi</button>
-                                <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Hủy</button>
+                                <button type="submit" class="btn btn-success" >Save</button>
+                                <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancle</button>
                             </form>
                         </div>
                         <div id="orders" class="hidden">Nội dung Đơn Hàng Của Tôi...</div>
                         <div id="customers" class="hidden">Nội dung Khách Hàng Thân Thiết...</div>
                         <div id="addresses" class="hidden">
-                            <h3>Địa chỉ nhận hàng:</h3>
+                            <h3>Shipping Address:</h3>
                             <!-- Hiển thị địa chỉ -->
                             <div id="address-display">
                                 <p><?php echo $customer_address; ?></p>
@@ -246,17 +257,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </main>
     
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Popup Upload Image -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Current Avatar" id="current-avatar" style="width: 100px; height: 100px; object-fit: cover;">
+                    </div>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($confirm_guid); ?>"> 
+                            <label for="avatar">Choose a new avatar (jpg, png, gif):</label>
+                            <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg, .png, .gif" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+
+    $(document).ready(function () {
+        $('.avatar-container').click(function () {
+            $('#uploadModal').modal('show');
+        });
+
+        $('#uploadForm').on('submit', function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: 'Upload_avatar.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#avatar-image').attr('src', response);
+                    $('#uploadModal').modal('hide');
+                }
+            });
+        });
+
+        $('.close').click(function () {
+            $('#uploadModal').modal('hide');
+        });
+    });
+
+    $('#uploadModal').on('hidden.bs.modal', function () {
+        $('#avatar').val(''); // Xóa nội dung của input khi đóng popup
+    });
+
         function resetForm() {
             document.getElementById('name').value = "<?= htmlspecialchars($full_name); ?>";
             document.getElementById('phone').value = "<?= htmlspecialchars($customer_phone); ?>";
+            document.getElementById('address').value = "<?= htmlspecialchars($customer_address); ?>";
         }
         function showSection(sectionId) {
-            const sections = ['profileInfo', 'orders', 'customers', 'addresses', 'logout'];
+            const sections = ['profileInfo', 'orders', 'customers', 'addresses'];
             sections.forEach(section => {
                 const el = document.getElementById(section);
                 if (section === sectionId) {
@@ -274,7 +340,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const editForm = document.getElementById('editForm');
             profileInfo.classList.toggle('hidden');
             editForm.classList.toggle('hidden');
-}
+        }
         // Ẩn phần chỉnh sửa và hiện phần thông tin
         function cancelEdit() {
             const profileInfo = document.getElementById('profileInfo');
@@ -290,15 +356,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const phone = document.getElementById('phone').value;
             const gender = document.getElementById('city').value;
             const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
 
             // Kiểm tra định dạng email
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
-            alert("Email không đúng định dạng!");
+            alert("Email format is incorrect!");
             return false;
             }
         }
+
+        // Mở popup upload ảnh
+function openImageUploadModal() {
+    const imageModal = new bootstrap.Modal(document.getElementById('imageUploadModal'));
+    imageModal.show();
+}
+
+// Upload ảnh và hiển thị tạm
+function uploadProfileImage() {
+    const formData = new FormData(document.getElementById('imageUploadForm'));
+
+    fetch('upload_image.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Hiển thị ảnh đã upload tạm thời
+            document.getElementById('iconUser').src = data.tempImagePath;
+        } else {
+            alert(data.message || 'Error uploading image');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
     </script>
+
 </body>
 
 </html>

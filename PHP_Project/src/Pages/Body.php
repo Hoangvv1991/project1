@@ -80,14 +80,14 @@ try {
             echo '<img src="' . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
             echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
             echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
-            echo '<button>Mua hàng</button>';
+            echo '<button>Buy</button>';
             echo '</div>';
         }
 
         echo '</div>';
         echo '</main>';
     } else {
-        echo "Không có sản phẩm nào để hiển thị.";
+        echo "There are no products to display.";
     }
 } catch (PDOException $e) {
     echo "Lỗi truy vấn: " . $e->getMessage();
