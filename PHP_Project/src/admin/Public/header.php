@@ -7,7 +7,7 @@ include API_PATH . 'db_connect.php';
 // Lấy thông tin username từ session
 $session_login = '';
 $full_name = '';
-
+$customer_avatar = 'public\img\avt.jpg';
 if (isset($_SESSION['session_login'])) {
     $session_login = $_SESSION['session_login'];
 
@@ -25,9 +25,7 @@ if (isset($_SESSION['session_login'])) {
         $full_name = $user_data['full_name'];
         if (isset($user_data['customer_image_path'])) {
             $customer_avatar = $user_data['customer_image_path'];
-        } else {
-            $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
-    }
+        }
     } else {
         $full_name = '';
     }
@@ -61,3 +59,9 @@ if (isset($_SESSION['session_login'])) {
             </li>
         </ul>
     </header>
+        
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>

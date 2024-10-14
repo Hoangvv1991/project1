@@ -21,20 +21,21 @@ function getListProducts($currentPage,$perPage)
       $stt = 1;
     if (count($products) > 0) {
       foreach ($products as $product) {
-                echo "<tr>";
-        echo "<th scope='row'>{$stt}</th>";
-        echo "<td>{$product['product_code']}</td>";
-        echo "<td>{$product['product_name']}</td>";
-        echo "<td>{$product['category_name']}</td>";
-        echo "<td>{$product['stock']}</td>";
-        echo "<td>{$product['supplier_name']}</td>";
-        echo "<td><img src='" . LOCAL_URL . "{$product['image_path']}' width='50' class='img-thumbnail' /></td>";
+        echo "<tr>";
+        echo "<th scope='row'>" . htmlspecialchars($stt, ENT_QUOTES) . "</th>";
+        echo "<td>" . htmlspecialchars($product['product_code'], ENT_QUOTES) . "</td>";
+        echo "<td>" . htmlspecialchars($product['product_name'], ENT_QUOTES) . "</td>";
+        echo "<td>" . htmlspecialchars($product['category_name'], ENT_QUOTES) . "</td>";
+        echo "<td>" . htmlspecialchars($product['stock'], ENT_QUOTES) . "</td>";
+        echo "<td>" . htmlspecialchars($product['supplier_name'], ENT_QUOTES) . "</td>";
+        echo "<td><img src='" . LOCAL_URL . htmlspecialchars($product['image_path'], ENT_QUOTES) . "' width='50' class='img-thumbnail' /></td>";
         echo "<td>
             <button type='button' class='btn btn-sm btn-warning' data-toggle='modal' data-target='#addEditProductModal' 
-            onclick='openEditProductModal(\"{$product['product_guid']}\", \"{$product['product_code']}\", \"{$product['product_name']}\", \"{$product['category_name']}\", \"{$product['stock']}\", \"{$product['supplier_code']}\")'>Edit</button>
-            <button type='button' class='btn btn-sm btn-danger' data-toggle='modal' data-target='#deleteProductModal' onclick='openDeleteProductModal(\"{$product['product_guid']}\", \"{$product['product_name']}\")'>Delete</button>
+            onclick='openEditProductModal(\"" . htmlspecialchars($product['product_guid'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_code'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['category_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['stock'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['supplier_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['image_path'], ENT_QUOTES) . "\")'>Edit</button>
+            <button type='button' class='btn btn-sm btn-danger' data-toggle='modal' data-target='#deleteProductModal' onclick='openDeleteProductModal(\"" . htmlspecialchars($product['product_guid'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_name'], ENT_QUOTES) . "\")'>Delete</button>
         </td>";
         echo "</tr>";
+
         $stt++;
       }
     }
@@ -44,7 +45,7 @@ function getListProducts($currentPage,$perPage)
   }
 }
 
-function getTotalStudents()
+function getTotalProducts()
 {
     global $pdo;
     $query = "SELECT * FROM tbl_products";
@@ -119,8 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['delete_product'])) {
 
-        $product_guid = $_POST['delete_product'];
-
+        $product_guid= $_POST['delete_product'];
+        echo "<script type='text/javascript'>
+                debugger;
+                console.log('".$product_guid."');
+          </script>";
         $stmt = $conn->prepare("UPDATE tbl_products SET DELETED = 1 WHERE product_guid = :product_guid");
         $stmt->bindParam(':product_guid', $product_guid); // i là kiểu integer, dựa vào kiểu dữ liệu của ID trong cơ sở dữ liệu
         $stmt->execute();
@@ -196,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a class="page-link" href="?page=<?php echo ($currentPage > 1) ? ($currentPage - 1) : 1; ?>" tabindex="-1">Previous</a>
               </li>
                   <?php
-                      $totalStudents = getTotalStudents();
+                      $totalStudents = getTotalProducts();
                       //$totalStudents = 12;
                       $totalPages = ceil($totalStudents / $perPage);
                       for ($i = 1; $i <= $totalPages; $i++) {
@@ -217,51 +221,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Popup Add/Edit product -->
 <div class="modal fade" id="addEditProductModal" tabindex="-1" role="dialog" aria-labelledby="addEditProductModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 900px;">
+    <div class="modal-content" style="width: 100%;">
       <div class="modal-header">
         <h5 class="modal-title" id="addEditProductModalLabel">Add/Edit Product</h5>
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form id="addEditProductForm" action="" method="POST" enctype="multipart/form-data">
-          <input type="hidden" id="productIdHidden" name="productguid">
-          <div class="mb-3">
-            <label for="productCode" class="form-label">Product Code</label>
-            <input type="text" class="form-control" id="productCode" name="productCode" required>
-          </div>
-          <div class="mb-3">
-            <label for="productName" class="form-label">Product Name</label>
-            <input type="text" class="form-control" id="productName" name="productName" required>
-          </div>
-          <div class="mb-3">
-            <label for="productType" class="form-label">Category</label>
-            <input type="text" class="form-control" id="productType" name="productType" required>
-          </div>
-          <div class="mb-3">
-            <label for="productQuantity" class="form-label">Quantity</label>
-            <input type="number" class="form-control" id="productQuantity" name="productQuantity" required>
-          </div>
-          <div class="mb-3">
-            <label for="productSupplier" class="form-label">Supplier</label>
-            <input type="text" class="form-control" id="productSupplier" name="productSupplier" required>
-          </div>
-          <div class="mb-3">
-            <label for="productImage" class="form-label">Image</label>
-            <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*">
-          </div>
-        </form>
+      <div class="modal-body d-flex">
+        <!-- Image preview area -->
+      <div class="me-3" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+        <img id="currentProductImage" src="" alt="Current Product Image" class="img-thumbnail" 
+             style="width: auto; height: 400px; aspect-ratio: 3/4; object-fit: cover; display: none;">
       </div>
-      <div class="modal-footer">
+        <!-- Form area -->
+      <form id="addEditProductForm" action="" method="POST" enctype="multipart/form-data" style="flex: 1;">
+        <input type="hidden" id="productIdHidden" name="productguid">
+        <div class="mb-2">
+          <label for="productCode" class="form-label">Product Code</label>
+          <input type="text" class="form-control form-control-sm" id="productCode" name="productCode" required>
+        </div>
+        <div class="mb-2">
+          <label for="productName" class="form-label">Product Name</label>
+          <input type="text" class="form-control form-control-sm" id="productName" name="productName" required>
+        </div>
+        <div class="mb-2">
+          <label for="productType" class="form-label">Category</label>
+          <input type="text" class="form-control form-control-sm" id="productType" name="productType" required>
+        </div>
+        <div class="mb-2">
+          <label for="productQuantity" class="form-label">Quantity</label>
+          <input type="number" class="form-control form-control-sm" id="productQuantity" name="productQuantity" required>
+        </div>
+        <div class="mb-2">
+          <label for="productSupplier" class="form-label">Supplier</label>
+          <input type="text" class="form-control form-control-sm" id="productSupplier" name="productSupplier" required>
+        </div>
+        <div class="mb-2">
+          <label for="productImage" class="form-label">Image</label>
+          <input type="file" class="form-control form-control-sm" id="productImage" name="productImage" accept="image/*" onchange="previewImage(event)">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-primary" data-dismiss="modal" id="EdidAddButton" form="addEditProductForm">Save</button>
       </div>
     </div>
   </div>
 </div>
-
 
 <!-- ModalDeleted -->
 <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
@@ -286,6 +295,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <script>
+
+// Hàm xem trước ảnh khi người dùng chọn file
+function previewImage(event) {
+    const image = document.getElementById('currentProductImage');
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            image.src = e.target.result;
+            image.style.display = 'block'; // Hiển thị ảnh
+        }
+        reader.readAsDataURL(file);
+    } else {
+        image.src = '';
+        image.style.display = 'none'; // Ẩn nếu không có file
+    }
+}
+
+// Reset hình ảnh và input file khi modal bị đóng (cancel hoặc save)
+$('#addEditProductModal').on('hidden.bs.modal', function() {
+    const image = document.getElementById('currentProductImage');
+    const fileInput = document.getElementById('productImage'); // Tham chiếu đến input file
+
+    image.src = ''; // Xóa đường dẫn ảnh
+    image.style.display = 'none'; // Ẩn ảnh
+    fileInput.value = ''; // Xóa giá trị của input file
+});
+
 // Open popup to add new product
 function openAddProductModal() {
     document.getElementById('addEditProductModalLabel').textContent = 'Add Product';
@@ -296,11 +334,12 @@ function openAddProductModal() {
     document.getElementById('productQuantity').value = '';
     document.getElementById('productSupplier').value = '';
     document.getElementById('productImage').value = ''; // Reset file input
+
 }
 
 // Open popup to edit product
 //openEditProductModal(\"{$product['product_guid']}\",\"{$product['product_code']}\", \"{$product['product_name']}\", \"{$product['category_name']}\", {$product['stock']}, \"{$product['supplier_name']}\")
-function openEditProductModal(product_guid, product_code, product_name, category_name, stock, supplier_name) {
+function openEditProductModal(product_guid, product_code, product_name, category_name, stock, supplier_name, image_path) {
     document.getElementById('addEditProductModalLabel').textContent = 'Edit Product';
     document.getElementById('productIdHidden').value = product_guid; // Set hidden input to product ID
     document.getElementById('productCode').value = product_code;
@@ -308,7 +347,14 @@ function openEditProductModal(product_guid, product_code, product_name, category
     document.getElementById('productType').value = category_name;
     document.getElementById('productQuantity').value = stock;
     document.getElementById('productSupplier').value = supplier_name;
-    // document.getElementById('productImage').value = ''; // Do not pre-fill file input
+    // document.getElementById('productImage').value = image_path; // Do not pre-fill file input
+    const imgElement = document.getElementById('currentProductImage');
+    if (image_path) {
+        imgElement.src = "<?php echo LOCAL_URL; ?>" + image_path; // Nối đường dẫn ảnh với image_path
+        imgElement.style.display = 'block'; // Hiển thị thẻ img
+    } else {
+        imgElement.style.display = 'none'; // Ẩn nếu không có ảnh
+    }
 }
 
 function openDeleteProductModal(product_guid, product_name) {
@@ -316,27 +362,29 @@ function openDeleteProductModal(product_guid, product_name) {
     document.getElementById('DeleteProductName').textContent = product_name;
     // Save ID to button Delete.
     var DeteteButton = document.getElementById('DeleteButton');
-    DeteteButton.setAttribute('product_guid', product_guid);
+    DeteteButton.setAttribute('ID', product_guid);
 }
 
-        document.getElementById('DeleteButton').addEventListener('click', function() {
-            var product_guid = this.getAttribute('product_guid');
-            // Call function Delete
-            fetch('', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'delete_product=' + encodeURIComponent(product_guid),
-                })
-                .then(response => response.text())
-                .then(data => {
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+document.getElementById('DeleteButton').addEventListener('click', function() {
+    var ID = this.getAttribute('ID');
+    // Call function Delete
+    debugger;
+    console.log(ID);
+    fetch('', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'delete_product=' + encodeURIComponent(ID),
+        })
+        .then(response => response.text())
+        .then(data => {
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
+});
 </script>
 
 <?php 

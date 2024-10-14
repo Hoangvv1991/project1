@@ -1,7 +1,17 @@
 
 <body>
     <footer class="footer-section">
-        <h1>Copyright 2024</h1>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl col-lg text-lg-left">
+                        <div class="copyright-text">
+                            <p>&copy; Clarins copyright. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 </body>
 
