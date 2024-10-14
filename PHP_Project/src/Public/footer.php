@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href= "<?php echo LOCAL_URL . 'src/Public/footer.css' ?>">
     <title>Footer</title>
 </head>
@@ -67,14 +67,14 @@
                                 <h3>Categories</h3>
                             </div>
                             <ul>
-                                <li><a class="hua" href="">Eye Care</a></li>
-                                <li><a class="hua" href="">Face Creams</a></li>
-                                <li><a class="hua" href="">Serums</a></li>
-                                <li><a class="hua" href="">Makeup</a></li>
-                                <li><a class="hua" href="">Body</a></li>
-                                <li><a class="hua" href="">Men</a></li>
-                                <li><a class="hua" href="">Cleansers</a></li>
-                                <li><a class="hua" href="">Toners</a></li>
+                                <li><a class="animation-hov" href="">Eye Care</a></li>
+                                <li><a class="animation-hov" href="">Face Creams</a></li>
+                                <li><a class="animation-hov" href="">Serums</a></li>
+                                <li><a class="animation-hov" href="">Makeup</a></li>
+                                <li><a class="animation-hov" href="">Body</a></li>
+                                <li><a class="animation-hov" href="">Men</a></li>
+                                <li><a class="animation-hov" href="">Cleansers</a></li>
+                                <li><a class="animation-hov" href="">Toners</a></li>
                             </ul>
                         </div>
                     </div>
@@ -84,14 +84,14 @@
                                 <h3>Customer Services</h3>
                             </div>
                             <ul>
-                                <li><a class="hua" href="">FAQ</a></li>
-                                <li><a class="hua" href="">Shipping Options</a></li>
-                                <li><a class="hua" href="">Returns Policy</a></li>
-                                <li><a class="hua" href="">Payment</a></li>
-                                <li><a class="hua" href="">Track Your Order</a></li>
-                                <li><a class="hua" href="">Authorised Retailers</a></li>
-                                <li><a class="hua" href="">Student Discount</a></li>
-                                <li><a class="hua" href="">Cookies Policy</a></li>
+                                <li><a class="animation-hov" href="">FAQ</a></li>
+                                <li><a class="animation-hov" href="">Shipping Options</a></li>
+                                <li><a class="animation-hov" href="">Returns Policy</a></li>
+                                <li><a class="animation-hov" href="">Payment</a></li>
+                                <li><a class="animation-hov" href="">Track Your Order</a></li>
+                                <li><a class="animation-hov" href="">Authorised Retailers</a></li>
+                                <li><a class="animation-hov" href="">Student Discount</a></li>
+                                <li><a class="animation-hov" href="">Cookies Policy</a></li>
                             </ul>
                         </div>
                     </div>
@@ -101,10 +101,10 @@
                                 <h3>Most Popular</h3>
                             </div>
                             <ul>
-                                <li><a class="hua" href="">Double Serum</a></li>
-                                <li><a class="hua" href="">Total Eye Lift Cream</a></li>
-                                <li><a class="hua" href="">Hydrating Toning Lotion</a></li>
-                                <li><a class="hua" href="">Moisture-Rich Body Lotion</a></li>
+                                <li><a class="animation-hov" href="">Double Serum</a></li>
+                                <li><a class="animation-hov" href="">Total Eye Lift Cream</a></li>
+                                <li><a class="animation-hov" href="">Hydrating Toning Lotion</a></li>
+                                <li><a class="animation-hov" href="">Moisture-Rich Body Lotion</a></li>
                             </ul>
                         </div>
                     </div>
@@ -115,14 +115,14 @@
                                 <h3>About Clarins</h3>
                             </div>
                             <ul>
-                                <li><a class="hua" href="">About Us</a></li>
-                                <li><a class="hua" href="">Loyalty Program</a></li>
-                                <li><a class="hua" href="">Black Friday</a></li>
-                                <li><a class="hua" href="">Cyber Monday</a></li>
-                                <li><a class="hua" href="">Spa</a></li>
-                                <li><a class="hua" href="">Find A Store</a></li>
-                                <li><a class="hua" href="">Beauty FAQ</a></li>
-                                <li><a class="hua" href="">Careers</a></li>
+                                <li><a class="animation-hov" href="">About Us</a></li>
+                                <li><a class="animation-hov" href="">Loyalty Program</a></li>
+                                <li><a class="animation-hov" href="">Black Friday</a></li>
+                                <li><a class="animation-hov" href="">Cyber Monday</a></li>
+                                <li><a class="animation-hov" href="">Spa</a></li>
+                                <li><a class="animation-hov" href="">Find A Store</a></li>
+                                <li><a class="animation-hov" href="">Beauty FAQ</a></li>
+                                <li><a class="animation-hov" href="">Careers</a></li>
                             </ul>
                         </div>
                     </div>

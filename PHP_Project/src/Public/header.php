@@ -69,20 +69,20 @@ if (isset($_SESSION['session_login'])){
             <li>
                 <ul>
                     <li>
-                        <a href="<?php echo LOCAL_URL . 'src/Public/contact_us.php' ?>">
+                        <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Public/contact_us.php' ?>">
                             <span><i class="bi bi-phone" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Contact Us </div>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo LOCAL_URL . 'src/Pages/Mycart.php' ?>">
+                        <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Pages/Mycart.php' ?>">
                             <span><i class="bi bi-bag-check" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">My Cart </div>
                         </a>
                     </li>
                     <?php if ($admin > 0): ?>
                         <li>
-                            <a href="<?php echo LOCAL_URL . 'src/admin/admin.php' ?>">
+                            <a class="icon-link" href="<?php echo LOCAL_URL . 'src/admin/admin.php' ?>">
                                 <span><i class="bi bi-person-workspace" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext">Admin</div>
                             </a>
@@ -91,13 +91,13 @@ if (isset($_SESSION['session_login'])){
                     <?php if (isset($_SESSION['session_login'])): ?>
                         <!-- Nếu đã đăng nhập, hiển thị icon và link tới trang cá nhân -->
                         <li>
-                            <a href="<?php echo LOCAL_URL . 'src/Login/User_profile/User_profile.php'?>">
+                            <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Login/User_profile/User_profile.php'?>">
                                 <span><i class="bi bi-person-circle" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext"><?= htmlspecialchars($full_name); ?></div>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo LOCAL_URL . 'src/Login/Logout.php' ?>">
+                            <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Login/Logout.php' ?>">
                                 <span><i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext">Logout</div>
                             </a>
@@ -105,7 +105,7 @@ if (isset($_SESSION['session_login'])){
                     <?php else: ?>
                         <!-- Nếu chưa đăng nhập, hiển thị icon và link đăng nhập -->
                         <li>
-                            <a href="<?php echo LOCAL_URL . 'src/Login/LoginForm.php' ?>">
+                            <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Login/LoginForm.php' ?>">
                                 <span><i class="bi bi-person-vcard" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext">Login</div>
                             </a>
@@ -114,148 +114,181 @@ if (isset($_SESSION['session_login'])){
                 </ul>
             </li>
         </ul>
+        <!-- navbar -->
         <nav class="navbar" style="justify-content: center">
             <ul class="menu">
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL. 'index.php?pages=face' ?>">FACE</a></button>
+                    <a class="animation-hov" href="<?php echo LOCAL_URL. 'index.php?pages=face' ?>">FACE</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL . 'index.php?pages=body' ?>">BODY</a></button>
+                    <a class="animation-hov" href="<?php echo LOCAL_URL . 'index.php?pages=body' ?>">BODY</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL . 'index.php?pages=hair' ?>">HAIR</a></button>
+                    <a class="animation-hov" href="<?php echo LOCAL_URL . 'index.php?pages=hair' ?>">HAIR</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL . 'index.php?pages=makeup' ?>">MAKE.UP</a></button>
+                    <a class="animation-hov" href="<?php echo LOCAL_URL . 'index.php?pages=makeup' ?>">MAKE.UP</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL . 'index.php?pages=perfumes' ?>">PERFUMES</a></button>
+                    <a class="animation-hov" href="<?php echo LOCAL_URL . 'index.php?pages=perfumes' ?>">PERFUMES</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL . 'index.php?pages=sunscreen' ?>">SUNSCREEN</a></button>
+                    <a class="animation-hov" href="<?php echo LOCAL_URL . 'index.php?pages=sunscreen' ?>">SUNSCREEN</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                         <div class="menu-item">
-                            <a href="#">Option 1</a>
-                            <a href="#">Sub Option 1</a>
-                            <a href="#">Sub Option 2</a>
-                            <a href="#">Sub Option 3</a>
+                            <a class="animation-hov" href="#">Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 1</a>
+                            <a class="animation-hov" href="#">Sub Option 2</a>
+                            <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
                     </div>
                 </li>
             </ul>
+            <!-- clock -->
+            <div class="clock-container">
+                    <div class="clock-col">
+                        <p class="clock-day clock-timer">
+                        </p>
+                        <p class="clock-label">
+                        Day
+                        </p>
+                    </div>
+                    <div class="clock-col">
+                        <p class="clock-hours clock-timer">
+                        </p>
+                        <p class="clock-label">
+                        Hours
+                        </p>
+                    </div>
+                    <div class="clock-col">
+                        <p class="clock-minutes clock-timer">
+                        </p>
+                        <p class="clock-label">
+                        Minutes
+                        </p>
+                    </div>
+                    <div class="clock-col">
+                        <p class="clock-seconds clock-timer">
+                        </p>
+                        <p class="clock-label">
+                        Seconds
+                        </p>
+                    </div>
+                </div>
         </nav>
+        
     </header>
 
     <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Main_list.css'; ?>">
@@ -266,7 +299,43 @@ if (isset($_SESSION['session_login'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script> <!-- link js for clock -->
 
+   
+     <script>
+    document.querySelectorAll('.menuface').forEach(menu => {
+        menu.addEventListener('mouseent class="animation-hov"er', () => {
+            const content = menu.querySelector('.menu-content');
+            if (content) {
+                content.style.maxHeight = content.scrollHeight + "px"; // Set max height to content's height
+            }
+        });
+
+        menu.addEventListener('mouselea class="animation-hov"ve', () => {
+            const content = menu.querySelector('.menu-content');
+            if (content) {
+                content.style.maxHeight = null; // Reset max height
+            }
+        });
+    });
+    </script>
+
+    <!-- js for clock -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () =>
+        requestAnimationFrame(updateTime)
+    );
+    
+    function updateTime() {
+        document.documentElement.style.setProperty('--timer-day', "'" + moment().format("dd") + "'");
+        document.documentElement.style.setProperty('--timer-hours', "'" + moment().format("k") + "'");
+        document.documentElement.style.setProperty('--timer-minutes', "'" + moment().format("mm") + "'");
+        document.documentElement.style.setProperty('--timer-seconds', "'" + moment().format("ss") + "'");
+        requestAnimationFrame(updateTime);
+    }
+    </script>
+
+  
 </body>
 
 </html>

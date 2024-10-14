@@ -4,9 +4,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
-    font-family: 'Arial', sans-serif;
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -14,11 +17,13 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #f8f9fa; /* Màu nền sáng hơn */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 15px 0;
     padding-bottom: 0;
+    background-color: rgb(218, 218, 218);
+    background: linear-gradient(45deg, #f9cb54 0, #fb7c76 100%);
+
 }
 
 header ul {
@@ -48,16 +53,16 @@ header input[type="text"] {
 }
 
 header button {
-    background-color: #007bff; /* Nút search màu xanh đẹp */
+    background-color: #fb7c76; 
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 15px 15px;
     border-radius: 0 8px 8px 0;
     cursor: pointer;
 }
 
 header button:hover {
-    background-color: #0056b3; /* Hover màu xanh đậm hơn */
+    background-color: #ff4d4d;
 }
 
 header img {
@@ -90,21 +95,23 @@ header img {
     padding: 5px 10px;
     font-weight: bold;
 }
-
-/* Menu con dropdown */
+/* Menu dropdown styles */
 .menu-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    max-height: 0; /* Start collapsed */
+    overflow: hidden; /* Hide overflow */
+    transition: max-height 0.3s ease-in-out; /* Smooth transition */
+    background-color: #fff; /* Background color for dropdown */
+    position: absolute; /* Position the dropdown */
+    z-index: 1000; /* Ensure it appears above other content */
     width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    left: 0;
+    top: 100%;
 }
 
 .menu li:hover .menu-content {
-    display: block;
+    max-height: 500px; /* Set a max height for the expanded state */
 }
 
 .menu-item {
@@ -117,9 +124,29 @@ header img {
 }
 
 /* Icon và phần bên phải */
+.icon-link {
+    color: black; /* Màu ban đầu của icon và text */
+    text-decoration: none; /* Bỏ gạch chân */
+  }
+  
+  .icon-link:hover {
+    color: red; /* Đổi màu sang đỏ khi hover */
+    text-decoration: none; /* Bỏ gạch chân khi hover */
+  }
+  
+  .icon-link span i, .icon-link .smalltext {
+    transition: color 0.3s ease; /* Thêm hiệu ứng chuyển màu mượt */
+  }
+  
+  .icon-link:hover span i, .icon-link:hover .smalltext {
+    color: red; /* Áp dụng màu đỏ cho cả icon và chữ khi hover */
+  }
+  
+
 .smalltext {
     font-size: 12px;
     text-align: center;
+    text-decoration:none;
 }
 
 header ul ul {
@@ -135,6 +162,7 @@ header ul ul li {
 .hamburger {
     display: none;
     cursor: pointer;
+    
 }
 
 .hamburger i {
@@ -194,4 +222,88 @@ main.container {
 
 .navbar {
      justify-content: center;
+}
+
+/* hover underline animation cho thẻ a */
+.animation-hov {
+    display: inline-block;
+    position: relative;
+    text-decoration: none !important;
+}
+
+.animation-hov::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ff4d4d; /* Đỏ đậm */
+    transition: transform 0.25s ease-out;
+    transform-origin: bottom left; /* Bắt đầu từ bên trái */
+
+}
+
+.animation-hov:hover::after {
+    transform: scaleX(1);
+}
+
+/* clock */
+
+  .clock-day::before {
+    content: var(--timer-day);
+}
+
+.clock-hours::before {
+    content: var(--timer-hours);
+}
+
+.clock-minutes::before {
+    content: var(--timer-minutes);
+}
+
+.clock-seconds::before {
+    content: var(--timer-seconds);
+}
+
+.clock-container {
+    position: absolute;
+    right: 60px;
+    height: 50px;
+    width: 150px;
+    display: flex;
+    transform: scale(0.4);
+    transform-origin: top left;
+    background-color: transparent; 
+    box-shadow: none;
+}
+
+.clock-col {
+    text-align: center;
+    margin-right: 20px;
+    margin-left: 20px;
+    min-width: 70px;
+}
+
+.clock-timer::before {
+    color: #000; /* Set to black or another desired color */
+    font-size: 2.5rem;
+    text-transform: uppercase;
+}
+
+.clock-label {
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    font-size: 20px; /* Thay đổi kích thước font nhãn */
+    margin-top: 5px; /* Giảm khoảng cách giữa số và nhãn */
+}
+
+@media (max-width: 825px) {
+    .clock-container {
+        flex-direction: column;
+    }
+    .clock-col + .clock-col {
+        margin-top: 20px;
+    }
 }

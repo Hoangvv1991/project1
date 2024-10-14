@@ -1,5 +1,4 @@
-
-ul {
+ul { 
     margin: 0px;
     padding: 0px;
 }
@@ -8,22 +7,22 @@ a {
     text-decoration: none;
 }
 
+
 .footer-section {
-    background: #ffffff;
+    background: #323232; 
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10px;
-    background-color: #f8f9fa;
     margin-top: 16px;
+    width: 100%;
 }
 
 .footer-contact {
-     border-bottom: 1px solid #d1d1d1; 
+    border-bottom: 1px solid #d1d1d1; 
 }
 
 .single-contact i {
-    color: #0d6efd; 
+    color: #ff4d4d;
     font-size: 30px;
     float: left;
     margin-top: 8px;
@@ -35,7 +34,7 @@ a {
 }
 
 .contact-text h4 {
-    color: #000000;
+    color: #ffffff;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 2px;
@@ -54,12 +53,12 @@ a {
 .footer-text p {
     margin-bottom: 14px;
     font-size: 14px;
-    color: #7e7e7e;
+    color: #ffffff;
     line-height: 28px;
 }
 
 .footer-widget-heading h3 {
-    color: #000000; 
+    color: #ffffff;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 40px;
@@ -73,32 +72,29 @@ a {
     bottom: -15px;
     height: 2px;
     width: 50px;
-    background: #0d6efd; 
+    background: #ff4d4d;
 }
 
 .footer-widget ul li {
     display: inline-block;
     float: left;
-    width: 50%;
+    width: 60%;
     margin-bottom: 12px;
 }
 
-/* .footer-widget ul li a:hover {
-    color: #0d6efd; 
-} */
-
 .footer-widget ul li a {
-    color: #000000; 
+    color: #ffffff;
     text-transform: capitalize;
 }
 
 /* hover underline animation cho thẻ a */
-.hua {
+.animation-hov {
     display: inline-block;
     position: relative;
+    text-decoration: none !important;
 }
 
-.hua::after {
+.animation-hov::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -106,21 +102,15 @@ a {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #0d6efd;
+    background-color: #ff4d4d;
     transition: transform 0.25s ease-out;
+    transform-origin: bottom left; /* Bắt đầu từ bên trái */
+
 }
 
-.hua:hover::after {
+.animation-hov:hover::after {
     transform: scaleX(1);
-}
-
-.hua.center::after {
-    transform-origin: bottom center;
-}
-
-.hua.center:hover::after {
-    transform-origin: bottom center;
-}
+} 
 
 .subscribe-form {
     position: relative;
@@ -130,17 +120,17 @@ a {
 .subscribe-form input {
     width: 100%;
     padding: 14px 28px;
-    background: #f1f1f1; 
-    border: 1px solid #d1d1d1;
-    color: #000000; 
+    background: #ffffff; 
+    border: 1px solid #ff4d4d;
+    color: #000000;
 }
 
 .subscribe-form button {
     position: absolute;
     right: 0;
-    background: #0d6efd; 
-    padding: 13px 20px;
-    border: 1px solid #0d6efd;
+    background: #ff4d4d;
+    padding: 15px 20px;
+    border: 1px solid #ff4d4d;
     top: 0;
 }
 
@@ -151,8 +141,8 @@ a {
 }
 
 .copyright-area {
-    background: #f1f1f1; 
-    padding: 20px 0;
+    background: #555555; 
+    padding: 10px 0;
     width: 100%;
 }
 
@@ -160,11 +150,11 @@ a {
     text-align: center;
     margin: 0;
     font-size: 14px;
-    color: #000000; 
+    color: #ffffff;
 }
 
 .copyright-text p a {
-    color: #0d6efd; 
+    color: #ff4d4d;
 }
 
 /* CSS logo */
