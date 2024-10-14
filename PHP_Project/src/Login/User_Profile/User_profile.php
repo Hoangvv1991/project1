@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="container text-center">   
                         <div id="profileInfo">
                             <h3>User Profile</h3>
-                            <div class="avatar-container">
+                            <div class="avatar-container" data-toggle="modal" data-target="#uploadModal">
                                 <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Avatar" id="avatar-image">
                                 <i class="fas fa-camera camera-icon"></i>
                             </div>
@@ -258,31 +258,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
     
     <!-- Popup Upload Image -->
-    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Upload Avatar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadModalLabel">Upload Avatar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Current Avatar" id="current-avatar" style="width: 100px; height: 100px; object-fit: cover;">
                 </div>
-                <div class="modal-body">
-                    <div class="text-center mb-3">
-                        <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Current Avatar" id="current-avatar" style="width: 100px; height: 100px; object-fit: cover;">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($confirm_guid); ?>"> 
+                        <label for="avatar">Choose a new avatar (jpg, png, gif):</label>
+                        <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg, .png, .gif" required>
                     </div>
-                    <form id="uploadForm" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($confirm_guid); ?>"> 
-                            <label for="avatar">Choose a new avatar (jpg, png, gif):</label>
-                            <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg, .png, .gif" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" id="cancelButton" data-dismiss="modal">Cancel</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
     <script>
 
@@ -291,29 +292,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $('#uploadModal').modal('show');
         });
 
-        $('#uploadForm').on('submit', function (e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: 'Upload_avatar.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    $('#avatar-image').attr('src', response);
-                    $('#uploadModal').modal('hide');
-                }
-            });
+        $('#uploadForm').submit(function(event) {
+        event.preventDefault(); // Ngăn chặn gửi form mặc định
+
+        // Thêm AJAX để gửi dữ liệu đến PHP (bạn có thể thay đổi URL và cách xử lý theo nhu cầu)
+        $.ajax({
+            url: 'upload_avatar.php', // Thay đổi đường dẫn đến tệp PHP của bạn
+            type: 'POST',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                // Cập nhật ảnh trên giao diện
+                $('#avatar-image').attr('src', '<?php echo LOCAL_URL; ?>' + response.new_avatar); // Giả sử response.new_avatar chứa đường dẫn ảnh mới
+                $('#uploadModal').modal('hide'); // Đóng modal
+            },
+            error: function() {
+                alert('Failed to upload image.'); // Thông báo lỗi
+            }
         });
+    });
 
         $('.close').click(function () {
             $('#uploadModal').modal('hide');
         });
     });
 
-    $('#uploadModal').on('hidden.bs.modal', function () {
-        $('#avatar').val(''); // Xóa nội dung của input khi đóng popup
+    $('#uploadModal').on('hidden.bs.modal', function() {
+        $('#current-avatar').attr('src', '<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>'); // Đặt lại ảnh về ảnh cũ
+        $('#avatar').val(''); // Xóa tệp đã chọn
     });
 
         function resetForm() {
