@@ -13,13 +13,8 @@ if (isset($_SESSION['session_login'])) {
 
     $sql = "SELECT  *
                  FROM tbl_users u
-                 WHERE u.deleted = 0 
-                 AND u.user_email = (
-                     SELECT c.customer_email 
-                     FROM tbl_customers c
-                     WHERE c.deleted = 0 
-                     AND c.session_login = :session_login
-                 );";
+                 LEFT JOIN tbl_customers c ON c.customer_email = u.user_email
+                 WHERE u.deleted = 0 AND c.session_login = :session_login";
 
     $user_status = $pdo->prepare($sql);
     $user_status->bindParam(':session_login', $session_login);
@@ -28,6 +23,11 @@ if (isset($_SESSION['session_login'])) {
     if ($user_status->rowCount() > 0) {
         $user_data = $user_status->fetch(PDO::FETCH_ASSOC);
         $full_name = $user_data['full_name'];
+        if (isset($user_data['customer_image_path'])) {
+            $customer_avatar = $user_data['customer_image_path'];
+        } else {
+            $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
+    }
     } else {
         $full_name = '';
     }
@@ -55,7 +55,7 @@ if (isset($_SESSION['session_login'])) {
             </li>
             <li>
                 <div class="user-icon">
-                    <img id="avatar" src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt="User Avatar" class="avatar">
+                    <img id="avatar" src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar) ?>" alt="User Avatar" class="avatar">
                     <div class="smalltext"><?= htmlspecialchars($full_name); ?></div>
                 </div>
             </li>

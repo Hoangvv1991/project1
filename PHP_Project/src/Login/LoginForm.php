@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container" id="containerLogin">
     <div class="row justify-content-center">
         <div class="col-md-4" id="divform">
-            <h2 class="text-center mt-5"><img src="./larins_png.png" alt=""></h2>
+            <h2 class="text-center mt-5"><img src="<?php echo LOCAL_URL . 'src/Public/larins_png.png' ?>" alt=""></h2>
             <!-- <?php if (!empty($error)): ?>
                 <div class="alert alert-danger" role="alert">
                     <?= $error ?>
