@@ -14,7 +14,7 @@ include_once __DIR__ . '/../Public/header.php';
             <img src="https://www.clarinsusa.com/on/demandware.static/-/Library-Sites-clarins-v3/en_US/dw2e2a0688/Desktop%20version%201280x599@2x.jpg" alt="Main Banner" class="img-fluid">
             <div class="banner-text">
                 <h1>Discover Our Bestsellers</h1>
-                <a href="#" class="btn btn-primary">Shop Now</a>
+                <a href="#" class="banner-link">Shop Now</a>
             </div>
         </div>
     </section>
@@ -53,7 +53,7 @@ include_once __DIR__ . '/../Public/header.php';
                     <img src="public/img/1256600_slot1.jpg" alt="Product 1" class="img-fluid">
                     <h5>Product 1</h5>
                     <p>$50.00</p>
-                    <a href="#" class="btn btn-outline-primary">Add to Cart</a>
+                    <a href="#" class="product-link">Add to Cart</a>
                 </div>
             </div>
             <div class="col-md-3">
@@ -61,7 +61,7 @@ include_once __DIR__ . '/../Public/header.php';
                     <img src="public/img/1256600_slot2.jpg" alt="Product 2" class="img-fluid">
                     <h5>Product 2</h5>
                     <p>$60.00</p>
-                    <a href="#" class="btn btn-outline-primary">Add to Cart</a>
+                    <a href="#" class="product-link">Add to Cart</a>
                 </div>
             </div>
             <div class="col-md-3">
@@ -69,7 +69,7 @@ include_once __DIR__ . '/../Public/header.php';
                     <img src="public/img/1256600_slot3.jpg" alt="Product 3" class="img-fluid">
                     <h5>Product 3</h5>
                     <p>$70.00</p>
-                    <a href="#" class="btn btn-outline-primary">Add to Cart</a>
+                    <a href="#" class="product-link">Add to Cart</a>
                 </div>
             </div>
             <div class="col-md-3">
@@ -77,7 +77,7 @@ include_once __DIR__ . '/../Public/header.php';
                     <img src="public/img/Body-Fit-Active-Highlight.jpg" alt="Product 4" class="img-fluid">
                     <h5>Product 4</h5>
                     <p>$80.00</p>
-                    <a href="#" class="btn btn-outline-primary">Add to Cart</a>
+                    <a href="#" class="product-link">Add to Cart</a>
                 </div>
             </div>
         </div>
