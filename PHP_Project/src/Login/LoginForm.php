@@ -10,7 +10,7 @@ include '../api/db_connect.php';
 $error = "";
 
 // Kiểm tra khi form được submit
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST"&& isset($_POST['username'])) {
     // Lấy thông tin từ form
     $customer_email = $_POST['username'];
     $customer_password  = $_POST['password'];
@@ -51,6 +51,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Thông tin đăng nhập không chính xác!";
     }
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) {
+    // Lấy thông tin từ form đăng ký
+    $customer_code = $_POST['register_username'];
+    $customer_name = $_POST['full_name'];
+    $customer_email = $_POST['register_email'];
+    $customer_password = $_POST['register_password'];
+    $customer_phone = $_POST['register_phone'];
+
+    // Kiểm tra xem email đã tồn tại chưa
+    $check_email_sql = "SELECT * FROM tbl_customers WHERE customer_email = :email";
+    $check_email_stmt = $pdo->prepare($check_email_sql);
+    $check_email_stmt->bindParam(':email', $customer_email);
+    $check_email_stmt->execute();
+
+    if ($check_email_stmt->rowCount() > 0) {
+        $error = "Email đã tồn tại!";
+    } else {
+        // Chèn dữ liệu mới vào bảng tbl_customers
+        $insert_sql = "INSERT INTO tbl_customers (customer_code, customer_name, customer_email, customer_password, customer_phone) 
+                        VALUES (:customer_code, :customer_name, :customer_email, :customer_password, :customer_phone)";
+        $insert_stmt = $pdo->prepare($insert_sql);
+        $insert_stmt->execute([
+            'customer_code' => $customer_code,
+            'customer_name' => $customer_name,
+            'customer_email' => $customer_email,
+            'customer_password' => $customer_password,
+            'customer_phone' => $customer_phone
+        ]);
+
+        // Đăng ký thành công, chuyển hướng về trang đăng nhập
+        header("Location: loginForm.php");
+        exit();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -87,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- Full Name -->
                     <div class="input-group">
-                        <label for="full-name">Họ và Tên:</label>
+                        <label for="full-name">Full Name:</label>
                         <input type="text" id="full_name" name="full_name" class="login-input" required />
                         <div id="full_name-error" class="text-danger" style="display:none;"></div>
                     </div>
@@ -95,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Username -->
                     <div class="input-group">
                         <label for="register-username">Username:</label>
-                        <input type="text" id="username" name="register_username" class="login-input" required />
+                        <input type="text" id="register_username" name="register_username" class="login-input" required />
                         <div id="username-error" class="text-danger" style="display:none;"></div>
                     </div>
 
@@ -108,19 +142,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- Phone -->
                     <div class="input-group">
-                        <label for="register-phone">Số Điện Thoại:</label>
+                        <label for="register-phone">Phone:</label>
                         <input type="tel" id="register-phone" name="register_phone" class="login-input" required />
                     </div>
 
                     <!-- Password -->
                     <div class="input-group">
                         <label for="register-password">Password:</label>
-                        <input type="password" id="password" name="register_password" class="login-input" required />
+                        <input type="password" id="register_password" name="register_password" class="login-input" required autocomplete="new-password" />
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="input-group">
-                        <label for="confirm-password">Xác Nhận Mật Khẩu:</label>
+                        <label for="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm_password" name="confirm_password" class="login-input" required />
                         <div id="password-error" class="text-danger" style="display:none;"></div>
                     </div>
@@ -135,9 +169,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
         function validateForm() {
             const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const password = document.getElementById('register_password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
-            const username = document.getElementById('username').value;
+            const username = document.getElementById('register_username').value;
             const fullName = document.getElementById('full_name').value;
             const emailError = document.getElementById('email-error');
             const passwordError = document.getElementById('password-error');
@@ -156,8 +190,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (username.length > 8) {
                 usernameError.textContent = "Username must be at most 8 characters.";
                 usernameError.style.display = "block";
-                document.getElementById('username').value = ""; // Clear the username
-                document.getElementById('username').focus(); // Focus on the username field
+                document.getElementById('register_username').value = ""; // Clear the username
+                document.getElementById('register_username').focus(); // Focus on the username field
                 valid = false;
             }
 
