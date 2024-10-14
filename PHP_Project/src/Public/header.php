@@ -75,7 +75,7 @@ if (isset($_SESSION['session_login'])){
                         </a>
                     </li>
                     <li>
-                        <a href="src/Pages/Mycart.php">
+                        <a href="<?php echo LOCAL_URL . 'src/Pages/Mycart.php' ?>">
                             <span><i class="bi bi-bag-check" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">My Cart </div>
                         </a>
@@ -91,7 +91,7 @@ if (isset($_SESSION['session_login'])){
                     <?php if (isset($_SESSION['session_login'])): ?>
                         <!-- Nếu đã đăng nhập, hiển thị icon và link tới trang cá nhân -->
                         <li>
-                            <a href="src/Login/User_profile/User_profile.php">
+                            <a href="<?php echo LOCAL_URL . 'src/Login/User_profile/User_profile.php'?>">
                                 <span><i class="bi bi-person-circle" style="font-size: 1.5rem;"></i></span>
                                 <div class="smalltext"><?= htmlspecialchars($full_name); ?></div>
                             </a>
@@ -117,7 +117,7 @@ if (isset($_SESSION['session_login'])){
         <nav class="navbar" style="justify-content: center">
             <ul class="menu">
                 <li class="menuface">
-                    <a href="<?php echo LOCAL_URL . 'index.php?pages=face' ?>">FACE</a></button>
+                    <a href="<?php echo LOCAL_URL. 'index.php?pages=face' ?>">FACE</a></button>
                     <div class="menu-content">
                         <div class="menu-item">
                             <a href="#">Option 1</a>

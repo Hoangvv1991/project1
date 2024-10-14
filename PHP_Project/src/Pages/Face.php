@@ -1,10 +1,6 @@
 <?php
-include_once PUBLIC_PATH . 'header.php';
-?>
-
-<?php
-
-include API_PATH . 'db_connect.php';
+include_once __DIR__ . '/../Public/header.php';
+include 'src/api/db_connect.php';
 
 // Thiết lập số lượng sản phẩm trên mỗi trang
 $products_per_page = 10;
@@ -53,12 +49,11 @@ if ($start_from < 0) {
 }
 
 // Truy vấn sản phẩm từ bảng `tbl_products` với giới hạn là 10 sản phẩm mỗi trang
-    $sql = "SELECT p.product_code, p.product_name, p.price, i.image_path, c.category_id
-     FROM tbl_products p 
-    LEFT JOIN tbl_images i ON i.image_id = p.image_id
-    INNER JOIN tbl_categories c ON c.category_id = p.category_id
-    WHERE c.category_id = 1 
-    -- GROUP BY p.product_code, p.product_name, p.price, i.image_path, c.category_id
+$sql = "SELECT p.product_code, p.product_name, p.price, i.image_path, c.category_id
+        FROM tbl_products p 
+        LEFT JOIN tbl_images i ON i.image_id = p.image_id
+        INNER JOIN tbl_categories c ON c.category_id = p.category_id
+        WHERE c.category_id = 1 
         LIMIT :start_from, :products_per_page";
 
 try {
@@ -74,16 +69,24 @@ try {
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $productId = $row['product_code'];
+            $productName = $row['product_name'];
+            $productPrice = $row['price'];
+
             echo '<div class="product-item" id="product-' . htmlspecialchars($productId) . '">';
-            echo '<img src="' . LOCAL_URL . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
-            echo '<h3 class="product-title">' . htmlspecialchars($row["product_name"]) . '</h3>';
-            echo '<p>From ' . htmlspecialchars($row["price"]) . ' VND</p>';
-            echo '<button>Mua hàng</button>';
-            echo '</div>';
+            echo '<img src="' . LOCAL_URL . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($productName) . '">';
+            echo '<h3 class="product-title">' . htmlspecialchars($productName) . '</h3>';
+            echo '<p>From ' . htmlspecialchars($productPrice) . ' VND</p>';
+            
+            // Nút Mua hàng với form gửi dữ liệu sản phẩm tới mycart.php
+            echo '<button type="button" class="buy-button" 
+                data-id="' . htmlspecialchars($productId) . '" 
+                data-name="' . htmlspecialchars($productName) . '" 
+                data-price="' . htmlspecialchars($productPrice) . '">Mua hàng</button>';
+            echo '</div>'; // Đóng div .product-item
         }
 
-        echo '</div>';
-        echo '</main>';
+        echo '</div>'; // Đóng div .product-grid
+        echo '</main>'; // Đóng main
     } else {
         echo '<main class="container">';
         echo "Không có sản phẩm nào để hiển thị.";
@@ -96,31 +99,64 @@ try {
 // Tạo liên kết phân trang
 ?>
 
- <nav aria-label="...">
-     <ul class="pagination" style="justify-content: center">
-         <li class="page-item <?php echo ($current_page == 1) ? 'disabled' : ''; ?>">
-           <a class="page-link" href="?index.php?pages=face&page=<?php echo ($current_page > 1) ? ($current_page - 1) : 1; ?>" tabindex="-1">Previous</a>
-         </li>
-             <?php
-                 for ($i = 1; $i <= $number_of_pages; $i++) {
-                     echo '<li class="page-item ' . ($current_page == $i ? 'active' : '') . '">';
-                     echo '<a class="page-link" href="index.php?pages=face&page=' . $i . '">' . $i;
-                     if ($current_page == $i) {
-                         echo ' <span class="sr-only">(current)</span>';
-                     }
-                     echo '</a></li>';
-                 }
-             ?>
-         <li class="page-item <?php echo ($current_page == $number_of_pages) ? 'disabled' : ''; ?>">
-           <a class="page-link" href="index.php?pages=face&page=<?php echo ($current_page < $number_of_pages) ? ($current_page + 1) : $number_of_pages; ?>">Next</a>
-         </li>
-     </ul>
- </nav>
+<nav aria-label="...">
+    <ul class="pagination" style="justify-content: center">
+        <li class="page-item <?php echo ($current_page == 1) ? 'disabled' : ''; ?>">
+            <a class="page-link" href="?index.php?pages=face&page=<?php echo ($current_page > 1) ? ($current_page - 1) : 1; ?>" tabindex="-1">Previous</a>
+        </li>
+        <?php
+        for ($i = 1; $i <= $number_of_pages; $i++) {
+            echo '<li class="page-item ' . ($current_page == $i ? 'active' : '') . '">';
+            echo '<a class="page-link" href="index.php?pages=face&page=' . $i . '">' . $i;
+            if ($current_page == $i) {
+                echo ' <span class="sr-only">(current)</span>';
+            }
+            echo '</a></li>';
+        }
+        ?>
+        <li class="page-item <?php echo ($current_page == $number_of_pages) ? 'disabled' : ''; ?>">
+            <a class="page-link" href="index.php?pages=face&page=<?php echo ($current_page < $number_of_pages) ? ($current_page + 1) : $number_of_pages; ?>">Next</a>
+        </li>
+    </ul>
+</nav>
 
-
-
-
-
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy tất cả các nút "Mua hàng"
+    const buyButtons = document.querySelectorAll('.buy-button');
+    
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Lấy dữ liệu sản phẩm từ các thuộc tính data- của nút
+            const productId = this.getAttribute('data-id');
+            const productName = this.getAttribute('data-name');
+            const productPrice = this.getAttribute('data-price');
+            
+            // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
+            fetch('src/Pages/add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'product_id': productId,
+                    'product_name': productName,
+                    'product_price': productPrice
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                } else {
+                    alert('Có lỗi xảy ra: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
 
 <?php
 include_once __DIR__ . '/../Public/footer.php'; 
