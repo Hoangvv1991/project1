@@ -32,12 +32,13 @@ if (isset($_POST['product_id']) && isset($_POST['product_name']) && isset($_POST
     // Nếu sản phẩm chưa có trong giỏ hàng thì thêm mới
     if (!$found) {
         $_SESSION['cart'][] = $product; // Thêm sản phẩm vào giỏ hàng
-        echo json_encode(['status' => 'success', 'message' => 'Sản phẩm đã được thêm vào giỏ hàng']);
+        echo json_encode(['status' => 'success', 'message' => 'The product has been added to the cart!']);
     } else {
         // Nếu sản phẩm đã có trong giỏ hàng, thông báo
-        echo json_encode(['status' => 'warning', 'message' => 'Bạn đã chọn món hàng này rồi!']);
+        echo json_encode(['status' => 'warning', 'message' => 'The product has already been selected!']);
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Dữ liệu sản phẩm không hợp lệ']);
+    echo json_encode(['status' => 'error', 'message' => 'Invalid product data']);
 }
 ?>
+
