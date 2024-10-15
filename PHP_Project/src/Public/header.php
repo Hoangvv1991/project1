@@ -69,13 +69,13 @@ if (isset($_SESSION['session_login'])){
             <li>
                 <ul>
                     <li>
-                        <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Public/contact_us.php' ?>">
+                        <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Pages/contact_us.php' ?>">
                             <span><i class="bi bi-phone" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">Contact Us </div>
                         </a>
                     </li>
                     <li>
-                        <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Pages/Mycart.php' ?>">
+                        <a class="icon-link" href="<?php echo LOCAL_URL . 'src/Pages/My_cart/Mycart.php' ?>">
                             <span><i class="bi bi-bag-check" style="font-size: 1.5rem;"></i></span>
                             <div class="smalltext">My Cart </div>
                         </a>
@@ -126,18 +126,7 @@ if (isset($_SESSION['session_login'])){
                             <a class="animation-hov" href="#">Sub Option 2</a>
                             <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
+                        
                     </div>
                 </li>
                 <li class="menuface">
@@ -149,18 +138,7 @@ if (isset($_SESSION['session_login'])){
                             <a class="animation-hov" href="#">Sub Option 2</a>
                             <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
+                        
                     </div>
                 </li>
                 <li class="menuface">
@@ -172,18 +150,7 @@ if (isset($_SESSION['session_login'])){
                             <a class="animation-hov" href="#">Sub Option 2</a>
                             <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
+                       
                     </div>
                 </li>
                 <li class="menuface">
@@ -195,18 +162,7 @@ if (isset($_SESSION['session_login'])){
                             <a class="animation-hov" href="#">Sub Option 2</a>
                             <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
+                        
                     </div>
                 </li>
                 <li class="menuface">
@@ -218,18 +174,7 @@ if (isset($_SESSION['session_login'])){
                             <a class="animation-hov" href="#">Sub Option 2</a>
                             <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
+                        
                     </div>
                 </li>
                 <li class="menuface">
@@ -241,18 +186,7 @@ if (isset($_SESSION['session_login'])){
                             <a class="animation-hov" href="#">Sub Option 2</a>
                             <a class="animation-hov" href="#">Sub Option 3</a>
                         </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="animation-hov" href="#">Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 1</a>
-                            <a class="animation-hov" href="#">Sub Option 2</a>
-                            <a class="animation-hov" href="#">Sub Option 3</a>
-                        </div>
+                        
                     </div>
                 </li>
             </ul>

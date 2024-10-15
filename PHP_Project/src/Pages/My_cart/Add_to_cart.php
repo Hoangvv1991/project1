@@ -20,23 +20,23 @@ if (isset($_POST['product_id']) && isset($_POST['product_name']) && isset($_POST
         $_SESSION['cart'] = [];
     }
 
-    // Kiểm tra sản phẩm có trong giỏ hàng chưa, nếu có thì tăng số lượng
+    // Kiểm tra sản phẩm có trong giỏ hàng chưa
     $found = false;
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['id'] == $productId) {
-            $item['quantity'] += 1;
-            $found = true;
+            $found = true; // Đánh dấu sản phẩm đã có trong giỏ hàng
             break;
         }
     }
 
     // Nếu sản phẩm chưa có trong giỏ hàng thì thêm mới
     if (!$found) {
-        $_SESSION['cart'][] = $product;
+        $_SESSION['cart'][] = $product; // Thêm sản phẩm vào giỏ hàng
+        echo json_encode(['status' => 'success', 'message' => 'Sản phẩm đã được thêm vào giỏ hàng']);
+    } else {
+        // Nếu sản phẩm đã có trong giỏ hàng, thông báo
+        echo json_encode(['status' => 'warning', 'message' => 'Bạn đã chọn món hàng này rồi!']);
     }
-
-    // Phản hồi thành công
-    echo json_encode(['status' => 'success', 'message' => 'Sản phẩm đã được thêm vào giỏ hàng']);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Dữ liệu sản phẩm không hợp lệ']);
 }

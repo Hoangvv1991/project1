@@ -16,7 +16,9 @@ h1.cart-title {
     margin-top: 30px;
     margin-bottom: 20px; /* Thêm khoảng cách giữa tiêu đề và nội dung bên dưới */
 }
-
+#cartempty{
+    text-align: center;
+}
 
 /* Định dạng bảng giỏ hàng */
 .cart-table {
@@ -34,6 +36,9 @@ h1.cart-title {
 .cart-table th {
     background-color: #f2f2f2;
     font-weight: bold;
+}
+#div-cart-empty{
+    display: none;
 }
 
 .cart-table td {
@@ -91,4 +96,51 @@ h1.cart-title {
     background-color: #45a049;
 }
 
+
+
+/* MyCart.css */
+.popup {
+    display: none; /* Ẩn popup theo mặc định */
+    position: fixed;
+    left: 33%;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Nền tối mờ */
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    z-index: 1000; /* Đảm bảo popup nằm trên các phần tử khác */
+}
+
+.popup-content {
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    width: 600px; /* Kích thước popup */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng cho popup */
+    text-align: center; /* Căn giữa nội dung */
+}
+#login-button{
+    width: 250px;
+    background-color: red;
+    margin-right: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+#guest-button{
+    width: 250px;
+    background-color: red;
+    margin-left: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+#close-popup{
+    width: 250px;
+    background-color: red;
+    margin-right: 20px;
+    margin-top: 20px;
+    color: white;
+    font-weight: bold;
+}
 
