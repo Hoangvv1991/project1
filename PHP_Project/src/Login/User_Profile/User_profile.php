@@ -6,42 +6,43 @@ include API_PATH . 'db_connect.php';
 
 <!-- lấy dữ liệu người dùng -->
 <?php
-    $confirm_guid = $customer_data['customer_guid'];
-    $customer_phone = $customer_data['customer_phone'];
-    $customer_address = $customer_data['customer_address'];
-    $customer_city = $customer_data['customer_city'];
-    $customer_email = $customer_data['customer_email'];
-    if (isset($customer_data['customer_image_path'])) {
-       $customer_avatar = $customer_data['customer_image_path'];
-    } else {
-        $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
-    }
+$confirm_guid = $customer_data['customer_guid'];
+$customer_phone = $customer_data['customer_phone'];
+$customer_address = $customer_data['customer_address'];
+$customer_city = $customer_data['customer_city'];
+$customer_email = $customer_data['customer_email'];
+if (isset($customer_data['customer_image_path'])) {
+    $customer_avatar = $customer_data['customer_image_path'];
+} else {
+    $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
+}
 
 ?>
 <!-- ẩn email -->
 <?php
-    function maskEmail($customer_email) {
-        // Tìm vị trí của dấu '@'
-        $atPosition = strpos($customer_email, '@');
-        
-        // Nếu không tìm thấy dấu '@', trả về email gốc
-        if ($atPosition === false) {
-            return $customer_email;
-        }
-        
-        // Tách tên người dùng và miền
-        $username = substr($customer_email, 0, $atPosition);
-        $domain = substr($customer_email, $atPosition);
-    
-        // Lấy 3 ký tự đầu tiên
-        $maskedUsername = substr($username, 0, 3) . '...';
-    
-        // Kết hợp lại
-        return $maskedUsername . $domain;
+function maskEmail($customer_email)
+{
+    // Tìm vị trí của dấu '@'
+    $atPosition = strpos($customer_email, '@');
+
+    // Nếu không tìm thấy dấu '@', trả về email gốc
+    if ($atPosition === false) {
+        return $customer_email;
     }
-    
-    // Ví dụ sử dụng
-    $maskedEmail = maskEmail($customer_email);
+
+    // Tách tên người dùng và miền
+    $username = substr($customer_email, 0, $atPosition);
+    $domain = substr($customer_email, $atPosition);
+
+    // Lấy 3 ký tự đầu tiên
+    $maskedUsername = substr($username, 0, 3) . '...';
+
+    // Kết hợp lại
+    return $maskedUsername . $domain;
+}
+
+// Ví dụ sử dụng
+$maskedEmail = maskEmail($customer_email);
 ?>
 
 
@@ -53,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $NewCity = htmlspecialchars($_POST['city']);
     $NewEmail = htmlspecialchars($_POST['email']);
     $NewAddress = htmlspecialchars($_POST['address']); // Nhận địa chỉ từ form
-    
+
     // Kiểm tra và xử lý dữ liệu
     $errors = [];
 
@@ -79,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':customer_name', $NewName);
         $stmt->bindParam(':customer_email', $NewEmail);
         $stmt->bindParam(':customer_phone', $NewPhone);
-        $stmt->bindParam(':customer_city', $NewCity); 
+        $stmt->bindParam(':customer_city', $NewCity);
         $stmt->bindParam(':customer_address', $NewAddress); // Gán địa chỉ mới
         $stmt->bindParam(':session_login', $session_login);
 
@@ -113,13 +114,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="<?PHP echo LOCAL_URL . 'src/login/User_Profile/User_profile.css'?>">
+    <link rel="stylesheet" href="<?PHP echo LOCAL_URL . 'src/login/User_Profile/User_profile.css' ?>">
 </head>
 
 <body>
     <main class="container">
         <div class="container-fluid">
-            <h5><a href="<?PHP echo LOCAL_URL . 'index.php?pages=home'?>">Home</a>/User Profile</h5>
+            <h5><a href="<?PHP echo LOCAL_URL . 'index.php?pages=home' ?>">Home</a>/User Profile</h5>
             <div class="row">
                 <!-- Cột 4 phần - chứa menu dọc -->
                 <div class="col-md-4">
@@ -147,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <!-- Cột 6 phần - chứa nội dung chính -->
                 <div class="col-md-6 content">
-                    <div class="container text-center">   
+                    <div class="container text-center">
                         <div id="profileInfo">
                             <h3>User Profile</h3>
                             <div class="avatar-container" data-toggle="modal" data-target="#uploadModal">
@@ -165,15 +166,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" novalidate>
                                 <div class="form-group">
                                     <label for="name">Full Name:</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($full_name); ?>" >
+                                    <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($full_name); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone Number:</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($customer_phone); ?>" >
+                                    <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($customer_phone); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
-                                    <select class="form-control" id="city" name="city" >
+                                    <select class="form-control" id="city" name="city">
                                         <option value="<?= htmlspecialchars($customer_city); ?>"><?= htmlspecialchars($customer_city); ?></option>
                                         <option value="Hà Nội">Hà Nội</option>
                                         <option value="Hồ Chí Minh">Hồ Chí Minh</option>
@@ -238,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label for="address">Shipping Address:</label>
                                     <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($customer_address); ?>" required>
                                 </div>
-                                <button type="submit" class="btn btn-success" >Save</button>
+                                <button type="submit" class="btn btn-success">Save</button>
                                 <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancle</button>
                             </form>
                         </div>
@@ -256,78 +257,100 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </main>
-    
+
     <!-- Popup Upload Image -->
-<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="uploadModalLabel">Upload Avatar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center mb-3">
-                    <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Current Avatar" id="current-avatar" style="width: 100px; height: 100px; object-fit: cover;">
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <form id="uploadForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($confirm_guid); ?>"> 
-                        <label for="avatar">Choose a new avatar (jpg, png, gif):</label>
-                        <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg, .png, .gif" required>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>" alt="Current Avatar" id="current-avatar" style="width: 100px; height: 100px; object-fit: cover;">
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button type="button" class="btn btn-secondary" id="cancelButton" data-dismiss="modal">Cancel</button>
-                </form>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($confirm_guid); ?>">
+                            <label for="avatar">Choose a new avatar (jpg, png, gif):</label>
+                            <input type="file" class="form-control" id="avatar" name="avatar" accept=".jpg, .png, .gif" onchange="previewImage(event)" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" id="cancelButton" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <script>
+        $(document).ready(function() {
+            $('.avatar-container').click(function() {
+                $('#uploadModal').modal('show');
+            });
 
-    $(document).ready(function () {
-        $('.avatar-container').click(function () {
-            $('#uploadModal').modal('show');
+            $('#uploadForm').submit(function(event) {
+                event.preventDefault(); // Ngăn chặn gửi form mặc định
+                debugger;
+
+                // Thêm AJAX để gửi dữ liệu đến PHP (bạn có thể thay đổi URL và cách xử lý theo nhu cầu)
+                $.ajax({
+                    url: 'upload_avatar.php', // Thay đổi đường dẫn đến tệp PHP của bạn
+                    type: 'POST',
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        console.log(response);
+                        // Cập nhật ảnh trên giao diện
+                        alert(response);
+                        var jsonResponse = JSON.parse(response);
+                        $('#avatar-image').attr('src', '<?php echo LOCAL_URL; ?>' + jsonResponse.img_name); // Giả sử response.new_avatar chứa đường dẫn ảnh mới
+                        $('#uploadModal').modal('hide'); // Đóng modal
+                    },
+                    error: function() {
+                        alert('Failed to upload image.'); // Thông báo lỗi
+                    }
+                });
+            });
+
+            $('.close').click(function() {
+                $('#uploadModal').modal('hide');
+            });
         });
 
-        $('#uploadForm').submit(function(event) {
-        event.preventDefault(); // Ngăn chặn gửi form mặc định
+        $('#uploadModal').on('hidden.bs.modal', function() {
+            $('#current-avatar').attr('src', '<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>'); // Đặt lại ảnh về ảnh cũ
+            $('#avatar').val(''); // Xóa tệp đã chọn
+        });
 
-        // Thêm AJAX để gửi dữ liệu đến PHP (bạn có thể thay đổi URL và cách xử lý theo nhu cầu)
-        $.ajax({
-            url: 'upload_avatar.php', // Thay đổi đường dẫn đến tệp PHP của bạn
-            type: 'POST',
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                // Cập nhật ảnh trên giao diện
-                $('#avatar-image').attr('src', '<?php echo LOCAL_URL; ?>' + response.new_avatar); // Giả sử response.new_avatar chứa đường dẫn ảnh mới
-                $('#uploadModal').modal('hide'); // Đóng modal
-            },
-            error: function() {
-                alert('Failed to upload image.'); // Thông báo lỗi
+        // Hàm xem trước ảnh khi người dùng chọn file
+        function previewImage(event) {
+            const image = document.getElementById('current-avatar');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    image.src = e.target.result;
+                    image.style.display = 'block'; // Hiển thị ảnh
+                }
+                reader.readAsDataURL(file);
+            } else {
+                image.src = '';
+                image.style.display = 'none'; // Ẩn nếu không có file
             }
-        });
-    });
-
-        $('.close').click(function () {
-            $('#uploadModal').modal('hide');
-        });
-    });
-
-    $('#uploadModal').on('hidden.bs.modal', function() {
-        $('#current-avatar').attr('src', '<?php echo LOCAL_URL . htmlspecialchars($customer_avatar); ?>'); // Đặt lại ảnh về ảnh cũ
-        $('#avatar').val(''); // Xóa tệp đã chọn
-    });
+        }
 
         function resetForm() {
             document.getElementById('name').value = "<?= htmlspecialchars($full_name); ?>";
             document.getElementById('phone').value = "<?= htmlspecialchars($customer_phone); ?>";
             document.getElementById('address').value = "<?= htmlspecialchars($customer_address); ?>";
         }
+
         function showSection(sectionId) {
             const sections = ['profileInfo', 'orders', 'customers', 'addresses'];
             sections.forEach(section => {
@@ -368,37 +391,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Kiểm tra định dạng email
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
-            alert("Email format is incorrect!");
-            return false;
+                alert("Email format is incorrect!");
+                return false;
             }
         }
 
         // Mở popup upload ảnh
-function openImageUploadModal() {
-    const imageModal = new bootstrap.Modal(document.getElementById('imageUploadModal'));
-    imageModal.show();
-}
-
-// Upload ảnh và hiển thị tạm
-function uploadProfileImage() {
-    const formData = new FormData(document.getElementById('imageUploadForm'));
-
-    fetch('upload_image.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Hiển thị ảnh đã upload tạm thời
-            document.getElementById('iconUser').src = data.tempImagePath;
-        } else {
-            alert(data.message || 'Error uploading image');
+        function openImageUploadModal() {
+            const imageModal = new bootstrap.Modal(document.getElementById('imageUploadModal'));
+            imageModal.show();
         }
-    })
-    .catch(error => console.error('Error:', error));
-}
 
+        // Upload ảnh và hiển thị tạm
+        // function uploadProfileImage() {
+        //     const formData = new FormData(document.getElementById('imageUploadForm'));
+        //     debugger
+        //     fetch('upload_image.php', {
+        //             method: 'POST',
+        //             body: formData
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 debugger
+        //                 // Hiển thị ảnh đã upload tạm thời
+        //                 document.getElementById('iconUser').src = data.tempImagePath;
+        //             } else {
+        //                 alert(data.message || 'Error uploading image');
+        //             }
+        //         })
+        //         .catch(error => console.error('Error:', error));
+        // }
     </script>
 
 </body>
@@ -406,13 +429,5 @@ function uploadProfileImage() {
 </html>
 
 <?php
-include_once PUBLIC_PATH . 'footer.php'; 
+include_once PUBLIC_PATH . 'footer.php';
 ?>
-
-
-
-
-
-
-
-

@@ -32,7 +32,7 @@ function getListProducts($currentPage, $perPage)
         echo "<td><img src='" . LOCAL_URL . htmlspecialchars($product['image_path'], ENT_QUOTES) . "' width='50' class='img-thumbnail' /></td>";
         echo "<td>
             <button type='button' class='btn btn-sm btn-warning' data-toggle='modal' data-target='#addEditProductModal' 
-            onclick='openEditProductModal(\"" . htmlspecialchars($product['product_guid'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_code'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['category_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['stock'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['supplier_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['image_path'], ENT_QUOTES) . "\")'>Edit</button>
+            onclick='openEditProductModal(\"" . htmlspecialchars($product['product_guid'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_code'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_name'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['category_id'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['stock'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['supplier_code'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['image_path'], ENT_QUOTES) . "\")'>Edit</button>
             <button type='button' class='btn btn-sm btn-danger' data-toggle='modal' data-target='#deleteProductModal' onclick='openDeleteProductModal(\"" . htmlspecialchars($product['product_guid'], ENT_QUOTES) . "\", \"" . htmlspecialchars($product['product_name'], ENT_QUOTES) . "\")'>Delete</button>
         </td>";
         echo "</tr>";
@@ -57,6 +57,46 @@ function getTotalProducts()
   return count($result);
 }
 
+function getCategories()
+{
+  global $pdo;
+  try {
+    // Truy vấn để lấy danh sách categories
+    $sql = "SELECT category_id, category_name FROM tbl_categories WHERE deleted = 0";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Lấy dữ liệu
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $categories;
+  } catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+    return [];
+  }
+}
+
+function getSuppliers()
+{
+  global $pdo;
+  try {
+    // Truy vấn để lấy danh sách categories
+    $sql = "SELECT supplier_code, supplier_name FROM tbl_suppliers WHERE deleted = 0";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Lấy dữ liệu
+    $suppliers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $suppliers;
+  } catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+    return [];
+  }
+}
+
+
+
 // Xử lý form thêm và chỉnh sửa sản phẩm
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   global $pdo;
@@ -67,19 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $productType = $_POST['productType'];
   $productQuantity = $_POST['productQuantity'];
   $productSupplier = $_POST['productSupplier'];
-  $productImage = null;
+  // $productImage = $_POST['productImage'];
 
-  // error_log("[" . date('Y-m-d H:i:s') . "]productIdHidden: " . $productGuid . "\n", 3, $logFilePath);
-
-  // Xử lý ảnh nếu có upload
-  // if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
-  //     $targetDir = "uploads/";
-  //     $fileName = basename($_FILES['productImage']['name']);
-  //     $targetFilePath = $targetDir . $fileName;
-  //     if (move_uploaded_file($_FILES['productImage']['tmp_name'], $targetFilePath)) {
-  //         $productImage = $targetFilePath;
-  //     }
-  // }
   if (isset($_POST['product_delete'])) {
 
     $product_guid = $_POST['product_delete'];
@@ -94,17 +123,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
-
   try {
-
     if (isset($_POST['productIdHidden'])) {
       // Cập nhật sản phẩm
       $query = "UPDATE tbl_products SET 
                   product_code = :productCode, 
                   product_name = :productName,
-                  category_id = (SELECT category_id FROM tbl_categories WHERE category_name = :productType), 
+                  category_id = :productType, 
                   stock = :productQuantity, 
-                  supplier_code = (SELECT supplier_code FROM tbl_suppliers WHERE supplier_name = :productSupplier)";
+                  supplier_code = :productSupplier";
       // if ($productImage) {
       //   $query .= ", image_path = :productImage";
       // }
@@ -127,8 +154,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // if ($productImage) {
     //   $stmt->bindParam(':productImage', $productImage);
     // }
-    $stmt->execute();
-    header('Location: '.LOCAL_URL. 'src\admin\Views\products_manager.php'); // Chuyển hướng sau khi lưu
+
+    if ($stmt->execute()) {
+      //Xử lý ảnh nếu có upload
+      if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
+        $targetDir = IMAGE_PATH . "products/";
+        if (!is_dir($targetDir)) {
+          if (mkdir($targetDir, 0755, true)) {
+            echo "Thư mục '$directory' đã được tạo thành công.";
+          }
+        }
+        $imageFileType = strtolower(pathinfo($_FILES["productImage"]["name"], PATHINFO_EXTENSION));
+        $newFileName = $productGuid . date("Ymd_His") . "." . $imageFileType;
+        $targetFilePath = $targetDir . $newFileName;
+        // Kiểm tra định dạng ảnh
+        $allowTypes = array('jpg', 'png', 'gif');
+        if (in_array($imageFileType, $allowTypes)) {
+          if (move_uploaded_file($_FILES["productImage"]["tmp_name"], $targetFilePath)) {
+            // Cập nhật đường dẫn ảnh vào database
+            $stmt = $pdo->prepare("UPDATE tbl_images SET image_path = :productImage WHERE image_id = (SELECT image_id FROM tbl_products WHERE product_guid = :product_guid)");
+            if ($stmt->execute(['productImage' => 'Public/img/products/' . $newFileName, 'product_guid' => $productGuid])) {
+              $error = $targetFilePath;
+            } else {
+              $error = "Error updating record.";
+            }
+          } else {
+            $error = "Error uploading file.";
+          }
+        } else {
+          $error = "Invalid file type.";
+        }
+      }
+    }
+
+    header('Location: products_manager.php'); // Chuyển hướng sau khi lưu
     exit();
   } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
@@ -242,7 +301,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <div class="mb-2">
             <label for="productType" class="form-label">Category</label>
-            <input type="text" class="form-control form-control-sm" id="productType" name="productType" required>
+            <select class="form-select form-select-sm" id="productType" name="productType" required>
+              <option value="" disabled selected>Select a category</option>
+              <!-- Các tùy chọn sẽ được thêm vào đây -->
+              <?PHP
+              $categories = getCategories();
+              echo $categories;
+              if (!empty($categories)) {
+                foreach ($categories as $category) {
+                  echo '<option value="' . htmlspecialchars($category['category_id']) . '">' . htmlspecialchars($category['category_name']) . '</option>';
+                }
+              } else {
+                echo '<option value="" disabled>No categories available</option>';
+              }
+              ?>
+            </select>
           </div>
           <div class="mb-2">
             <label for="productQuantity" class="form-label">Quantity</label>
@@ -250,7 +323,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <div class="mb-2">
             <label for="productSupplier" class="form-label">Supplier</label>
-            <input type="text" class="form-control form-control-sm" id="productSupplier" name="productSupplier" required>
+            <select class="form-select form-select-sm" id="productSupplier" name="productSupplier" required>
+              <option value="" disabled selected>Select a Supplier</option>
+              <!-- Các tùy chọn sẽ được thêm vào đây -->
+              <?PHP
+              $suppliers = getSuppliers();
+              echo $suppliers;
+              if (!empty($suppliers)) {
+                foreach ($suppliers as $Supplier) {
+                  echo '<option value="' . htmlspecialchars($Supplier['supplier_code']) . '">' . htmlspecialchars($Supplier['supplier_name']) . '</option>';
+                }
+              } else {
+                echo '<option value="" disabled>No Suppliers available</option>';
+              }
+              ?>
+            </select>
           </div>
           <div class="mb-2">
             <label for="productImage" class="form-label">Image</label>
@@ -333,20 +420,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     document.getElementById('productQuantity').value = '';
     document.getElementById('productSupplier').value = '';
     document.getElementById('productImage').value = ''; // Reset file input
-
   }
 
   // Open popup to edit product
   //openEditProductModal(\"{$product['product_guid']}\",\"{$product['product_code']}\", \"{$product['product_name']}\", \"{$product['category_name']}\", {$product['stock']}, \"{$product['supplier_name']}\")
-  function openEditProductModal(product_guid, product_code, product_name, category_name, stock, supplier_name, image_path) {
+  function openEditProductModal(product_guid, product_code, product_name, category_id, stock, supplier_code, image_path) {
     document.getElementById('addEditProductModalLabel').textContent = 'Edit Product';
     document.getElementById('productIdHidden').value = product_guid; // Set hidden input to product ID
     debugger
     document.getElementById('productCode').value = product_code;
     document.getElementById('productName').value = product_name;
-    document.getElementById('productType').value = category_name;
+    document.getElementById('productType').value = category_id;
     document.getElementById('productQuantity').value = stock;
-    document.getElementById('productSupplier').value = supplier_name;
+    document.getElementById('productSupplier').value = supplier_code;
     // document.getElementById('productImage').value = image_path; // Do not pre-fill file input
     const imgElement = document.getElementById('currentProductImage');
     if (image_path) {
