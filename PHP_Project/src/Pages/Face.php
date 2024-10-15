@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const productPrice = this.getAttribute('data-price');
             
             // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
-            fetch('src/Pages/add_to_cart.php', {
+            fetch('src/Pages/My_cart/add_to_cart.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
