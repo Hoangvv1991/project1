@@ -5,6 +5,8 @@ include_once PUBLIC_PATH . 'header.php';
 $mycartname = '';
 if (isset($_SESSION['session_login'])){
     $mycartname = $customer_data['customer_name'];
+    $mycart_phone = $customer_data['customer_phone'];
+    $mycart_address = $customer_data['customer_address'];
 }
 
 
@@ -27,44 +29,51 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 </head>
 <body>
     <h1 class="cart-title">Your Shopping Cart</h1>
+    <div id="div-cart-empty" style="display: none;" >
+            <div class="cart-empty" id="cartempty"><h5>Your cart is currently empty.</h5></div>
+            <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
+        </div>
     <?php if (empty($cart)): ?>
-        <div class="cart-empty" id="cartempty"><h5>Your cart is currently empty.</h5></div>
-        <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
+            <div class="cart-empty" id="cartempty"><h5>Your cart is currently empty.</h5></div>
+            <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
     <?php else: ?>
-        <table class="cart-table" id="cart-table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="cart-body">
-                <?php
-                $total = 0;
-                foreach ($cart as $item): 
-                    $itemTotal = $item['price'] * $item['quantity'];
-                    $total += $itemTotal;
-                ?>
-                    <tr id="cart-item-<?= $item['id'] ?>">
-                        <td class="cart-item-name"><?= htmlspecialchars($item['name']) ?></td>
-                        <td class="cart-item-price"><?= number_format($item['price'], 0, ',', '.') ?> VND</td>
-                        <td class="cart-item-quantity">
-                            <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1" data-id="<?= $item['id'] ?>">
-                        </td>
-                        <td class="cart-item-total"><?= number_format($itemTotal, 0, ',', '.') ?> VND</td>
-                        <td class="cart-item-action actions">
-                            <button class="btn-remove" data-id="<?= $item['id'] ?>">Remove</button>
-                        </td>
+        <div id="div-cart-table">
+            <table class="cart-table" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="cart-body">
+                    <?php
+                    $total = 0;
+                    foreach ($cart as $item): 
+                        $itemTotal = $item['price'] * $item['quantity'];
+                        $total += $itemTotal;
+                    ?>
+                        <tr id="cart-item-<?= $item['id'] ?>">
+                            <td class="cart-item-name"><?= htmlspecialchars($item['name']) ?></td>
+                            <td class="cart-item-price"><?= number_format($item['price'], 0, ',', '.') ?> VND</td>
+                            <td class="cart-item-quantity">
+                                <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1" data-id="<?= $item['id'] ?>">
+                            </td>
+                            <td class="cart-item-total"><?= number_format($itemTotal, 0, ',', '.') ?> VND</td>
+                            <td class="cart-item-action actions">
+                                <button class="btn-remove" data-id="<?= $item['id'] ?>">Remove</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-        <h3 class="cart-total">Total: <?= number_format($total, 0, ',', '.') ?> VND</h3>
-        <button class="btn-checkout">Checkout</button>
+            <h3 class="cart-total">Total: <?= number_format($total, 0, ',', '.') ?> VND</h3>
+            <button class="btn-checkout">Checkout</button>
+        </div>
+        
     <?php endif; ?>
 
     <!-- Popup cho lựa chọn đăng nhập hoặc mua hàng không cần đăng nhập -->
@@ -98,6 +107,12 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
                             // Cập nhật tổng tiền
                             updateTotal();
+
+                            // Kiểm tra xem giỏ hàng có trống không
+                            if ($('#cart-body tr').length === 0) {
+                                $('#div-cart-table').hide(); // Ẩn bảng giỏ hàng
+                                document.getElementById('div-cart-empty').style.display = 'block';
+                            }
 
                             alert(result.message);
                         } else {
@@ -191,8 +206,17 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 $('#cart-table').hide(); // Ẩn bảng giỏ hàng
 
                 if (checklogin !== "") {
-                    // Nếu đã đăng nhập, chuyển đến trang thanh toán
-                    window.location.href = 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Payment.php'; // Đường dẫn đến trang thanh toán
+                    $.ajax({
+                        url: 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/save_cart_to_session.php',  // Tạo file PHP để lưu giỏ hàng
+                        type: 'POST',
+                        data: { cart: JSON.stringify(<?= json_encode($cart) ?>) }, // Truyền giỏ hàng dưới dạng JSON
+                        success: function(response) {
+                            window.location.href = 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Payment.php'; // Chuyển hướng đến trang thanh toán
+                        },
+                        error: function() {
+                            alert('Đã xảy ra lỗi khi lưu giỏ hàng.');
+                        }
+                    });
                 } else {
                     // Nếu chưa đăng nhập, hiển thị popup
                     $('#checkout-popup').fadeIn();

@@ -1,30 +1,28 @@
 <?php
-session_start(); // Khởi tạo session
+session_start();
 
-// Kiểm tra xem id sản phẩm đã được gửi không
+// Kiểm tra nếu có ID sản phẩm được gửi
 if (isset($_POST['id'])) {
     $productId = $_POST['id'];
 
-    // Kiểm tra xem giỏ hàng có tồn tại không
-    if (isset($_SESSION['cart'])) {
+    // Kiểm tra nếu giỏ hàng tồn tại trong session
+    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        // Lặp qua giỏ hàng và xóa sản phẩm
         foreach ($_SESSION['cart'] as $key => $item) {
             if ($item['id'] == $productId) {
                 // Xóa sản phẩm khỏi giỏ hàng
                 unset($_SESSION['cart'][$key]);
-                
-                // Cập nhật lại giỏ hàng
-                $_SESSION['cart'] = array_values($_SESSION['cart']); // Để đảm bảo không có khóa bị bỏ trống
-                
-                // Phản hồi thành công
-                echo json_encode(['status' => 'success', 'message' => 'Sản phẩm đã được xóa khỏi giỏ hàng.']);
-                exit; // Kết thúc script
+                // Gửi phản hồi thành công
+                echo json_encode(['status' => 'success', 'message' => 'Product removed from cart.']);
+                exit;
             }
         }
+        // Nếu không tìm thấy sản phẩm
+        echo json_encode(['status' => 'error', 'message' => 'Product not found in cart.']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Cart is empty.']);
     }
-
-    // Nếu không tìm thấy sản phẩm
-    echo json_encode(['status' => 'error', 'message' => 'Sản phẩm không tồn tại trong giỏ hàng.']);
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Không có ID sản phẩm.']);
+    echo json_encode(['status' => 'error', 'message' => 'No product ID specified.']);
 }
 ?>
