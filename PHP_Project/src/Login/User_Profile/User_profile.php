@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // document.getElementById('displayCity').innerText = '$NewCity'; 
                     resetForm();
                   </script>";
-            header("Location: http://localhost/project_aptech/PHP_Project/index.php?pages=home");
+            header("Location:" . LOCAL_URL . "index.php?pages=home");
         } else {
             echo "<div class='alert alert-danger'>Update failed.</div>";
         }
