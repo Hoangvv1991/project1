@@ -22,7 +22,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Shopping Cart</title>
-    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/My_cart/MyCart.css' ?>">
+    <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Mycart.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Add jQuery -->
 </head>
 <body>
@@ -72,9 +72,9 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         <div class="popup-content">
             <h2>Confirmation required</h2>
             <p>You can log in to check out or purchase without logging in?</p>
-            <button id="login-button"><a href="<?php echo LOCAL_URL . 'src/Login/LoginForm.php' ?>">Login</a></button>
-            <button id="guest-button"><a href="<?php echo LOCAL_URL . 'src/Login/LoginForm.php' ?>">Purchase without logging in</a></button><br>
-            <button id="close-popup">Đóng</button>
+            <button id="login-button">Login</button>
+            <button id="guest-button">Purchase without logging in</button><br>
+            <button id="close-popup">Close</button>
         </div>
     </div>
 
@@ -204,6 +204,15 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 $('#checkout-popup').fadeOut();
                 $('#cart-table').show(); // Hiển thị lại bảng giỏ hàng khi đóng popup
             });
+        });
+
+        document.getElementById("login-button").addEventListener("click", function() {
+            // Chuyển hướng đến trang khác (ví dụ: trang đăng nhập)
+            window.location.href = "http://localhost/project_aptech/PHP_Project/src/Login/LoginForm.php"; // Đường dẫn đến trang khác
+        });
+        document.getElementById("guest-button").addEventListener("click", function() {
+            // Chuyển hướng đến trang khác (ví dụ: trang đăng nhập)
+            window.location.href = "http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/PaymentNotLog.php"; // Đường dẫn đến trang khác
         });
     </script>
     
