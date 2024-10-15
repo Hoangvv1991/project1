@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2024 at 12:42 PM
+-- Generation Time: Oct 15, 2024 at 09:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -42,12 +42,12 @@ CREATE TABLE `tbl_categories` (
 --
 
 INSERT INTO `tbl_categories` (`category_id`, `category_name`, `description`, `created_date`, `deleted`) VALUES
-(1, 'Skincare', 'Products that cleanse, protect, and nourish the skin to maintain health', '2024-10-01 00:16:35', NULL),
-(2, 'Makeup', 'Cosmetic products used to enhance or alter the appearance of the face', '2024-10-01 00:16:35', NULL),
-(3, 'Haircare', 'Products designed to maintain or improve the condition and appearance of hair', '2024-10-01 00:16:35', NULL),
-(4, 'Bodycare', 'Products that cleanse, moisturize, and protect the skin on the body', '2024-10-01 00:16:35', NULL),
-(5, 'Fragrance', 'Perfumes and scented products used to provide a pleasant aroma', '2024-10-01 00:16:35', NULL),
-(6, 'Nailcare', 'Products that improve the appearance and health of nails and cuticles', '2024-10-01 00:16:35', NULL);
+(1, 'Skincare', 'Products that cleanse, protect, and nourish the skin to maintain health', '2024-10-01 00:16:35', 0),
+(2, 'Makeup', 'Cosmetic products used to enhance or alter the appearance of the face', '2024-10-01 00:16:35', 0),
+(3, 'Haircare', 'Products designed to maintain or improve the condition and appearance of hair', '2024-10-01 00:16:35', 0),
+(4, 'Bodycare', 'Products that cleanse, moisturize, and protect the skin on the body', '2024-10-01 00:16:35', 0),
+(5, 'Fragrance', 'Perfumes and scented products used to provide a pleasant aroma', '2024-10-01 00:16:35', 0),
+(6, 'Nailcare', 'Products that improve the appearance and health of nails and cuticles', '2024-10-01 00:16:35', 0);
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ INSERT INTO `tbl_categories` (`category_id`, `category_name`, `description`, `cr
 
 CREATE TABLE `tbl_customers` (
   `customer_guid` varchar(32) NOT NULL,
-  `customer_code` varchar(8) DEFAULT NULL,
+  `customer_code` varchar(100) DEFAULT NULL,
   `customer_name` varchar(100) DEFAULT NULL,
   `customer_email` varchar(255) DEFAULT NULL,
   `customer_password` varchar(255) DEFAULT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE `tbl_customers` (
 
 INSERT INTO `tbl_customers` (`customer_guid`, `customer_code`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_address`, `customer_city`, `customer_country`, `customer_image_path`, `session_login`, `session_date`, `created_date`, `update_date`, `deleted`) VALUES
 ('56e79337-7f50-11ef-81a7-e0d55e8c', 'USR0001', 'Đỗ Hoàng Linh', 'DoHoangLinh@aptechlearning.edu.vn', '123456', '0366202085', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0),
-('56e7a3e8-7f50-11ef-81a7-e0d55e8c', 'USR0002', 'Vũ Việt Hoàng', 'hoang.vv.2497@aptechlearning.edu.vn', '123456', '0324656042', '', 'Hà Nội', 'Việt Nam', NULL, '4985bca07c795a17fe806fc81e2c6934', '2024-10-10 00:57:20', '2024-10-01 00:20:50', '2024-10-10 00:57:20', 0),
+('56e7a3e8-7f50-11ef-81a7-e0d55e8c', 'USR0002', 'Vũ Việt Hoàng', 'hoang.vv.2497@aptechlearning.edu.vn', '123456', '0324656042', '', 'Hà Nội', 'Việt Nam', 'Public/img/avatars/56e7a3e8-7f50-11ef-81a7-e0d55e8c20241015_192615.jpg', '0167cfe9065bbecc0213a13aca710d92', '2024-10-15 22:46:24', '2024-10-01 00:20:50', '2024-10-16 00:26:15', 0),
 ('56e7a53c-7f50-11ef-81a7-e0d55e8c', 'hoangvv2', 'Võ Văn Hoàng', 'vovanhoang1999@gmail.com', '123456', '0324673961', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0),
 ('56e7a5bb-7f50-11ef-81a7-e0d55e8c', 'hoangvv', 'Vũ Việt Hoàng', 'vuviethoang1941991@gmail.com', '123456', '0349401683', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0);
 
@@ -127,7 +127,75 @@ CREATE TABLE `tbl_images` (
 --
 
 INSERT INTO `tbl_images` (`image_id`, `image_path`, `created_date`, `update_date`, `deleted`) VALUES
-(1, 'public/img/1256600_slot2.jpg', '2024-10-06 18:07:33', '2024-10-06 18:07:33', 0);
+(1, 'Public/img/products/5d17831a-80e4-11ef-bef9-e0d55e8c20241015_205706.jpg', '2024-10-06 18:07:33', '2024-10-16 01:57:06', 0),
+(2, 'Public/img/products/5d17831a-80e4-11ef-bef9-e0d55e8c20241015_212730.jpg', '2024-10-16 02:03:48', '2024-10-16 02:27:30', 0),
+(3, 'http://example2.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(4, 'http://example3.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(5, 'http://example4.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(6, 'http://example5.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(7, 'http://example6.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(8, 'http://example7.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(9, 'http://example8.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(10, 'http://example9.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(11, 'http://example10.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(12, 'http://example11.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(13, 'http://example12.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(14, 'http://example13.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(15, 'http://example14.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(16, 'http://example15.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(17, 'http://example16.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(18, 'http://example17.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(19, 'http://example18.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(20, 'http://example19.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(21, 'http://example20.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(22, 'http://example21.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(23, 'http://example22.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(24, 'http://example23.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(25, 'http://example24.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(26, 'http://example25.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(27, 'http://example26.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(28, 'http://example27.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(29, 'http://example28.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(30, 'http://example29.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(31, 'http://example30.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(32, 'http://example31.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(33, 'http://example32.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(34, 'http://example33.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(35, 'http://example34.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(36, 'http://example35.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(37, 'http://example36.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(38, 'http://example37.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(39, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(40, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(41, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(42, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(43, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(44, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(45, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(46, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(47, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(48, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(49, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(50, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(51, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(52, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(53, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(54, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(55, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(56, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(57, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(58, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(59, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(60, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(61, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(62, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(63, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(64, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(65, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(66, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(67, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(68, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(69, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0);
 
 -- --------------------------------------------------------
 
@@ -209,44 +277,66 @@ CREATE TABLE `tbl_products` (
 --
 
 INSERT INTO `tbl_products` (`product_guid`, `product_code`, `product_name`, `category_id`, `supplier_code`, `price`, `stock`, `description`, `image_id`, `created_date`, `update_date`, `deleted`) VALUES
-('5d128984-80e4-11ef-bef9-e0d55e8c', 'SK001', 'Hydrating Facial Cleanser', 1, 'LOR01', 15.99, 100, 'A gentle cleanser that hydrates and purifies the skin.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d17831a-80e4-11ef-bef9-e0d55e8c', 'SK002', 'Moisturizing Lotion', 1, 'EST02', 18.99, 150, 'A rich lotion that deeply moisturizes and nourishes the skin.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d178fef-80e4-11ef-bef9-e0d55e8c', 'SK003', 'Anti-Aging Serum', 1, 'NIVE03', 29.99, 200, 'An advanced serum that reduces the appearance of fine lines.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24778a-80e4-11ef-bef9-e0d55e8c', 'SK004', 'Brightening Face Mask', 1, 'LAN04', 22.99, 80, 'A mask that brightens and revitalizes dull skin.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d247b00-80e4-11ef-bef9-e0d55e8c', 'SK005', 'Sunscreen SPF 50', 1, 'MAYB05', 12.99, 120, 'A lightweight sunscreen that provides broad-spectrum protection.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d247d7b-80e4-11ef-bef9-e0d55e8c', 'SK006', 'Gentle Exfoliator', 1, 'REVL06', 19.99, 90, 'A gentle exfoliating scrub that removes dead skin cells.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d248349-80e4-11ef-bef9-e0d55e8c', 'SK007', 'Face Oil', 1, 'MAC07', 25.99, 110, 'A nourishing oil that provides hydration and radiance.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24865a-80e4-11ef-bef9-e0d55e8c', 'SK008', 'Night Cream', 1, 'DOVE08', 24.99, 130, 'A rich night cream that hydrates and repairs the skin overnight.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d2488f1-80e4-11ef-bef9-e0d55e8c', 'SK009', 'Cleansing Water', 1, 'LOR01', 15.49, 160, 'A cleansing water that removes makeup and impurities.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d248b73-80e4-11ef-bef9-e0d55e8c', 'SK010', 'Hydrating Mask', 1, 'EST02', 20.99, 70, 'A hydrating mask that leaves skin plump and dewy.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d248ddd-80e4-11ef-bef9-e0d55e8c', 'SK011', 'Facial Mist', 1, 'NIVE03', 13.99, 140, 'A refreshing mist that hydrates and soothes the skin.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d249669-80e4-11ef-bef9-e0d55e8c', 'SK012', 'Pore Minimizer', 1, 'LAN04', 27.99, 75, 'A primer that minimizes the appearance of pores.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d249954-80e4-11ef-bef9-e0d55e8c', 'SK013', 'Firming Eye Cream', 1, 'MAYB05', 29.99, 50, 'An eye cream that firms and brightens the eye area.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d249be0-80e4-11ef-bef9-e0d55e8c', 'SK014', 'Peeling Gel', 1, 'REVL06', 18.49, 85, 'A gel that gently removes dead skin and impurities.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d249e63-80e4-11ef-bef9-e0d55e8c', 'SK015', 'Revitalizing Serum', 1, 'MAC07', 32.99, 65, 'A serum that revitalizes and restores skin elasticity.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24a0d0-80e4-11ef-bef9-e0d55e8c', 'MK001', 'Foundation', 2, 'LOR01', 30.99, 200, 'A full-coverage foundation that lasts all day.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24a3aa-80e4-11ef-bef9-e0d55e8c', 'MK002', 'Lipstick', 2, 'EST02', 15.99, 150, 'A matte lipstick with intense color pay-off.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24a615-80e4-11ef-bef9-e0d55e8c', 'MK003', 'Eyeshadow Palette', 2, 'NIVE03', 35.99, 120, 'A palette with 12 versatile shades for endless looks.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24ab1e-80e4-11ef-bef9-e0d55e8c', 'MK004', 'Mascara', 2, 'LAN04', 19.99, 180, 'A volumizing mascara that lifts and defines lashes.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24aea5-80e4-11ef-bef9-e0d55e8c', 'MK005', 'Blush', 2, 'MAYB05', 12.99, 200, 'A powder blush that gives a natural flush.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24b165-80e4-11ef-bef9-e0d55e8c', 'MK006', 'Highlighter', 2, 'REVL06', 14.99, 160, 'A shimmering highlighter for a radiant glow.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24b400-80e4-11ef-bef9-e0d55e8c', 'MK007', 'Eyeliner', 2, 'MAC07', 16.99, 140, 'A long-lasting eyeliner that glides on smoothly.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24b6df-80e4-11ef-bef9-e0d55e8c', 'MK008', 'Setting Spray', 2, 'DOVE08', 18.49, 130, 'A setting spray that keeps makeup in place all day.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24b973-80e4-11ef-bef9-e0d55e8c', 'MK009', 'Lip Gloss', 2, 'LOR01', 11.99, 190, 'A shiny lip gloss that adds volume to lips.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24bbf6-80e4-11ef-bef9-e0d55e8c', 'MK010', 'BB Cream', 2, 'EST02', 22.99, 110, 'A lightweight BB cream that evens out skin tone.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24e2e9-80e4-11ef-bef9-e0d55e8c', 'MK011', 'Makeup Remover', 2, 'NIVE03', 9.99, 250, 'A gentle makeup remover that cleanses without irritation.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d250ce6-80e4-11ef-bef9-e0d55e8c', 'MK012', 'Contour Kit', 2, 'LAN04', 28.99, 75, 'A contour kit that sculpts and defines facial features.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d251c8a-80e4-11ef-bef9-e0d55e8c', 'MK013', 'Lip Liner', 2, 'MAYB05', 13.49, 140, 'A creamy lip liner that defines lips perfectly.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d252e8d-80e4-11ef-bef9-e0d55e8c', 'MK014', 'Setting Powder', 2, 'REVL06', 15.99, 120, 'A translucent powder that sets makeup for a flawless finish.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d2539c4-80e4-11ef-bef9-e0d55e8c', 'MK015', 'Makeup Brush Set', 2, 'MAC07', 45.99, 50, 'A set of high-quality brushes for flawless application.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d253d0a-80e4-11ef-bef9-e0d55e8c', 'HC001', 'Shampoo', 3, 'LOR01', 12.99, 150, 'A nourishing shampoo for healthy hair.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d253fe6-80e4-11ef-bef9-e0d55e8c', 'HC002', 'Conditioner', 3, 'EST02', 13.99, 150, 'A moisturizing conditioner that leaves hair soft.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d2542bb-80e4-11ef-bef9-e0d55e8c', 'HC003', 'Hair Mask', 3, 'NIVE03', 14.99, 100, 'A deep conditioning hair mask for damaged hair.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d2547b5-80e4-11ef-bef9-e0d55e8c', 'HC004', 'Hair Oil', 3, 'LAN04', 19.99, 90, 'A lightweight hair oil that adds shine.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d254bbc-80e4-11ef-bef9-e0d55e8c', 'BC001', 'Body Wash', 4, 'MAYB05', 9.99, 200, 'A refreshing body wash that cleanses the skin.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d256c4b-80e4-11ef-bef9-e0d55e8c', 'BC002', 'Body Lotion', 4, 'REVL06', 11.99, 150, 'A moisturizing body lotion that hydrates the skin.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d25764a-80e4-11ef-bef9-e0d55e8c', 'FR001', 'Perfume', 5, 'MAC07', 49.99, 100, 'A long-lasting perfume with a floral scent.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d257c2e-80e4-11ef-bef9-e0d55e8c', 'FR002', 'Body Spray', 5, 'DOVE08', 15.99, 120, 'A light body spray for a refreshing scent.', 1, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0);
+('5d128984-80e4-11ef-bef9-e0d55e8c', 'SK001', 'Hydrating Facial Cleanser', 1, 'LOR01', 15.99, 100, 'A gentle cleanser that hydrates and purifies the skin.', 1, '2024-10-03 00:32:57', '2024-10-13 22:17:04', 1),
+('5d17831a-80e4-11ef-bef9-e0d55e8c', 'SK002', 'Moisturizing Lotion', 1, 'EST02', 18.99, 150, 'A rich lotion that deeply moisturizes and nourishes the skin.', 2, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d178fef-80e4-11ef-bef9-e0d55e8c', 'SK003', 'Anti-Aging Serum', 1, 'NIVE03', 29.99, 200, 'An advanced serum that reduces the appearance of fine lines.', 3, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24778a-80e4-11ef-bef9-e0d55e8c', 'SK004', 'Brightening Face Mask', 1, 'LAN04', 22.99, 80, 'A mask that brightens and revitalizes dull skin.', 4, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d247b00-80e4-11ef-bef9-e0d55e8c', 'SK005', 'Sunscreen SPF 50', 1, 'MAYB05', 12.99, 120, 'A lightweight sunscreen that provides broad-spectrum protection.', 5, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d247d7b-80e4-11ef-bef9-e0d55e8c', 'SK006', 'Gentle Exfoliator', 1, 'REVL06', 19.99, 90, 'A gentle exfoliating scrub that removes dead skin cells.', 6, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d248349-80e4-11ef-bef9-e0d55e8c', 'SK007', 'Face Oil', 1, 'MAC07', 25.99, 110, 'A nourishing oil that provides hydration and radiance.', 7, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24865a-80e4-11ef-bef9-e0d55e8c', 'SK008', 'Night Cream', 1, 'DOVE08', 24.99, 130, 'A rich night cream that hydrates and repairs the skin overnight.', 8, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d2488f1-80e4-11ef-bef9-e0d55e8c', 'SK009', 'Cleansing Water', 1, 'LOR01', 15.49, 160, 'A cleansing water that removes makeup and impurities.', 9, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d248b73-80e4-11ef-bef9-e0d55e8c', 'SK010', 'Hydrating Mask', 1, 'EST02', 20.99, 70, 'A hydrating mask that leaves skin plump and dewy.', 10, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d248ddd-80e4-11ef-bef9-e0d55e8c', 'SK011', 'Facial Mist', 1, 'NIVE03', 13.99, 140, 'A refreshing mist that hydrates and soothes the skin.', 11, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d249669-80e4-11ef-bef9-e0d55e8c', 'SK012', 'Pore Minimizer', 1, 'LAN04', 27.99, 75, 'A primer that minimizes the appearance of pores.', 12, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d249954-80e4-11ef-bef9-e0d55e8c', 'SK013', 'Firming Eye Cream', 1, 'MAYB05', 29.99, 50, 'An eye cream that firms and brightens the eye area.', 13, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d249be0-80e4-11ef-bef9-e0d55e8c', 'SK014', 'Peeling Gel', 1, 'REVL06', 18.49, 85, 'A gel that gently removes dead skin and impurities.', 14, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d249e63-80e4-11ef-bef9-e0d55e8c', 'SK015', 'Revitalizing Serum', 1, 'MAC07', 32.99, 65, 'A serum that revitalizes and restores skin elasticity.', 15, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24a0d0-80e4-11ef-bef9-e0d55e8c', 'MK001', 'Foundation', 2, 'LOR01', 30.99, 200, 'A full-coverage foundation that lasts all day.', 16, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24a3aa-80e4-11ef-bef9-e0d55e8c', 'MK002', 'Lipstick', 2, 'EST02', 15.99, 150, 'A matte lipstick with intense color pay-off.', 17, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24a615-80e4-11ef-bef9-e0d55e8c', 'MK003', 'Eyeshadow Palette', 2, 'NIVE03', 35.99, 120, 'A palette with 12 versatile shades for endless looks.', 18, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24ab1e-80e4-11ef-bef9-e0d55e8c', 'MK004', 'Mascara', 2, 'LAN04', 19.99, 180, 'A volumizing mascara that lifts and defines lashes.', 19, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24aea5-80e4-11ef-bef9-e0d55e8c', 'MK005', 'Blush', 2, 'MAYB05', 12.99, 200, 'A powder blush that gives a natural flush.', 20, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24b165-80e4-11ef-bef9-e0d55e8c', 'MK006', 'Highlighter', 2, 'REVL06', 14.99, 160, 'A shimmering highlighter for a radiant glow.', 21, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24b3f6-80e4-11ef-bef9-e0d55e8c', 'MK007', 'Bronzer', 2, 'MAC07', 16.99, 140, 'A bronzer that adds warmth and dimension to the face.', 22, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24b68e-80e4-11ef-bef9-e0d55e8c', 'MK008', 'Setting Spray', 2, 'LOR01', 21.99, 110, 'A setting spray that locks in makeup all day.', 23, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24b89c-80e4-11ef-bef9-e0d55e8c', 'MK009', 'Makeup Remover', 2, 'EST02', 11.99, 90, 'A gentle makeup remover that cleanses the skin.', 24, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24bc61-80e4-11ef-bef9-e0d55e8c', 'MK010', 'Nail Polish', 2, 'NIVE03', 7.99, 80, 'A long-lasting nail polish in vibrant colors.', 25, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24bf04-80e4-11ef-bef9-e0d55e8c', 'MK011', 'Lip Gloss', 2, 'LAN04', 9.99, 60, 'A glossy lip product that hydrates and adds shine.', 26, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24c0a5-80e4-11ef-bef9-e0d55e8c', 'MK012', 'Makeup Brush Set', 2, 'MAYB05', 49.99, 50, 'A set of professional brushes for flawless application.', 27, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24c38f-80e4-11ef-bef9-e0d55e8c', 'MK013', 'Face Primer', 2, 'REVL06', 28.99, 40, 'A smoothing primer that preps the skin for makeup.', 28, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24c5a0-80e4-11ef-bef9-e0d55e8c', 'MK014', 'Brow Gel', 2, 'MAC07', 12.49, 90, 'A brow gel that shapes and sets brows in place.', 29, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24c7c6-80e4-11ef-bef9-e0d55e8c', 'MK015', 'Lip Balm', 2, 'LOR01', 6.99, 150, 'A nourishing lip balm that hydrates and protects.', 30, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24ca9e-80e4-11ef-bef9-e0d55e8c', 'BK001', 'Novel - The Great Gatsby', 3, 'LOR01', 14.99, 300, 'A classic novel by F. Scott Fitzgerald.', 31, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24cd67-80e4-11ef-bef9-e0d55e8c', 'BK002', 'Self-Help - The Power of Habit', 3, 'EST02', 16.99, 200, 'A guide to building good habits and breaking bad ones.', 32, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24cf43-80e4-11ef-bef9-e0d55e8c', 'BK003', 'Biography - Steve Jobs', 3, 'NIVE03', 18.99, 150, 'The life story of Steve Jobs, co-founder of Apple Inc.', 33, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24d1ab-80e4-11ef-bef9-e0d55e8c', 'BK004', 'Cookbook - The Joy of Cooking', 3, 'LAN04', 29.99, 80, 'A comprehensive cookbook with a variety of recipes.', 34, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24d48a-80e4-11ef-bef9-e0d55e8c', 'BK005', 'Mystery - Gone Girl', 3, 'MAYB05', 19.99, 120, 'A psychological thriller about a marriage gone wrong.', 35, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24d6da-80e4-11ef-bef9-e0d55e8c', 'BK006', 'Fiction - To Kill a Mockingbird', 3, 'REVL06', 22.99, 90, 'A novel about racial injustice in the Deep South.', 36, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24d9c3-80e4-11ef-bef9-e0d55e8c', 'BK007', 'Fantasy - Harry Potter and the Sorcerer\'s Stone', 3, 'MAC07', 24.99, 150, 'The first book in the Harry Potter series.', 37, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24dc22-80e4-11ef-bef9-e0d55e8c', 'BK008', 'Science - A Brief History of Time', 3, 'LOR01', 28.99, 200, 'A popular science book by Stephen Hawking.', 38, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24de9b-80e4-11ef-bef9-e0d55e8c', 'BK009', 'Health - How Not to Die', 3, 'EST02', 16.49, 180, 'A guide to living a healthier life.', 39, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24e079-80e4-11ef-bef9-e0d55e8c', 'BK010', 'History - Sapiens: A Brief History of Humankind', 3, 'NIVE03', 25.99, 70, 'A thought-provoking history of humanity.', 40, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24e28d-80e4-11ef-bef9-e0d55e8c', 'BK011', 'Poetry - The Sun and Her Flowers', 3, 'LAN04', 19.99, 65, 'A beautiful collection of poetry.', 41, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24e44d-80e4-11ef-bef9-e0d55e8c', 'BK012', 'Children - The Very Hungry Caterpillar', 3, 'MAYB05', 9.99, 100, 'A classic children\'s book.', 42, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24e68e-80e4-11ef-bef9-e0d55e8c', 'BK013', 'Graphic Novel - Watchmen', 3, 'REVL06', 29.99, 80, 'A groundbreaking graphic novel.', 43, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24e8d8-80e4-11ef-bef9-e0d55e8c', 'BK014', 'Mystery - The Girl with the Dragon Tattoo', 3, 'MAC07', 21.99, 120, 'A mystery novel with a strong female lead.', 44, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24eb7d-80e4-11ef-bef9-e0d55e8c', 'BK015', 'Historical Fiction - The Nightingale', 3, 'LOR01', 18.99, 90, 'A novel set during World War II.', 45, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24ee4f-80e4-11ef-bef9-e0d55e8c', 'BK016', 'Fantasy - The Hobbit', 3, 'EST02', 17.99, 150, 'A fantasy novel about a hobbit\'s adventure.', 46, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24f067-80e4-11ef-bef9-e0d55e8c', 'BK017', 'Science Fiction - Dune', 3, 'NIVE03', 29.99, 70, 'A science fiction epic set on a desert planet.', 47, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24f44e-80e4-11ef-bef9-e0d55e8c', 'BK018', 'Classic - Pride and Prejudice', 3, 'LAN04', 15.99, 180, 'A classic novel by Jane Austen.', 48, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24f658-80e4-11ef-bef9-e0d55e8c', 'BK019', 'Graphic Novel - Maus', 3, 'MAYB05', 22.99, 75, 'A Pulitzer Prize-winning graphic novel.', 49, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24f877-80e4-11ef-bef9-e0d55e8c', 'BK020', 'Biography - Becoming', 3, 'REVL06', 24.99, 60, 'The memoir of Michelle Obama.', 50, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24fa35-80e4-11ef-bef9-e0d55e8c', 'BK021', 'Fantasy - The Name of the Wind', 3, 'MAC07', 29.99, 90, 'A fantasy novel by Patrick Rothfuss.', 51, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d24fdb1-80e4-11ef-bef9-e0d55e8c', 'BK022', 'Historical Fiction - The Book Thief', 3, 'LOR01', 18.99, 120, 'A novel narrated by Death.', 52, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d2501e0-80e4-11ef-bef9-e0d55e8c', 'BK023', 'Science - The Selfish Gene', 3, 'EST02', 20.49, 100, 'A book on evolution and genetics.', 53, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d2503f6-80e4-11ef-bef9-e0d55e8c', 'BK024', 'Non-Fiction - Educated', 3, 'NIVE03', 24.99, 80, 'A memoir about education and self-discovery.', 54, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d250628-80e4-11ef-bef9-e0d55e8c', 'BK025', 'Poetry - Milk and Honey', 3, 'LAN04', 16.99, 75, 'A collection of poetry about survival and love.', 55, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d250854-80e4-11ef-bef9-e0d55e8c', 'BK026', 'Graphic Novel - Persepolis', 3, 'MAYB05', 22.99, 60, 'A graphic memoir about growing up in Iran.', 56, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d250a9a-80e4-11ef-bef9-e0d55e8c', 'BK027', 'Mystery - The Da Vinci Code', 3, 'REVL06', 18.99, 150, 'A mystery thriller involving art and history.', 57, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d250d04-80e4-11ef-bef9-e0d55e8c', 'BK028', 'Science Fiction - The Martian', 3, 'MAC07', 29.99, 90, 'A science fiction novel about an astronaut stranded on Mars.', 58, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d250f44-80e4-11ef-bef9-e0d55e8c', 'BK029', 'Classic - 1984', 3, 'LOR01', 15.99, 110, 'A dystopian novel by George Orwell.', 59, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d2511d9-80e4-11ef-bef9-e0d55e8c', 'BK030', 'Historical Fiction - The Night Circus', 3, 'EST02', 24.99, 75, 'A magical tale set in a mysterious circus.', 60, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0);
 
 --
 -- Triggers `tbl_products`
@@ -345,14 +435,14 @@ CREATE TABLE `tbl_suppliers` (
 --
 
 INSERT INTO `tbl_suppliers` (`supplier_guid`, `supplier_code`, `supplier_name`, `contact_name`, `supplier_email`, `supplier_phone`, `supplier_address`, `supplier_city`, `supplier_country`, `created_date`, `update_date`, `deleted`) VALUES
-('292ce2bc-7f53-11ef-81a7-e0d55e8c', 'LOR01', 'L\'Oréal', 'Jane Doe', 'contact@loreal.com', '0301234567', '1 L\'Oréal St', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292e6544-7f53-11ef-81a7-e0d55e8c', 'EST02', 'Estée Lauder', 'John Smith', 'contact@estee.com', '0301234568', '2 Estée Lauder Rd', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292ec306-7f53-11ef-81a7-e0d55e8c', 'NIVE03', 'Nivea', 'Alice Johnson', 'contact@nivea.com', '0301234569', '3 Nivea Ave', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292ecafd-7f53-11ef-81a7-e0d55e8c', 'LAN04', 'Lancôme', 'Emily White', 'contact@lancome.com', '0301234570', '4 Lancôme Blvd', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292ed0f1-7f53-11ef-81a7-e0d55e8c', 'MAYB05', 'Maybelline', 'Chris Green', 'contact@maybelline.com', '0301234571', '5 Maybelline Pkwy', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292ed764-7f53-11ef-81a7-e0d55e8c', 'REVL06', 'Revlon', 'Laura Black', 'contact@revlon.com', '0301234572', '6 Revlon Dr', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292eda38-7f53-11ef-81a7-e0d55e8c', 'MAC07', 'MAC Cosmetics', 'Robert Blue', 'contact@mac.com', '0301234573', '7 MAC St', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL),
-('292eeec0-7f53-11ef-81a7-e0d55e8c', 'DOVE08', 'Dove', 'Patricia Red', 'contact@dove.com', '0301234574', '8 Dove Ln', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-01 00:41:02', NULL);
+('292ce2bc-7f53-11ef-81a7-e0d55e8c', 'LOR01', 'L\'Oréal', 'Jane Doe', 'contact@loreal.com', '0301234567', '1 L\'Oréal St', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292e6544-7f53-11ef-81a7-e0d55e8c', 'EST02', 'Estée Lauder', 'John Smith', 'contact@estee.com', '0301234568', '2 Estée Lauder Rd', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292ec306-7f53-11ef-81a7-e0d55e8c', 'NIVE03', 'Nivea', 'Alice Johnson', 'contact@nivea.com', '0301234569', '3 Nivea Ave', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292ecafd-7f53-11ef-81a7-e0d55e8c', 'LAN04', 'Lancôme', 'Emily White', 'contact@lancome.com', '0301234570', '4 Lancôme Blvd', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292ed0f1-7f53-11ef-81a7-e0d55e8c', 'MAYB05', 'Maybelline', 'Chris Green', 'contact@maybelline.com', '0301234571', '5 Maybelline Pkwy', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292ed764-7f53-11ef-81a7-e0d55e8c', 'REVL06', 'Revlon', 'Laura Black', 'contact@revlon.com', '0301234572', '6 Revlon Dr', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292eda38-7f53-11ef-81a7-e0d55e8c', 'MAC07', 'MAC Cosmetics', 'Robert Blue', 'contact@mac.com', '0301234573', '7 MAC St', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0),
+('292eeec0-7f53-11ef-81a7-e0d55e8c', 'DOVE08', 'Dove', 'Patricia Red', 'contact@dove.com', '0301234574', '8 Dove Ln', 'Hanoi', 'Vietnam', '2024-10-01 00:41:02', '2024-10-16 01:33:51', 0);
 
 --
 -- Triggers `tbl_suppliers`
@@ -551,7 +641,7 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_images`
 --
 ALTER TABLE `tbl_images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `tbl_permissions`
@@ -568,12 +658,6 @@ ALTER TABLE `tbl_roles`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `tbl_customers`
---
-ALTER TABLE `tbl_customers`
-  ADD CONSTRAINT `fk_customer_user` FOREIGN KEY (`customer_email`) REFERENCES `tbl_users` (`user_email`);
 
 --
 -- Constraints for table `tbl_orders`
