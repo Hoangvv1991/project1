@@ -4,7 +4,7 @@ include_once PUBLIC_PATH . 'header.php';
 include API_PATH . 'db_connect.php';
 ?>
 
-<!-- lấy dữ liệu người dùng -->
+
 <?php
 $confirm_guid = $customer_data['customer_guid'];
 $customer_phone = $customer_data['customer_phone'];
@@ -14,34 +14,27 @@ $customer_email = $customer_data['customer_email'];
 if (isset($customer_data['customer_image_path'])) {
     $customer_avatar = $customer_data['customer_image_path'];
 } else {
-    $customer_avatar = 'public\img\avt.jpg'; // Hoặc bất kỳ giá trị mặc định nào bạn muốn
+    $customer_avatar = 'public\img\avt.jpg';
 }
 
 ?>
-<!-- ẩn email -->
 <?php
 function maskEmail($customer_email)
 {
-    // Tìm vị trí của dấu '@'
     $atPosition = strpos($customer_email, '@');
 
-    // Nếu không tìm thấy dấu '@', trả về email gốc
     if ($atPosition === false) {
         return $customer_email;
     }
 
-    // Tách tên người dùng và miền
     $username = substr($customer_email, 0, $atPosition);
     $domain = substr($customer_email, $atPosition);
 
-    // Lấy 3 ký tự đầu tiên
     $maskedUsername = substr($username, 0, 3) . '...';
 
-    // Kết hợp lại
     return $maskedUsername . $domain;
 }
 
-// Ví dụ sử dụng
 $maskedEmail = maskEmail($customer_email);
 ?>
 
@@ -53,38 +46,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $NewPhone = htmlspecialchars($_POST['phone']);
     $NewCity = htmlspecialchars($_POST['city']);
     $NewEmail = htmlspecialchars($_POST['email']);
-    $NewAddress = htmlspecialchars($_POST['address']); // Nhận địa chỉ từ form
-
-    // Kiểm tra và xử lý dữ liệu
+    $NewAddress = htmlspecialchars($_POST['address']);
     $errors = [];
 
-    // Kiểm tra email
     if (!filter_var($NewEmail, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email.";
     }
 
-    // Nếu không có lỗi
     if (empty($errors)) {
-        // Cập nhật vào bảng tbl_customers
         $sql = "UPDATE tbl_customers SET 
                     customer_name = :customer_name, 
                     customer_email = :customer_email, 
                     customer_phone = :customer_phone, 
                     customer_city = :customer_city,
-                    customer_address = :customer_address  -- Cập nhật địa chỉ nhận hàng
+                    customer_address = :customer_address 
                 WHERE deleted = 0 
                 AND session_login = :session_login";
 
-        // Chuẩn bị câu lệnh SQL và gán giá trị cho các tham số
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':customer_name', $NewName);
         $stmt->bindParam(':customer_email', $NewEmail);
         $stmt->bindParam(':customer_phone', $NewPhone);
         $stmt->bindParam(':customer_city', $NewCity);
-        $stmt->bindParam(':customer_address', $NewAddress); // Gán địa chỉ mới
+        $stmt->bindParam(':customer_address', $NewAddress);
         $stmt->bindParam(':session_login', $session_login);
 
-        // Thực hiện câu lệnh
         if ($stmt->execute()) {
             echo "<script>
                     alert('Your information has been successfully updated!');
@@ -98,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<div class='alert alert-danger'>Update failed.</div>";
         }
     } else {
-        // Nếu có lỗi, hiển thị lỗi
         foreach ($errors as $error) {
             echo "<div class='alert alert-danger'>$error</div>";
         }
@@ -122,7 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid">
             <h5><a href="<?PHP echo LOCAL_URL . 'index.php?pages=home' ?>">Home</a>/User Profile</h5>
             <div class="row">
-                <!-- Cột 4 phần - chứa menu dọc -->
                 <div class="col-md-4">
                     <button class="btn btn-primary d-md-none" type="button" data-toggle="collapse" data-target="#menu"
                         aria-expanded="false" aria-controls="menu">
@@ -146,7 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
 
-                <!-- Cột 6 phần - chứa nội dung chính -->
                 <div class="col-md-6 content">
                     <div class="container text-center">
                         <div id="profileInfo">
@@ -160,7 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <p><strong>City:</strong> <span id="displayCity"><?= htmlspecialchars($customer_city); ?></span></p>
                             <button class="btn btn-primary" onclick="toggleEditForm()">Edit Information</button>
                         </div>
-                        <!-- Edit information -->
                         <div id="editForm" class="hidden">
                             <h4>Edit Information</h4>
                             <form id="profileEditForm" action="http://localhost/project_aptech/PHP_Project/src/login/User_Profile/User_profile.php" method="POST" onsubmit="return updateProfile()" novalidate>
@@ -247,7 +229,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div id="customers" class="hidden">Nội dung Khách Hàng Thân Thiết...</div>
                         <div id="addresses" class="hidden">
                             <h3>Shipping Address:</h3>
-                            <!-- Hiển thị địa chỉ -->
                             <div id="address-display">
                                 <p><?php echo $customer_address; ?></p>
                             </div>
@@ -258,7 +239,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </main>
 
-    <!-- Popup Upload Image -->
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -293,26 +273,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
 
             $('#uploadForm').submit(function(event) {
-                event.preventDefault(); // Ngăn chặn gửi form mặc định
+                event.preventDefault();
                 debugger;
 
-                // Thêm AJAX để gửi dữ liệu đến PHP (bạn có thể thay đổi URL và cách xử lý theo nhu cầu)
                 $.ajax({
-                    url: 'upload_avatar.php', // Thay đổi đường dẫn đến tệp PHP của bạn
+                    url: 'upload_avatar.php',
                     type: 'POST',
                     data: new FormData(this),
                     contentType: false,
                     processData: false,
                     success: function(response) {
                         console.log(response);
-                        // Cập nhật ảnh trên giao diện
                         alert(response);
                         var jsonResponse = JSON.parse(response);
-                        $('#avatar-image').attr('src', '<?php echo LOCAL_URL; ?>' + jsonResponse.img_name); // Giả sử response.new_avatar chứa đường dẫn ảnh mới
-                        $('#uploadModal').modal('hide'); // Đóng modal
+                        $('#avatar-image').attr('src', '<?php echo LOCAL_URL; ?>' + jsonResponse.img_name);
+                        $('#uploadModal').modal('hide');
                     },
                     error: function() {
-                        alert('Failed to upload image.'); // Thông báo lỗi
+                        alert('Failed to upload image.');
                     }
                 });
             });
@@ -401,27 +379,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const imageModal = new bootstrap.Modal(document.getElementById('imageUploadModal'));
             imageModal.show();
         }
-
-        // Upload ảnh và hiển thị tạm
-        // function uploadProfileImage() {
-        //     const formData = new FormData(document.getElementById('imageUploadForm'));
-        //     debugger
-        //     fetch('upload_image.php', {
-        //             method: 'POST',
-        //             body: formData
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.success) {
-        //                 debugger
-        //                 // Hiển thị ảnh đã upload tạm thời
-        //                 document.getElementById('iconUser').src = data.tempImagePath;
-        //             } else {
-        //                 alert(data.message || 'Error uploading image');
-        //             }
-        //         })
-        //         .catch(error => console.error('Error:', error));
-        // }
     </script>
 
 </body>

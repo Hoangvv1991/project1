@@ -57,7 +57,6 @@ $pdo = null;
             </div>
         </section>
 
-        <!-- Categories section -->
         <section class="categories container my-5">
             <h2 class="text-center mb-4">Shop By Category</h2>
             <div class="row">
@@ -82,7 +81,6 @@ $pdo = null;
             </div>
         </section>
 
-        <!-- Featured products section -->
         <section class="featured-products container my-5">
             <h2 class="text-center mb-4">Featured Products</h2>
             <div class="row">

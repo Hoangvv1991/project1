@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +17,7 @@
             background-color: #f1f1f1;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            display: none; 
+            display: none;
             z-index: 1000;
         }
 
@@ -44,21 +45,20 @@
             cursor: pointer;
             color: #888;
         }
-
-
     </style>
 </head>
+
 <body>
-    <!-- Cửa sổ bật lên quảng cáo -->
+
     <div id="promo-popup" class="promo-popup">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>Special Promotion!</h3>
         <p>Get 20% off on your first order! Use code: FIRST20</p>
-        <img src="" alt="Promotion Image" style="width: 100%;"/>
+        <img src="" alt="Promotion Image" style="width: 100%;" />
     </div>
 
     <script>
-            // Hàm hiển thị cửa sổ khi trang tải xong
+        // Hàm hiển thị cửa sổ khi trang tải xong
         window.onload = function() {
             // Kiểm tra xem cửa sổ đã bị đóng và khi nào
             let lastClosedTime = localStorage.getItem('promoPopupClosedTime');
@@ -78,7 +78,7 @@
             // Lưu thời gian hiện tại là thời gian cuối cùng cửa sổ bị đóng
             localStorage.setItem('promoPopupClosedTime', new Date().getTime());
         }
-
     </script>
 </body>
+
 </html>

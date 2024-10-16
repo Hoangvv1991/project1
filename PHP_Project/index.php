@@ -1,7 +1,6 @@
 <?php
 include_once 'config.php';
 
-// Kiểm tra tham số "page" từ URL để điều hướng tới trang tương ứng
 $pages = isset($_GET['pages']) ? $_GET['pages'] : 'home';
 
 switch ($pages) {

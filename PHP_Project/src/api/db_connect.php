@@ -9,10 +9,9 @@ $dbport = '3306';
 try {
     // Kết nối cơ sở dữ liệu sử dụng PDO
     $pdo  = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
-    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Kết nối thất bại: " . $e->getMessage();
-    // die("Kết nối thất bại: " . $e->getMessage());
+
     exit();
 }
-?>

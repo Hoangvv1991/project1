@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href= "<?php echo LOCAL_URL . 'src/Public/footer.css' ?>">
+    <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Public/footer.css' ?>">
     <title>Footer</title>
 </head>
+
 <body>
     <footer class="footer-section">
         <div class="container">
@@ -43,24 +45,6 @@
             </div>
             <div class="footer-content pt-5 pb-5">
                 <div class="row">
-                    <!-- nếu muốn thì có thể hiện logo và cả các liên kết từ các trang như fb,X,gg ở dưới footer -->
-                    <!-- <div class="col-xl-4 col-lg-4 mb-50">
-                        <div class="footer-widget">
-                            <div class="footer-logo">
-                                <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
-                            </div>
-                            <div class="footer-text">
-                                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                                elit,Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="footer-social-icon">
-                                <span>Follow us</span>
-                                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-30 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
@@ -108,7 +92,7 @@
                             </ul>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-30 pb-4">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
@@ -158,7 +142,5 @@
         </div>
     </footer>
 </body>
+
 </html>
-
-
- 

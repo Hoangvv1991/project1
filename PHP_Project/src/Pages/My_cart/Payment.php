@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include_once __DIR__ . '../../../../config.php';
@@ -26,14 +25,16 @@ if (empty($cart)) {
 ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Payment.css">
 </head>
+
 <body>
-    <main class="container" >
+    <main class="container">
         <div id="divpayment">
             <h1>Payment Page</h1>
             <?php if (empty($cart)): ?>
@@ -49,7 +50,7 @@ if (empty($cart)) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($cart as $item): 
+                        <?php foreach ($cart as $item):
                             $itemTotal = $item['price'] * $item['quantity'];
                             $total += $itemTotal; // Cập nhật tổng tiền
                         ?>
@@ -70,9 +71,8 @@ if (empty($cart)) {
                 <input type="button" value="Back to Cart" id="back-to-cart" style="background-color: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; margin-left: 10px;">
             </form>
         </div>
-        
 
-        <!-- Thông tin người nhận -->
+
         <div class="recipient-info" id="recipient-info">
             <h2>Recipient Information</h2>
             <label for="recipient-name">Name:</label>
@@ -116,12 +116,11 @@ if (empty($cart)) {
             // Thêm mã xử lý để gửi thông tin người nhận nếu cần
             alert('Recipient information submitted.'); // Bạn có thể thay thế bằng mã xử lý thực sự
         });
-
     </script>
 </body>
+
 </html>
 
 <?php
-include_once PUBLIC_PATH . 'footer.php'; 
+include_once PUBLIC_PATH . 'footer.php';
 ?>
-

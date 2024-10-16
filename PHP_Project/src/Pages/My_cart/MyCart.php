@@ -10,7 +10,7 @@ if (isset($_SESSION['session_login'])) {
 }
 
 
-// Kiểm tra nếu giỏ hàng có tồn tại
+
 if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $cart = $_SESSION['cart'];
 } else {
@@ -26,7 +26,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Shopping Cart</title>
     <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Mycart.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -82,7 +82,6 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
     <?php endif; ?>
 
-    <!-- Popup cho lựa chọn đăng nhập hoặc mua hàng không cần đăng nhập -->
     <div class="popup" id="checkout-popup" style="display: none;">
         <div class="popup-content">
             <h2>Confirmation required</h2>
@@ -95,13 +94,11 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
     <script>
         $(document).ready(function() {
-            // Khi bấm vào nút "Xóa"
             $('.btn-remove').click(function() {
-                const productId = $(this).data('id'); // Lấy ID sản phẩm từ data-id
+                const productId = $(this).data('id');
 
-                // Gửi yêu cầu AJAX để xóa sản phẩm khỏi giỏ hàng
                 $.ajax({
-                    url: 'remove_from_cart.php', // Đường dẫn tới file PHP xử lý
+                    url: 'remove_from_cart.php',
                     type: 'POST',
                     data: {
                         id: productId
@@ -110,15 +107,15 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                         const result = JSON.parse(response);
 
                         if (result.status === 'success') {
-                            // Xóa sản phẩm khỏi giao diện HTML
+
                             $('#cart-item-' + productId).remove();
 
-                            // Cập nhật tổng tiền
+
                             updateTotal();
 
-                            // Kiểm tra xem giỏ hàng có trống không
+
                             if ($('#cart-body tr').length === 0) {
-                                $('#div-cart-table').hide(); // Ẩn bảng giỏ hàng
+                                $('#div-cart-table').hide();
                                 document.getElementById('div-cart-empty').style.display = 'block';
                             }
 
@@ -133,14 +130,14 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 });
             });
 
-            // Khi thay đổi số lượng
+
             $('.quantity-input').change(function() {
                 const productId = $(this).data('id');
                 const newQuantity = $(this).val();
 
-                // Gửi yêu cầu AJAX để cập nhật số lượng sản phẩm
+
                 $.ajax({
-                    url: 'update_cart.php', // Đường dẫn tới file PHP xử lý
+                    url: 'update_cart.php',
                     type: 'POST',
                     data: {
                         id: productId,
@@ -150,7 +147,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                         const result = JSON.parse(response);
 
                         if (result.status === 'success') {
-                            // Cập nhật tổng tiền
+
                             updateTotal();
                             alert(result.message);
                         } else {
@@ -163,7 +160,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 });
             });
 
-            // Hàm cập nhật tổng tiền sau khi xóa sản phẩm
+
             function updateTotal() {
                 let total = 0;
 
@@ -178,23 +175,16 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
 
         $(document).ready(function() {
-            // Cập nhật tổng tiền khi thay đổi số lượng sản phẩm
+
             $('.quantity-input').on('change', function() {
                 const productId = $(this).data('id');
                 const quantity = parseInt($(this).val());
                 const price = parseFloat($('#cart-item-' + productId + ' .cart-item-price').text().replace(' VND', '').replace(/\./g, ''));
-
-                // Tính toán tổng cho sản phẩm này
                 const itemTotal = price * quantity;
-
-                // Cập nhật tổng cho sản phẩm
                 $('#cart-item-' + productId + ' .cart-item-total').text(itemTotal.toLocaleString('vi-VN') + ' VND');
-
-                // Cập nhật tổng tiền của giỏ hàng
                 updateTotal();
             });
 
-            // Hàm cập nhật tổng tiền sau khi thay đổi số lượng
             function updateTotal() {
                 let total = 0;
 
@@ -210,33 +200,30 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
 
         $(document).ready(function() {
-            // Khi bấm vào nút "Thanh toán"
-            const checklogin = <?= json_encode($mycartname) ?>; // Truyền giá trị PHP sang JavaScript
+            const checklogin = <?= json_encode($mycartname) ?>;
             $('.btn-checkout').click(function() {
-                // Ẩn giỏ hàng
-                $('#cart-table').hide(); // Ẩn bảng giỏ hàng
+                $('#cart-table').hide();
 
                 if (checklogin !== "") {
                     $.ajax({
-                        url: 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/save_cart_to_session.php', // Tạo file PHP để lưu giỏ hàng
+                        url: 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/save_cart_to_session.php',
                         type: 'POST',
                         data: {
                             cart: JSON.stringify(<?= json_encode($cart) ?>)
-                        }, // Truyền giỏ hàng dưới dạng JSON
+                        },
                         success: function(response) {
-                            window.location.href = 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Payment.php'; // Chuyển hướng đến trang thanh toán
+                            window.location.href = 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Payment.php';
                         },
                         error: function() {
                             alert('Đã xảy ra lỗi khi lưu giỏ hàng.');
                         }
                     });
                 } else {
-                    // Nếu chưa đăng nhập, hiển thị popup
                     $('#checkout-popup').fadeIn();
                 }
             });
 
-            // Đóng popup
+
             $('#close-popup').click(function() {
                 $('#checkout-popup').fadeOut();
                 $('#cart-table').show(); // Hiển thị lại bảng giỏ hàng khi đóng popup

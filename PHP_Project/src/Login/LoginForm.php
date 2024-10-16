@@ -1,41 +1,41 @@
 <?php
 include_once __DIR__ . '../../../config.php';
-// Bắt đầu session
+
 session_start();
 
-// Import file kết nối PDO
+
 include '../api/db_connect.php';
 
-// Biến lưu thông báo lỗi
+
 $error = "";
 
-// Kiểm tra khi form được submit
-if ($_SERVER["REQUEST_METHOD"] == "POST"&& isset($_POST['username'])) {
-    // Lấy thông tin từ form
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
+
     $customer_email = $_POST['username'];
     $customer_password  = $_POST['password'];
 
-    // Truy vấn cơ sở dữ liệu để kiểm tra thông tin đăng nhập
+
     $sql = "SELECT * FROM tbl_customers 
             WHERE customer_email = :username
             AND customer_password = :password
             LIMIT 1";
 
     $stmt = $pdo->prepare($sql);
-    
-    // Liên kết giá trị vào các placeholders
+
+
     $stmt->bindParam(':username', $customer_email);
     $stmt->bindParam(':password', $customer_password);
-    
-    // Thực thi câu truy vấn
+
+
     $stmt->execute();
 
-    // Kiểm tra nếu tồn tại kết quả
+
     if ($stmt->rowCount() > 0) {
-        // Tạo mã MD5 mới
+
         $new_session_login = md5(uniqid(rand(), true));
 
-        // Cập nhật session_login và session_date
+
         $update_sql = "UPDATE tbl_customers 
                         SET session_login = :session_login, session_date = NOW()
                         WHERE customer_email = :username AND customer_password = :password";
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"&& isset($_POST['username'])) {
 
         $_SESSION['session_login'] = $new_session_login;
 
-        // Chuyển hướng đến trang dashboard sau khi đăng nhập
+
         header("Location: ../../index.php?page=home");
         exit();
     } else {
@@ -52,14 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"&& isset($_POST['username'])) {
     }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) {
-    // Lấy thông tin từ form đăng ký
+
     $customer_code = $_POST['register_username'];
     $customer_name = $_POST['full_name'];
     $customer_email = $_POST['register_email'];
     $customer_password = $_POST['register_password'];
     $customer_phone = $_POST['register_phone'];
 
-    // Kiểm tra xem email đã tồn tại chưa
+
     $check_email_sql = "SELECT * FROM tbl_customers WHERE customer_email = :email";
     $check_email_stmt = $pdo->prepare($check_email_sql);
     $check_email_stmt->bindParam(':email', $customer_email);
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) 
     if ($check_email_stmt->rowCount() > 0) {
         $error = "Email đã tồn tại!";
     } else {
-        // Chèn dữ liệu mới vào bảng tbl_customers
+
         $insert_sql = "INSERT INTO tbl_customers (customer_code, customer_name, customer_email, customer_password, customer_phone) 
                         VALUES (:customer_code, :customer_name, :customer_email, :customer_password, :customer_phone)";
         $insert_stmt = $pdo->prepare($insert_sql);
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) 
             'customer_phone' => $customer_phone
         ]);
 
-        // Đăng ký thành công, chuyển hướng về trang đăng nhập
+
         header("Location: loginForm.php");
         exit();
     }
@@ -88,16 +88,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) 
 ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Register</title>
-    <link rel="stylesheet" href="loginform.css"> <!-- Đường dẫn đến file CSS -->
+    <link rel="stylesheet" href="loginform.css">
 </head>
+
 <body>
     <div class="login-container">
         <div class="card-inner">
-            <!-- Card Login -->
             <div class="card-login">
                 <form id="login-form" class="login-form" method="post" action="loginForm.php">
                     <h2 class="login-title">Login</h2>
@@ -114,45 +115,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) 
                 </form>
             </div>
 
-            <!-- Card Register -->
             <div class="card-register">
                 <form id="register-form" class="login-form" method="post" action="LoginForm.php" onsubmit="return validateForm()">
                     <h2 class="login-title">Register</h2>
 
-                    <!-- Full Name -->
                     <div class="input-group">
                         <label for="full-name">Full Name:</label>
                         <input type="text" id="full_name" name="full_name" class="login-input" required />
                         <div id="full_name-error" class="text-danger" style="display:none;"></div>
                     </div>
 
-                    <!-- Username -->
                     <div class="input-group">
                         <label for="register-username">Username:</label>
                         <input type="text" id="register_username" name="register_username" class="login-input" required />
                         <div id="username-error" class="text-danger" style="display:none;"></div>
                     </div>
 
-                    <!-- Email -->
                     <div class="input-group">
                         <label for="register-email">Email:</label>
                         <input type="email" id="email" name="register_email" class="login-input" required />
                         <div id="email-error" class="text-danger" style="display:none;"></div>
                     </div>
 
-                    <!-- Phone -->
                     <div class="input-group">
                         <label for="register-phone">Phone:</label>
                         <input type="tel" id="register-phone" name="register_phone" class="login-input" required />
                     </div>
 
-                    <!-- Password -->
                     <div class="input-group">
                         <label for="register-password">Password:</label>
                         <input type="password" id="register_password" name="register_password" class="login-input" required autocomplete="new-password" />
                     </div>
 
-                    <!-- Confirm Password -->
                     <div class="input-group">
                         <label for="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm_password" name="confirm_password" class="login-input" required />
@@ -254,4 +248,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_username'])) 
         window.onload = hideErrorMessages;
     </script>
 </body>
+
 </html>
