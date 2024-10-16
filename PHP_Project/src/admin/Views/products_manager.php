@@ -306,7 +306,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <!-- Các tùy chọn sẽ được thêm vào đây -->
               <?PHP
               $categories = getCategories();
-              echo $categories;
               if (!empty($categories)) {
                 foreach ($categories as $category) {
                   echo '<option value="' . htmlspecialchars($category['category_id']) . '">' . htmlspecialchars($category['category_name']) . '</option>';
