@@ -283,12 +283,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </button>
       </div>
       <div class="modal-body d-flex">
-        <!-- Image preview area -->
         <div class="me-3" style="flex: 1; display: flex; align-items: center; justify-content: center;">
           <img id="currentProductImage" src="" alt="Current Product Image" class="img-thumbnail"
             style="width: auto; height: 400px; aspect-ratio: 3/4; object-fit: cover; display: none;">
         </div>
-        <!-- Form area -->
         <form id="addEditProductForm" action="" method="POST" enctype="multipart/form-data" style="flex: 1;">
           <input type="hidden" id="productIdHidden" name="productIdHidden">
           <div class="mb-2">
@@ -303,7 +301,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="productType" class="form-label">Category</label>
             <select class="form-select form-select-sm" id="productType" name="productType" required>
               <option value="" disabled selected>Select a category</option>
-              <!-- Các tùy chọn sẽ được thêm vào đây -->
               <?PHP
               $categories = getCategories();
               if (!empty($categories)) {

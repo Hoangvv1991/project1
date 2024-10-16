@@ -76,12 +76,12 @@ try {
             echo '<img src="' . LOCAL_URL . htmlspecialchars($row["image_path"]) . '" alt="' . htmlspecialchars($productName) . '">';
             echo '<h3 class="product-title">' . htmlspecialchars($productName) . '</h3>';
             echo '<p>From ' . htmlspecialchars($productPrice) . ' VND</p>';
-            
+
             // Nút Mua hàng với form gửi dữ liệu sản phẩm tới mycart.php
             echo '<button type="button" class="buy-button" 
                 data-id="' . htmlspecialchars($productId) . '" 
                 data-name="' . htmlspecialchars($productName) . '" 
-                data-price="' . htmlspecialchars($productPrice) . '">Mua hàng</button>';
+                data-price="' . htmlspecialchars($productPrice) . '">Buy</button>';
             echo '</div>'; // Đóng div .product-item
         }
 
@@ -121,43 +121,43 @@ try {
 </nav>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Lấy tất cả các nút "Mua hàng"
-    const buyButtons = document.querySelectorAll('.buy-button');
-    
-    buyButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Lấy dữ liệu sản phẩm từ các thuộc tính data- của nút
-            const productId = this.getAttribute('data-id');
-            const productName = this.getAttribute('data-name');
-            const productPrice = this.getAttribute('data-price');
-            
-            // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
-            fetch('src/Pages/My_cart/add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({
-                    'product_id': productId,
-                    'product_name': productName,
-                    'product_price': productPrice
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Sản phẩm đã được thêm vào giỏ hàng!');
-                } else {
-                    alert('Có lỗi xảy ra: ' + data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy tất cả các nút "Mua hàng"
+        const buyButtons = document.querySelectorAll('.buy-button');
+
+        buyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Lấy dữ liệu sản phẩm từ các thuộc tính data- của nút
+                const productId = this.getAttribute('data-id');
+                const productName = this.getAttribute('data-name');
+                const productPrice = this.getAttribute('data-price');
+
+                // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
+                fetch('src/Pages/My_cart/add_to_cart.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'product_id': productId,
+                            'product_name': productName,
+                            'product_price': productPrice
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                        } else {
+                            alert('Có lỗi xảy ra: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     });
-});
 </script>
 
 <?php
-include_once __DIR__ . '/../Public/footer.php'; 
+include_once __DIR__ . '/../Public/footer.php';
 ?>

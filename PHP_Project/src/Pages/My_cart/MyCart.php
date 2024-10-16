@@ -3,7 +3,7 @@ session_start();
 include_once __DIR__ . '../../../../config.php';
 include_once PUBLIC_PATH . 'header.php';
 $mycartname = '';
-if (isset($_SESSION['session_login'])){
+if (isset($_SESSION['session_login'])) {
     $mycartname = $customer_data['customer_name'];
     $mycart_phone = $customer_data['customer_phone'];
     $mycart_address = $customer_data['customer_address'];
@@ -20,6 +20,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,15 +28,20 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <link rel="stylesheet" href="http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Mycart.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Add jQuery -->
 </head>
+
 <body>
     <h1 class="cart-title">Your Shopping Cart</h1>
-    <div id="div-cart-empty" style="display: none;" >
-            <div class="cart-empty" id="cartempty"><h5>Your cart is currently empty.</h5></div>
-            <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
+    <div id="div-cart-empty" style="display: none;">
+        <div class="cart-empty" id="cartempty">
+            <h5>Your cart is currently empty.</h5>
         </div>
+        <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
+    </div>
     <?php if (empty($cart)): ?>
-            <div class="cart-empty" id="cartempty"><h5>Your cart is currently empty.</h5></div>
-            <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
+        <div class="cart-empty" id="cartempty">
+            <h5>Your cart is currently empty.</h5>
+        </div>
+        <div id="cartempty"><a href="http://localhost/project_aptech/PHP_Project/index.php?pages=home"><b>Go to Shop</b></a></div>
     <?php else: ?>
         <div id="div-cart-table">
             <table class="cart-table" id="cart-table">
@@ -51,17 +57,17 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 <tbody id="cart-body">
                     <?php
                     $total = 0;
-                    foreach ($cart as $item): 
+                    foreach ($cart as $item):
                         $itemTotal = $item['price'] * $item['quantity'];
                         $total += $itemTotal;
                     ?>
                         <tr id="cart-item-<?= $item['id'] ?>">
                             <td class="cart-item-name"><?= htmlspecialchars($item['name']) ?></td>
-                            <td class="cart-item-price"><?= number_format($item['price'], 0, ',', '.') ?> VND</td>
+                            <td class="cart-item-price"><?= number_format($item['price'], 2, ',', '.') ?> USD</td>
                             <td class="cart-item-quantity">
                                 <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1" data-id="<?= $item['id'] ?>">
                             </td>
-                            <td class="cart-item-total"><?= number_format($itemTotal, 0, ',', '.') ?> VND</td>
+                            <td class="cart-item-total"><?= number_format($itemTotal, 2, ',', '.') ?> USD</td>
                             <td class="cart-item-action actions">
                                 <button class="btn-remove" data-id="<?= $item['id'] ?>">Remove</button>
                             </td>
@@ -73,7 +79,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             <h3 class="cart-total">Total: <?= number_format($total, 0, ',', '.') ?> VND</h3>
             <button class="btn-checkout">Checkout</button>
         </div>
-        
+
     <?php endif; ?>
 
     <!-- Popup cho lựa chọn đăng nhập hoặc mua hàng không cần đăng nhập -->
@@ -91,13 +97,15 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $(document).ready(function() {
             // Khi bấm vào nút "Xóa"
             $('.btn-remove').click(function() {
-                const productId = $(this).data('id');  // Lấy ID sản phẩm từ data-id
+                const productId = $(this).data('id'); // Lấy ID sản phẩm từ data-id
 
                 // Gửi yêu cầu AJAX để xóa sản phẩm khỏi giỏ hàng
                 $.ajax({
-                    url: 'remove_from_cart.php',  // Đường dẫn tới file PHP xử lý
+                    url: 'remove_from_cart.php', // Đường dẫn tới file PHP xử lý
                     type: 'POST',
-                    data: { id: productId },
+                    data: {
+                        id: productId
+                    },
                     success: function(response) {
                         const result = JSON.parse(response);
 
@@ -132,9 +140,12 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
                 // Gửi yêu cầu AJAX để cập nhật số lượng sản phẩm
                 $.ajax({
-                    url: 'update_cart.php',  // Đường dẫn tới file PHP xử lý
+                    url: 'update_cart.php', // Đường dẫn tới file PHP xử lý
                     type: 'POST',
-                    data: { id: productId, quantity: newQuantity },
+                    data: {
+                        id: productId,
+                        quantity: newQuantity
+                    },
                     success: function(response) {
                         const result = JSON.parse(response);
 
@@ -207,9 +218,11 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
                 if (checklogin !== "") {
                     $.ajax({
-                        url: 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/save_cart_to_session.php',  // Tạo file PHP để lưu giỏ hàng
+                        url: 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/save_cart_to_session.php', // Tạo file PHP để lưu giỏ hàng
                         type: 'POST',
-                        data: { cart: JSON.stringify(<?= json_encode($cart) ?>) }, // Truyền giỏ hàng dưới dạng JSON
+                        data: {
+                            cart: JSON.stringify(<?= json_encode($cart) ?>)
+                        }, // Truyền giỏ hàng dưới dạng JSON
                         success: function(response) {
                             window.location.href = 'http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/Payment.php'; // Chuyển hướng đến trang thanh toán
                         },
@@ -239,10 +252,11 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             window.location.href = "http://localhost/project_aptech/PHP_Project/src/Pages/My_cart/PaymentNotLog.php"; // Đường dẫn đến trang khác
         });
     </script>
-    
+
 </body>
+
 </html>
 
 <?php
-include_once PUBLIC_PATH . 'footer.php'; 
+include_once PUBLIC_PATH . 'footer.php';
 ?>
