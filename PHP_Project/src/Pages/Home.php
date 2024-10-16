@@ -1,11 +1,11 @@
 <?php
 session_start();
-
 // Bao gồm header
 include_once __DIR__ . '/../Public/header.php';
 // Khởi tạo mảng lưu các URL
 $urls = [];
 $product_codes = [];
+global $pdo;
 try {
     // Truy vấn để lấy các URL với id không liên tục (1, 2, 5, 7, 8)
     $stmt = $pdo->prepare("SELECT image_id, image_path FROM tbl_images WHERE image_id IN (1, 2, 3, 4, 5, 6, 7, 8)");

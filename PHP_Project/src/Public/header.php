@@ -6,10 +6,10 @@ if (session_status() == PHP_SESSION_NONE) {
 $session_login = '';
 $full_name = '';
 $admin = '';
+include API_PATH . 'db_connect.php';
+
 if (isset($_SESSION['session_login'])) {
     $session_login = $_SESSION['session_login'];
-
-    include API_PATH . 'db_connect.php';
 
     $sql = "SELECT 
                 CASE

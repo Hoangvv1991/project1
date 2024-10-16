@@ -6,6 +6,18 @@ include_once __DIR__ . '/../Public/sidebar.php';
 try {
 
   $query = "SELECT * 
+                FROM tbl_images p 
+                WHERE image_path in (1,2,3,4,5,6,7,8)";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute();
+  $urls = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+  echo "Database error: " . $e->getMessage();
+}
+
+
+try {
+  $query = "SELECT * 
                 FROM tbl_products p 
                 LEFT JOIN tbl_images i ON i.image_id = p.image_id
                 LEFT JOIN tbl_categories c ON c.category_id = p.category_id
@@ -16,6 +28,8 @@ try {
 } catch (PDOException $e) {
   echo "Database error: " . $e->getMessage();
 }
+
+
 ?>
 
 <main class="main-content container mt-4">
@@ -51,15 +65,6 @@ try {
       $stt = 1;
       $search = isset($_GET['search']) ? strtolower($_GET['search']) : '';
       foreach ($products as $product) {
-
-        if ($search && !(
-          strpos(strtolower($product['product_code']), $search) !== false ||
-          strpos(strtolower($product['product_name']), $search) !== false ||
-          strpos(strtolower($product['category_name']), $search) !== false ||
-          strpos(strtolower($product['supplier_name']), $search) !== false
-        )) {
-          continue;
-        }
         echo "<tr>";
         echo "<th scope='row'>{$stt}</th>";
         echo "<td>{$product['product_code']}</td>";
