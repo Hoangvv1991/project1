@@ -426,7 +426,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   function openEditProductModal(product_guid, product_code, product_name, category_id, stock, supplier_code, image_path) {
     document.getElementById('addEditProductModalLabel').textContent = 'Edit Product';
     document.getElementById('productIdHidden').value = product_guid; // Set hidden input to product ID
-    debugger
     document.getElementById('productCode').value = product_code;
     document.getElementById('productName').value = product_name;
     document.getElementById('productType').value = category_id;

@@ -5,10 +5,10 @@ session_start();
 include_once __DIR__ . '/../Public/header.php';
 // Khởi tạo mảng lưu các URL
 $urls = [];
-
+$product_codes = [];
 try {
     // Truy vấn để lấy các URL với id không liên tục (1, 2, 5, 7, 8)
-    $stmt = $pdo->prepare("SELECT image_id, image_path FROM tbl_images WHERE image_id IN (1, 2, 3, 4, 5)");
+    $stmt = $pdo->prepare("SELECT image_id, image_path FROM tbl_images WHERE image_id IN (1, 2, 3, 4, 5, 6, 7, 8)");
     $stmt->execute();
 
     // Lấy tất cả kết quả truy vấn
@@ -21,6 +21,28 @@ try {
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
 }
+
+try {
+    $product_codes = [$urls[5], $urls[6], $urls[7], $urls[8]];
+    $product_code_string = "'" . implode("','", $product_codes) . "'";
+    // Truy vấn để lấy danh sách sản phẩm
+    $sql = "SELECT p.product_code, p.product_name, p.price, i.image_path, c.category_id
+            FROM tbl_products p
+            LEFT JOIN tbl_images i ON i.image_id = p.image_id
+            INNER JOIN tbl_categories c ON c.category_id = p.category_id
+            WHERE p.deleted = 0 AND p.product_code IN ($product_code_string)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Lấy tất cả kết quả truy vấn
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Lặp qua các kết quả và lưu vào mảng với key là id
+} catch (PDOException $e) {
+    echo "Kết nối thất bại: " . $e->getMessage();
+}
+
+$pdo = null;
+
 ?>
 <link rel="stylesheet" href="<?php echo LOCAL_URL . 'src/Pages/css/Home.css' ?>">
 
@@ -64,38 +86,20 @@ try {
         <section class="featured-products container my-5">
             <h2 class="text-center mb-4">Featured Products</h2>
             <div class="row">
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="public/img/1256600_slot1.jpg" alt="Product 1" class="img-fluid">
-                        <h5>Product 1</h5>
-                        <p>$50.00</p>
-                        <a href="#" class="product-link">Add to Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="public/img/1256600_slot2.jpg" alt="Product 2" class="img-fluid">
-                        <h5>Product 2</h5>
-                        <p>$60.00</p>
-                        <a href="#" class="product-link">Add to Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="public/img/1256600_slot3.jpg" alt="Product 3" class="img-fluid">
-                        <h5>Product 3</h5>
-                        <p>$70.00</p>
-                        <a href="#" class="product-link">Add to Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="public/img/Body-Fit-Active-Highlight.jpg" alt="Product 4" class="img-fluid">
-                        <h5>Product 4</h5>
-                        <p>$80.00</p>
-                        <a href="#" class="product-link">Add to Cart</a>
-                    </div>
-                </div>
+                <?php if (!empty($products)): ?>
+                    <?php foreach ($products as $product): ?>
+                        <div class="col-md-3">
+                            <div class="product-card">
+                                <img src="<?php echo htmlspecialchars($product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="img-fluid">
+                                <h5><?php echo htmlspecialchars($product['product_name']); ?></h5>
+                                <p>$<?php echo number_format($product['price'], 2); ?></p>
+                                <a href="#" class="product-link">Add to Cart</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No Products!</p>
+                <?php endif; ?>
             </div>
         </section>
     </main>

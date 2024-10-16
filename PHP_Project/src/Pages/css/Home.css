@@ -28,29 +28,30 @@
     background-color: transparent; /* Không có nền mặc định */
     color: red; 
     text-align: center;
-    text-decoration:none;
+    text-decoration: none;
     border: 1px solid red; 
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
-.banner-link:hover{
+.banner-link:hover {
     background-color: red;
     color: white; 
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .category-card {
     position: relative;
     text-align: center;
-    text-decoration:none;
+    text-decoration: none;
     padding-bottom: 50px;
 }
 
 .category-card img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 200px; /* Đặt chiều cao cố định cho hình ảnh */
+    object-fit: cover; /* Điều chỉnh hình ảnh để không bị cắt và không bị biến dạng */
 }
 
 .category-link {
@@ -61,7 +62,7 @@
     background-color: transparent; /* Không có nền mặc định */
     color: red; 
     text-align: center;
-    text-decoration:none;
+    text-decoration: none;
     border: 1px solid red; 
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease; /* Thêm hiệu ứng chuyển màu mượt mà */
@@ -70,14 +71,18 @@
 .category-link:hover {
     background-color: red;
     color: white; 
-    text-decoration:none;
+    text-decoration: none;
 }
 
+.product-card {
+    margin-bottom: 30px; /* Thêm lề dưới cho thẻ sản phẩm */
+}
 
 .product-card img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 400px; /* Đặt chiều cao cố định cho hình ảnh */
+    object-fit: cover; /* Điều chỉnh hình ảnh để không bị cắt và không bị biến dạng */
 }
 
 .product-link {
@@ -85,7 +90,7 @@
     background-color: transparent; /* Không có nền mặc định */
     color: red; 
     text-align: center;
-    text-decoration:none;
+    text-decoration: none;
     border: 1px solid red; 
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease; /* Thêm hiệu ứng chuyển màu mượt mà */
@@ -94,5 +99,5 @@
 .product-link:hover {
     background-color: red; 
     color: white; 
-    text-decoration:none;
+    text-decoration: none;
 }
