@@ -121,26 +121,26 @@ h1.cart-title {
 }
 #login-button{
     width: 250px;
-    background-color: red;
+    background-color: greenyellow;
+    color: black;
     margin-right: 20px;
-    color: white;
     font-weight: bold;
 }
 
 #guest-button{
     width: 250px;
-    background-color: red;
+    color: black;
+    background-color: greenyellow;
     margin-left: 20px;
-    color: white;
     font-weight: bold;
 }
 
 #close-popup{
     width: 250px;
-    background-color: red;
+    color: black;
+    background-color:greenyellow;
     margin-right: 20px;
     margin-top: 20px;
-    color: white;
     font-weight: bold;
 }
 
