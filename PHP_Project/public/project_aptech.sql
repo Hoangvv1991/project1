@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2024 at 09:29 PM
+-- Generation Time: Oct 16, 2024 at 07:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -79,7 +79,7 @@ CREATE TABLE `tbl_customers` (
 
 INSERT INTO `tbl_customers` (`customer_guid`, `customer_code`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_address`, `customer_city`, `customer_country`, `customer_image_path`, `session_login`, `session_date`, `created_date`, `update_date`, `deleted`) VALUES
 ('56e79337-7f50-11ef-81a7-e0d55e8c', 'USR0001', 'Đỗ Hoàng Linh', 'DoHoangLinh@aptechlearning.edu.vn', '123456', '0366202085', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0),
-('56e7a3e8-7f50-11ef-81a7-e0d55e8c', 'USR0002', 'Vũ Việt Hoàng', 'hoang.vv.2497@aptechlearning.edu.vn', '123456', '0324656042', '', 'Hà Nội', 'Việt Nam', 'Public/img/avatars/56e7a3e8-7f50-11ef-81a7-e0d55e8c20241015_192615.jpg', '0167cfe9065bbecc0213a13aca710d92', '2024-10-15 22:46:24', '2024-10-01 00:20:50', '2024-10-16 00:26:15', 0),
+('56e7a3e8-7f50-11ef-81a7-e0d55e8c', 'USR0002', 'Vũ Việt Hoàng', 'hoang.vv.2497@aptechlearning.edu.vn', '123456', '0324656042', '', 'Hà Nội', 'Việt Nam', 'Public/img/avatars/56e7a3e8-7f50-11ef-81a7-e0d55e8c20241015_192615.jpg', 'bc23a5d382bda3ee5a15bdf6e6a8f856', '2024-10-16 20:34:40', '2024-10-01 00:20:50', '2024-10-16 20:34:40', 0),
 ('56e7a53c-7f50-11ef-81a7-e0d55e8c', 'hoangvv2', 'Võ Văn Hoàng', 'vovanhoang1999@gmail.com', '123456', '0324673961', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0),
 ('56e7a5bb-7f50-11ef-81a7-e0d55e8c', 'hoangvv', 'Vũ Việt Hoàng', 'vuviethoang1941991@gmail.com', '123456', '0349401683', '', 'Hà Nội', 'Việt Nam', NULL, NULL, NULL, '2024-10-01 00:20:50', '2024-10-08 01:18:54', 0);
 
@@ -127,14 +127,14 @@ CREATE TABLE `tbl_images` (
 --
 
 INSERT INTO `tbl_images` (`image_id`, `image_path`, `created_date`, `update_date`, `deleted`) VALUES
-(1, 'Public/img/products/5d17831a-80e4-11ef-bef9-e0d55e8c20241015_205706.jpg', '2024-10-06 18:07:33', '2024-10-16 01:57:06', 0),
-(2, 'Public/img/products/5d17831a-80e4-11ef-bef9-e0d55e8c20241015_212730.jpg', '2024-10-16 02:03:48', '2024-10-16 02:27:30', 0),
-(3, 'http://example2.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
-(4, 'http://example3.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
-(5, 'http://example4.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
-(6, 'http://example5.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
-(7, 'http://example6.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
-(8, 'http://example7.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
+(1, 'public\\img\\img_home\\Desktop version 1280x599@2x.jpg', '2024-10-06 18:07:33', '2024-10-16 21:36:46', 0),
+(2, 'public\\img\\img_home\\face.jpg', '2024-10-16 02:03:48', '2024-10-16 21:38:09', 0),
+(3, 'public\\img\\img_home\\CBA_HP_Highlight_LIP-OIL-BALM_2024_Cherry-APAC.jpg', '2024-10-16 02:03:48', '2024-10-16 21:38:34', 0),
+(4, 'public\\img\\img_home\\Body-Fit-Active-Highlight.jpg', '2024-10-16 02:03:48', '2024-10-16 21:37:31', 0),
+(5, 'SK003', '2024-10-16 02:03:48', '2024-10-16 22:31:40', 0),
+(6, 'SK001', '2024-10-16 02:03:48', '2024-10-16 22:32:47', 0),
+(7, 'SK002', '2024-10-16 02:03:48', '2024-10-16 22:32:55', 0),
+(8, 'SK005', '2024-10-16 02:03:48', '2024-10-16 22:32:58', 0),
 (9, 'http://example8.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
 (10, 'http://example9.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
 (11, 'http://example10.com', '2024-10-16 02:03:48', '2024-10-16 02:03:48', 0),
@@ -187,12 +187,12 @@ INSERT INTO `tbl_images` (`image_id`, `image_path`, `created_date`, `update_date
 (58, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
 (59, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
 (60, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
-(61, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
-(62, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
-(63, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
-(64, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
-(65, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
-(66, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
+(61, 'Public/img/products/5d247b00-80e4-11ef-bef9-e0d55e8c20241016_173536.jpg', '2024-10-16 02:26:23', '2024-10-16 22:40:40', 0),
+(62, 'Public/img/products/5d17831a-80e4-11ef-bef9-e0d55e8c20241016_173521.jpg', '2024-10-16 02:26:23', '2024-10-16 22:35:21', 0),
+(63, 'Public/img/products/5d178fef-80e4-11ef-bef9-e0d55e8c20241016_173526.jpg', '2024-10-16 02:26:23', '2024-10-16 22:35:26', 0),
+(64, 'Public/img/products/5d24778a-80e4-11ef-bef9-e0d55e8c20241016_173531.jpg', '2024-10-16 02:26:23', '2024-10-16 22:35:31', 0),
+(65, 'Public/img/products/5d178fef-80e4-11ef-bef9-e0d55e8c20241016_173526.jpg', '2024-10-16 02:26:23', '2024-10-16 22:40:51', 0),
+(66, 'Public/img/products/5d247d7b-80e4-11ef-bef9-e0d55e8c20241016_173548.jpg', '2024-10-16 02:26:23', '2024-10-16 22:35:48', 0),
 (67, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
 (68, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0),
 (69, NULL, '2024-10-16 02:26:23', '2024-10-16 02:26:23', 0);
@@ -277,14 +277,14 @@ CREATE TABLE `tbl_products` (
 --
 
 INSERT INTO `tbl_products` (`product_guid`, `product_code`, `product_name`, `category_id`, `supplier_code`, `price`, `stock`, `description`, `image_id`, `created_date`, `update_date`, `deleted`) VALUES
-('5d128984-80e4-11ef-bef9-e0d55e8c', 'SK001', 'Hydrating Facial Cleanser', 1, 'LOR01', 15.99, 100, 'A gentle cleanser that hydrates and purifies the skin.', 1, '2024-10-03 00:32:57', '2024-10-13 22:17:04', 1),
-('5d17831a-80e4-11ef-bef9-e0d55e8c', 'SK002', 'Moisturizing Lotion', 1, 'EST02', 18.99, 150, 'A rich lotion that deeply moisturizes and nourishes the skin.', 2, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d178fef-80e4-11ef-bef9-e0d55e8c', 'SK003', 'Anti-Aging Serum', 1, 'NIVE03', 29.99, 200, 'An advanced serum that reduces the appearance of fine lines.', 3, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24778a-80e4-11ef-bef9-e0d55e8c', 'SK004', 'Brightening Face Mask', 1, 'LAN04', 22.99, 80, 'A mask that brightens and revitalizes dull skin.', 4, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d247b00-80e4-11ef-bef9-e0d55e8c', 'SK005', 'Sunscreen SPF 50', 1, 'MAYB05', 12.99, 120, 'A lightweight sunscreen that provides broad-spectrum protection.', 5, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d247d7b-80e4-11ef-bef9-e0d55e8c', 'SK006', 'Gentle Exfoliator', 1, 'REVL06', 19.99, 90, 'A gentle exfoliating scrub that removes dead skin cells.', 6, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d248349-80e4-11ef-bef9-e0d55e8c', 'SK007', 'Face Oil', 1, 'MAC07', 25.99, 110, 'A nourishing oil that provides hydration and radiance.', 7, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
-('5d24865a-80e4-11ef-bef9-e0d55e8c', 'SK008', 'Night Cream', 1, 'DOVE08', 24.99, 130, 'A rich night cream that hydrates and repairs the skin overnight.', 8, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
+('5d128984-80e4-11ef-bef9-e0d55e8c', 'SK001', 'Hydrating Facial Cleanser', 1, 'LOR01', 15.99, 100, 'A gentle cleanser that hydrates and purifies the skin.', 61, '2024-10-03 00:32:57', '2024-10-16 22:37:21', 0),
+('5d17831a-80e4-11ef-bef9-e0d55e8c', 'SK002', 'Moisturizing Lotion', 1, 'EST02', 18.99, 150, 'A rich lotion that deeply moisturizes and nourishes the skin.', 62, '2024-10-03 00:32:57', '2024-10-16 21:24:38', 0),
+('5d178fef-80e4-11ef-bef9-e0d55e8c', 'SK003', 'Anti-Aging Serum', 1, 'NIVE03', 29.99, 200, 'An advanced serum that reduces the appearance of fine lines.', 63, '2024-10-03 00:32:57', '2024-10-16 21:24:46', 0),
+('5d24778a-80e4-11ef-bef9-e0d55e8c', 'SK004', 'Brightening Face Mask', 1, 'LAN04', 22.99, 80, 'A mask that brightens and revitalizes dull skin.', 64, '2024-10-03 00:32:57', '2024-10-16 21:24:53', 0),
+('5d247b00-80e4-11ef-bef9-e0d55e8c', 'SK005', 'Sunscreen SPF 50', 1, 'MAYB05', 12.99, 120, 'A lightweight sunscreen that provides broad-spectrum protection.', 65, '2024-10-03 00:32:57', '2024-10-16 21:25:01', 0),
+('5d247d7b-80e4-11ef-bef9-e0d55e8c', 'SK006', 'Gentle Exfoliator', 1, 'REVL06', 19.99, 90, 'A gentle exfoliating scrub that removes dead skin cells.', 66, '2024-10-03 00:32:57', '2024-10-16 21:25:08', 0),
+('5d248349-80e4-11ef-bef9-e0d55e8c', 'SK007', 'Face Oil', 1, 'MAC07', 25.99, 110, 'A nourishing oil that provides hydration and radiance.', 67, '2024-10-03 00:32:57', '2024-10-16 21:25:16', 0),
+('5d24865a-80e4-11ef-bef9-e0d55e8c', 'SK008', 'Night Cream', 1, 'DOVE08', 24.99, 130, 'A rich night cream that hydrates and repairs the skin overnight.', 68, '2024-10-03 00:32:57', '2024-10-16 21:25:24', 0),
 ('5d2488f1-80e4-11ef-bef9-e0d55e8c', 'SK009', 'Cleansing Water', 1, 'LOR01', 15.49, 160, 'A cleansing water that removes makeup and impurities.', 9, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
 ('5d248b73-80e4-11ef-bef9-e0d55e8c', 'SK010', 'Hydrating Mask', 1, 'EST02', 20.99, 70, 'A hydrating mask that leaves skin plump and dewy.', 10, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),
 ('5d248ddd-80e4-11ef-bef9-e0d55e8c', 'SK011', 'Facial Mist', 1, 'NIVE03', 13.99, 140, 'A refreshing mist that hydrates and soothes the skin.', 11, '2024-10-03 00:32:57', '2024-10-06 18:07:40', 0),

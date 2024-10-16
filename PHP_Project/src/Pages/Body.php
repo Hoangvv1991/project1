@@ -10,7 +10,7 @@ $sql_total = "SELECT COUNT(*) AS total
     FROM tbl_products p 
     LEFT JOIN tbl_images i ON i.image_id = p.image_id
     INNER JOIN tbl_categories c ON c.category_id = p.category_id
-    WHERE c.category_id = 2";
+    WHERE  p.deleted = 0 AND c.category_id = 2";
 
 try {
     $stmt_total = $pdo->query($sql_total);
@@ -53,7 +53,7 @@ $sql = "SELECT p.product_code, p.product_name, p.price, i.image_path, c.category
      FROM tbl_products p 
     LEFT JOIN tbl_images i ON i.image_id = p.image_id
     INNER JOIN tbl_categories c ON c.category_id = p.category_id
-    WHERE c.category_id = 2
+    WHERE  p.deleted = 0 AND c.category_id = 2
     -- GROUP BY p.product_code, p.product_name, p.price, i.image_path, c.category_id
         LIMIT :start_from, :products_per_page";
 
